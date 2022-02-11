@@ -12,5 +12,10 @@ require("dotenv").config();
 app.use(bodyParser.json({ limit: "2mb" }));
 //using Cross Origin Resource Sharing so that, our front end at localhost:3000 can communicate with backend at local host:8000
 app.use(cors());
+//Using Morgan to display requests :
+app.use(morgan("dev"));
 
+//Importing Routers :
+const { AuthHotelRouter } = require("./Routes/Hotel/Authentication.js");
+app.use("/api/v1", AuthHotelRouter);
 module.exports = app;
