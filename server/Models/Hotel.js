@@ -50,6 +50,10 @@ const hotelSchema = new mongoose.Schema({
   images: {
     type: [String],
   },
+  active: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 //creating a model for hotel
