@@ -8,7 +8,7 @@ import * as React from "react";
 // import MenuIcon from "@mui/icons-material/Menu";
 
 // import Menu from "@mui/material/Menu";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import MenuItem from "@mui/material/MenuItem";
 // import ListItemIcon from "@mui/material/ListItemIcon";
 // import Divider from "@mui/material/Divider";
@@ -31,6 +31,7 @@ import {
 } from "@mui/material";
 import { PersonAdd, Logout } from "@mui/icons-material";
 const HotelAppBar = () => {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -58,8 +59,15 @@ const HotelAppBar = () => {
             </Typography>
             {/* <Button color="inherit">Login</Button>
           <Button color="inherit">SignUp</Button> */}
-            <Button color="inherit">Login</Button>
-            <Button color="inherit">SignUp</Button>
+            <Button color="inherit" onClick={(e) => navigate("/hotel/login")}>
+              Login
+            </Button>
+            <Button
+              color="inherit"
+              onClick={(e) => navigate("/hotel/register")}
+            >
+              SignUp
+            </Button>
             <Tooltip title="Account settings">
               <IconButton
                 onClick={handleClick}
