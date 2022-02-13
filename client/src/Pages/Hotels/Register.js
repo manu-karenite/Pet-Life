@@ -9,7 +9,7 @@ const RegisterHotel = () => {
         <div className="col-md-6">
           <RegisterForm />
           <div style={{ textAlign: "center" }} className="mt-3">
-            Already Registered? <Link to="/hotel/login">Login Now!</Link>
+            Already Our Partner? <Link to="/hotel/login">Login Now!</Link>
           </div>
         </div>
         <div className="col-md-3" />
