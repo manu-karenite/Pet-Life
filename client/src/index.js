@@ -7,11 +7,19 @@ import { BrowserRouter } from "react-router-dom";
 import "antd/dist/antd.css";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "react-toastify/dist/ReactToastify.css";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+
+import { rootReducer } from "./Reducers/rootReducer.js";
+const store = createStore(rootReducer, composeWithDevTools());
 
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );
 
