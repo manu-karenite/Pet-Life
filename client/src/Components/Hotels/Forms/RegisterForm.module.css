@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Alata&family=Lexend+Deca:wght@300&display=swap");
+.regForm {
+  margin-top: 40px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.regForm div {
+  margin: 20px 0px;
+}
+.regForm div label {
+  font-family: "Lexend Deca", sans-serif;
+  font-size: 20px;
+}
+.regForm div small {
+  font-family: "Lexend Deca", sans-serif;
+}
+
+.regForm div input {
+  font-family: "Alata", sans-serif;
+  letter-spacing: 1px;
+}
+.regBtn {
+  color: white;
+  padding: 5px 20px;
+  border-radius: 5px;
+  font-family: "Lexend Deca", sans-serif;
+  background-color: rgb(157, 60, 157);
+  border: 1px solid rgb(157, 60, 157);
+}
+
+.regBtn:hover {
+  background-color: purple;
+  border-color: purple;
+}
