@@ -1,12 +1,18 @@
 import React from "react";
 
 import styles from "./RegisterForm.module.css";
+import { toast } from "react-toastify";
+import { registerHotel } from "../../../Axios/Hotel/Authentication.js";
 const RegisterForm = () => {
   const [data, setData] = React.useState({});
 
   const submitHandler = (e) => {
     e.preventDefault();
-    //data contains the data to be used for registration
+    registerHotel(data)
+      .then((res) =>
+        toast.success("Email has been sent to your email for further steps!")
+      )
+      .catch((err) => toast.error(err.response.data));
   };
   return (
     <form className={styles.regForm} onSubmit={submitHandler}>
@@ -22,6 +28,9 @@ const RegisterForm = () => {
           value={data.name}
           onChange={(e) => setData({ ...data, name: e.target.value })}
         />
+        <small id="emailHelp" className="form-text text-muted">
+          This would be the Name, users will see while Booking!
+        </small>
       </div>
       <div className="form-group">
         <label htmlFor="email">Email address of Hotel</label>
@@ -35,6 +44,9 @@ const RegisterForm = () => {
           onChange={(e) => setData({ ...data, email: e.target.value })}
           value={data.email}
         />
+        <small id="emailHelp" className="form-text text-muted">
+          All Orders will be Communicated through this mail.
+        </small>
       </div>
       <div className="form-group">
         <label htmlFor="hotelPhone">Enter Contact Number</label>
@@ -46,6 +58,8 @@ const RegisterForm = () => {
           required={true}
           onChange={(e) => setData({ ...data, contact: e.target.value })}
           value={data.contact}
+          minLength={10}
+          maxLength={10}
         />
         <small id="emailHelp" className="form-text text-muted">
           Enter your Contact Number without Country's Code, viz. +91
@@ -68,8 +82,12 @@ const RegisterForm = () => {
         </small>
       </div>
       <center>
-        <button type="submit" className={styles.regBtn}>
-          Register
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={!data.name || !data.email || !data.contact || !data.owner}
+        >
+          Register Hotel
         </button>
       </center>
     </form>
