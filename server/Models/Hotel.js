@@ -26,6 +26,7 @@ const hotelSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, "A Hotel must have an email address for business emails"],
+    unqiue: true,
   },
   starRating: {
     type: "Number",
@@ -58,4 +59,4 @@ const hotelSchema = new mongoose.Schema({
 
 //creating a model for hotel
 const hotel = mongoose.model("hotel", hotelSchema);
-export default hotel;
+module.exports = hotel;
