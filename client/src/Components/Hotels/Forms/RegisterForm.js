@@ -1,17 +1,41 @@
 import React from "react";
 
 import styles from "./RegisterForm.module.css";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { registerHotel } from "../../../Axios/Hotel/Authentication.js";
 const RegisterForm = () => {
+  //declaring react functions
+  const dispatch = useDispatch();
   const [data, setData] = React.useState({});
 
   const submitHandler = (e) => {
     e.preventDefault();
     registerHotel(data)
-      .then((res) =>
-        toast.success("Email has been sent to your email for further steps!")
-      )
+      .then((res) => {
+        //prepare to send it to Local Storage
+        if (window !== "undefined") {
+          window.localStorage.setItem(
+            "verification",
+            JSON.stringify({
+              email: data.email,
+              name: data.name,
+              owner: data.owner,
+              phone: data.contact,
+            })
+          );
+        }
+        dispatch({
+          type: "VERIFICATION",
+          payload: {
+            email: data.email,
+            name: data.name,
+            owner: data.owner,
+            phone: data.contact,
+          },
+        });
+        toast.success("Email has been sent to your email for further steps!");
+      })
       .catch((err) => toast.error(err.response.data));
   };
   return (
