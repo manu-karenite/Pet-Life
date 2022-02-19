@@ -11,7 +11,6 @@ const hotelSchema = new mongoose.Schema({
     city: String,
     state: String,
     PIN: {
-      required: [true, "PIN is Mandatory"],
       type: "Number",
       minlength: 6,
       maxlength: 6,
@@ -27,6 +26,9 @@ const hotelSchema = new mongoose.Schema({
     type: String,
     required: [true, "A Hotel must have an email address for business emails"],
     unqiue: true,
+  },
+  password: {
+    type: String,
   },
   starRating: {
     type: "Number",
