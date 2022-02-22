@@ -94,27 +94,30 @@ function App() {
           path="/hotel/register"
           exact
           element={
-            <HotelAppBar>
+            <>
+              <HotelAppBar />
               <RegisterHotel />
-            </HotelAppBar>
+            </>
           }
         />
         <Route
           path="/hotel/register/confirm/:jwt"
           exact
           element={
-            <HotelAppBar>
+            <>
+              <HotelAppBar />
               <RegisterConfirmHotel />
-            </HotelAppBar>
+            </>
           }
         />
         <Route
           path="/hotel/login"
           exact
           element={
-            <HotelAppBar>
+            <>
+              <HotelAppBar />
               <HotelLogin />
-            </HotelAppBar>
+            </>
           }
         />
       </Routes>
