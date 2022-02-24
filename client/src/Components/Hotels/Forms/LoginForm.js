@@ -1,7 +1,25 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { loginHotel } from "../../../Axios/Hotel/Authentication.js";
+import { toast } from "react-toastify";
 const LoginForm = () => {
   const navigate = useNavigate();
+  const [data, setData] = React.useState({});
+  const loginHandler = (e) => {
+    console.log(data);
+    loginHotel(data)
+      .then((res) => {
+        if (window !== undefined) {
+          window.localStorage.setItem(
+            "hotelLoggedIn",
+            JSON.stringify(res.data)
+          );
+        }
+        toast.success("Login Success!");
+        navigate("/hotel/dashboard");
+      })
+      .catch((err) => toast.error(err.response.data));
+  };
   return (
     <section
       className="h-100 gradient-form"
@@ -29,6 +47,10 @@ const LoginForm = () => {
                           id="form2Example11"
                           className="form-control"
                           placeholder="Phone number or email address"
+                          value={data.username}
+                          onChange={(e) =>
+                            setData({ ...data, username: e.target.value })
+                          }
                         />
                         <label className="form-label" htmlFor="form2Example11">
                           Username
@@ -39,6 +61,10 @@ const LoginForm = () => {
                           type="password"
                           id="form2Example22"
                           className="form-control"
+                          value={data.password}
+                          onChange={(e) =>
+                            setData({ ...data, password: e.target.value })
+                          }
                         />
                         <label className="form-label" htmlFor="form2Example22">
                           Password
@@ -48,6 +74,7 @@ const LoginForm = () => {
                         <button
                           className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
                           type="button"
+                          onClick={loginHandler}
                         >
                           Log in
                         </button>
@@ -58,8 +85,9 @@ const LoginForm = () => {
                       <div className="d-flex align-items-center justify-content-center pb-4">
                         <p className="mb-0 me-2">Don't have an account?</p>
                         <button
+                          clas
                           type="button"
-                          className="btn btn-outline-danger"
+                          className="btn btn-outline-danger pb-5"
                           onClick={(e) => navigate("/hotel/register")}
                         >
                           Create new

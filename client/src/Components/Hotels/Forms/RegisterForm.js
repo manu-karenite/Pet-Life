@@ -109,6 +109,7 @@ const RegisterForm = () => {
         <button
           type="submit"
           className="btn btn-primary"
+          style={{ padding: "5px" }}
           disabled={!data.name || !data.email || !data.contact || !data.owner}
         >
           Register Hotel

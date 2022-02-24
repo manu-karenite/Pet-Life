@@ -9,6 +9,7 @@ import * as React from "react";
 
 // import Menu from "@mui/material/Menu";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 // import MenuItem from "@mui/material/MenuItem";
 // import ListItemIcon from "@mui/material/ListItemIcon";
 // import Divider from "@mui/material/Divider";
@@ -30,8 +31,11 @@ import {
   Menu,
 } from "@mui/material";
 import { PersonAdd, Logout } from "@mui/icons-material";
+
 const HotelAppBar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { hotel } = useSelector((state) => ({ ...state }));
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -40,55 +44,75 @@ const HotelAppBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const logoutHandler = () => {
+    dispatch({
+      type: "HOTEL",
+      payload: null,
+    });
+    if (
+      window !== "undefined" &&
+      window.localStorage.getItem("hotelLoggedIn")
+    ) {
+      window.localStorage.removeItem("hotelLoggedIn");
+    }
+    navigate("/hotel/login");
+  };
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
+        <AppBar position="sticky">
           <Toolbar>
-            {/* <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton> */}
+            {hotel && (
+              <Button
+                color="inherit"
+                onClick={(e) => navigate("/hotel/dashboard")}
+              >
+                Home
+              </Button>
+            )}
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Hotels @ Pet-Life
             </Typography>
+
             {/* <Button color="inherit">Login</Button>
           <Button color="inherit">SignUp</Button> */}
-            <Button color="inherit" onClick={(e) => navigate("/hotel/login")}>
-              Login
-            </Button>
-            <Button
-              color="inherit"
-              onClick={(e) => navigate("/hotel/register")}
-            >
-              SignUp
-            </Button>
-            <Tooltip title="Account settings">
-              <IconButton
-                onClick={handleClick}
-                size="small"
-                sx={{ ml: 2 }}
-                aria-controls={open ? "account-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? "true" : undefined}
+            {!hotel && (
+              <Button color="inherit" onClick={(e) => navigate("/hotel/login")}>
+                Login
+              </Button>
+            )}
+            {!hotel && (
+              <Button
+                color="inherit"
+                onClick={(e) => navigate("/hotel/register")}
               >
-                <Avatar
-                  sx={{
-                    width: 32,
-                    height: 32,
-                    backgroundColor: "#000",
-                    color: "white",
-                  }}
+                SignUp
+              </Button>
+            )}
+            {hotel && hotel.name}
+            {hotel && (
+              <Tooltip title="Account settings">
+                <IconButton
+                  onClick={handleClick}
+                  size="small"
+                  sx={{ ml: 2 }}
+                  aria-controls={open ? "account-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
                 >
-                  N
-                </Avatar>
-              </IconButton>
-            </Tooltip>
+                  <Avatar
+                    sx={{
+                      width: 32,
+                      height: 32,
+                      backgroundColor: "#000",
+                      color: "white",
+                    }}
+                  >
+                    {`${hotel.name.split(" ")[1][0]}`}
+                  </Avatar>
+                </IconButton>
+              </Tooltip>
+            )}
           </Toolbar>
         </AppBar>
       </Box>
@@ -127,31 +151,25 @@ const HotelAppBar = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>
+        <MenuItem onClick={(e) => navigate("/hotel/profile")}>
           <Avatar /> Profile
         </MenuItem>
-        <MenuItem>
-          <Avatar /> My account
-        </MenuItem>
         <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Add another account
-        </MenuItem>
-        <MenuItem>
+
+        <MenuItem onClick={(e) => navigate("/hotel/update-password")}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
-          Settings
+          Update Password
         </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
-        </MenuItem>
+        {hotel && (
+          <MenuItem onClick={logoutHandler}>
+            <ListItemIcon>
+              <Logout fontSize="small" />
+            </ListItemIcon>
+            Logout
+          </MenuItem>
+        )}
       </Menu>
     </>
   );

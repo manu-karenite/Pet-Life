@@ -53,9 +53,10 @@ const hotelSchema = new mongoose.Schema({
   images: {
     type: [String],
   },
-  active: {
-    type: Boolean,
-    default: false,
+  status: {
+    type: String,
+    enum: ["Active", "In-Active", "Queued"],
+    default: "In-Active",
   },
 });
 
