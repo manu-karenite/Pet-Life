@@ -51,6 +51,8 @@ const RegisterForm = () => {
           required={true}
           value={data.name}
           onChange={(e) => setData({ ...data, name: e.target.value })}
+          name="x-field-1"
+          autocomplete="new-field-1"
         />
         <small id="emailHelp" className="form-text text-muted">
           This would be the Name, users will see while Booking!
@@ -67,6 +69,8 @@ const RegisterForm = () => {
           required={true}
           onChange={(e) => setData({ ...data, email: e.target.value })}
           value={data.email}
+          name="x-field-1"
+          autocomplete="new-field-1"
         />
         <small id="emailHelp" className="form-text text-muted">
           All Orders will be Communicated through this mail.
@@ -84,6 +88,8 @@ const RegisterForm = () => {
           value={data.contact}
           minLength={10}
           maxLength={10}
+          name="x-field-1"
+          autocomplete="new-field-1"
         />
         <small id="emailHelp" className="form-text text-muted">
           Enter your Contact Number without Country's Code, viz. +91
@@ -100,6 +106,8 @@ const RegisterForm = () => {
           required={true}
           onChange={(e) => setData({ ...data, owner: e.target.value })}
           value={data.owner}
+          name="x-field-1"
+          autocomplete="new-field-1"
         />
         <small id="emailHelp" className="form-text text-muted">
           We'll never share your data with anyone else.

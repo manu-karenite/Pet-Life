@@ -1,18 +1,8 @@
 import * as React from "react";
-// import AppBar from "@mui/material/AppBar";
-// import Box from "@mui/material/Box";
-// import Toolbar from "@mui/material/Toolbar";
-// import Typography from "@mui/material/Typography";
-// import Button from "@mui/material/Button";
-// import IconButton from "@mui/material/IconButton";
-// import MenuIcon from "@mui/icons-material/Menu";
 
-// import Menu from "@mui/material/Menu";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-// import MenuItem from "@mui/material/MenuItem";
-// import ListItemIcon from "@mui/material/ListItemIcon";
-// import Divider from "@mui/material/Divider";
+
 import Settings from "@mui/icons-material/Settings";
 import { useState } from "react";
 import {
@@ -108,7 +98,7 @@ const HotelAppBar = () => {
                       color: "white",
                     }}
                   >
-                    {`${hotel.name.split(" ")[1][0]}`}
+                    {`${hotel.name.split(" ")[0][0]}`}
                   </Avatar>
                 </IconButton>
               </Tooltip>

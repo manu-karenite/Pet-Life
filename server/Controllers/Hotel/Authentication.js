@@ -14,9 +14,13 @@ const registerHotel = async (req, res) => {
     }
 
     //query the DB for any email present or not!
-    const checkEmail = await hotel.findOne({ email });
+    const checkEmail = await hotel.findOne({ email: email });
     if (checkEmail) {
       throw "Hotel Already Registered with Email Address! Please Login to Continue!";
+    }
+    const checkContact = await hotel.findOne({ contact: contact });
+    if (checkContact) {
+      throw "Hotel Already Registered with Contact Number! Please Login to Continue!";
     }
     //lets check whether email is going or not already
     let shallowCopy = registrationTemplate;
@@ -109,9 +113,9 @@ const loginHotel = async (req, res) => {
       throw "Incomplete Details";
     }
     //1) check whether hotel exists with email or phone in the username filed
-    let result = await hotel.findOne({ contact: username });
+    let result = await hotel.findOne({ email: username });
     if (!result) {
-      result = await hotel.findOne({ email: username });
+      result = await hotel.findOne({ contact: username });
     }
     if (!result) {
       throw "No Hotel Found with the username. Please Try Again";
@@ -169,6 +173,7 @@ const verifyHotel = async (req, res) => {
     if (decodedToken.exp * 1000 < Date.now()) {
       throw "JWT Expired";
     }
+    console.log("VERIFIED");
     res.status(200).json("ok");
   } catch (error) {
     console.log(error);
