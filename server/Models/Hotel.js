@@ -63,6 +63,10 @@ const hotelSchema = new mongoose.Schema({
     enum: ["Active", "In-Active", "Queued"],
     default: "In-Active",
   },
+  otp: {
+    type: "String",
+  },
+  otpValidUpto: Date,
 });
 
 //creating a model for hotel

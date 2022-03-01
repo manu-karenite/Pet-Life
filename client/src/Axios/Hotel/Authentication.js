@@ -25,7 +25,6 @@ const loginHotel = async (data) => {
   return result;
 };
 const verifyHotel = async (obj) => {
-  console.log("HELLO");
   const result = await axios({
     method: "GET",
     url: `${process.env.REACT_APP_BACKEND_URL}/hotel/verify-hotel`,
@@ -36,4 +35,45 @@ const verifyHotel = async (obj) => {
   });
   return result;
 };
-export { registerHotel, registerHotelConfirm, loginHotel, verifyHotel };
+const forgotPassword = async (email) => {
+  const result = await axios({
+    method: "POST",
+    url: `${process.env.REACT_APP_BACKEND_URL}/hotel/forgot-password`,
+    data: {
+      email: email,
+    },
+  });
+  return result;
+};
+const verifyOTP = async (otp, email) => {
+  const result = await axios({
+    method: "POST",
+    url: `${process.env.REACT_APP_BACKEND_URL}/hotel/verify-otp`,
+    data: {
+      email: email,
+      otp: otp,
+    },
+  });
+  return result;
+};
+const updatePassword = async (pass, confirmpass, email) => {
+  const result = await axios({
+    method: "PATCH",
+    url: `${process.env.REACT_APP_BACKEND_URL}/hotel/update-password`,
+    data: {
+      pass: pass,
+      confirmpass: confirmpass,
+      email: email,
+    },
+  });
+  return result;
+};
+export {
+  registerHotel,
+  registerHotelConfirm,
+  loginHotel,
+  verifyHotel,
+  forgotPassword,
+  verifyOTP,
+  updatePassword,
+};

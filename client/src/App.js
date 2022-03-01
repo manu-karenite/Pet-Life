@@ -24,6 +24,7 @@ import Profile from "./Pages/Hotels/Profile.js";
 import Ratings from "./Pages/Hotels/Ratings.js";
 import Services from "./Pages/Hotels/Services.js";
 import UpdatePassword from "./Pages/Hotels/UpdatePassword.js";
+import ForgotPassword from "./Pages/Hotels/ForgotPassword.js";
 import HotelProtectRoute from "./Components/Utilities/Hotel/ProtectRoute.js";
 function App() {
   return (
@@ -222,6 +223,16 @@ function App() {
               <HotelProtectRoute>
                 <UpdatePassword />
               </HotelProtectRoute>
+            </>
+          }
+        />
+        <Route
+          path="/hotel/forgot-password"
+          exact
+          element={
+            <>
+              <HotelAppBar />
+              <ForgotPassword />
             </>
           }
         />

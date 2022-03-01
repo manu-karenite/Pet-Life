@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { loginHotel } from "../../../Axios/Hotel/Authentication.js";
 import { toast } from "react-toastify";
 import { Spin } from "antd";
@@ -98,9 +98,11 @@ const LoginForm = () => {
                             "Login"
                           )}
                         </button>
-                        <a className="text-muted" href="#!">
-                          Forgot password?
-                        </a>
+                        <p className="text-muted">
+                          <Link to="/hotel/forgot-password">
+                            Forgot password?
+                          </Link>
+                        </p>
                       </div>
                       <div className="d-flex align-items-center justify-content-center pb-4">
                         <p className="mb-0 me-2">Don't have an account?</p>
