@@ -1,41 +1,15 @@
 import * as React from "react";
-// import AppBar from "@mui/material/AppBar";
-// import Box from "@mui/material/Box";
-// import Toolbar from "@mui/material/Toolbar";
-// import Typography from "@mui/material/Typography";
-// import Button from "@mui/material/Button";
-// import IconButton from "@mui/material/IconButton";
-// import MenuIcon from "@mui/icons-material/Menu";
-
-// import Menu from "@mui/material/Menu";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-// import MenuItem from "@mui/material/MenuItem";
-// import ListItemIcon from "@mui/material/ListItemIcon";
-// import Divider from "@mui/material/Divider";
 import Settings from "@mui/icons-material/Settings";
 import { useState } from "react";
-import {
-  AppBar,
-  Tooltip,
-  Avatar,
-  Divider,
-  ListItemIcon,
-  MenuItem,
-  Box,
-  Toolbar,
-  Typography,
-  Button,
-  IconButton,
-  MenuIcon,
-  Menu,
-} from "@mui/material";
-import { PersonAdd, Logout } from "@mui/icons-material";
+import { AppBar, Tooltip, Avatar, Divider, ListItemIcon, MenuItem, Box, Toolbar, Typography, Button, IconButton, MenuIcon, Menu,} from "@mui/material";
+import { Logout } from "@mui/icons-material";
 
-const HotelAppBar = () => {
+const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { hotel } = useSelector((state) => ({ ...state }));
+  const { user } = useSelector((state) => ({ ...state }));
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -46,51 +20,39 @@ const HotelAppBar = () => {
   };
   const logoutHandler = () => {
     dispatch({
-      type: "HOTEL",
+      type: "USER",
       payload: null,
     });
     if (
       window !== "undefined" &&
-      window.localStorage.getItem("hotelLoggedIn")
+      window.localStorage.getItem("UserLoggedIn")
     ) {
-      window.localStorage.removeItem("hotelLoggedIn");
+      window.localStorage.removeItem("UserLoggedIn");
     }
-    navigate("/hotel/login");
+    navigate("/login");
   };
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="sticky">
+        <AppBar position="sticky" style={{backgroundColor:"#121916"}}>
           <Toolbar>
-            {hotel && (
-              <Button
-                color="inherit"
-                onClick={(e) => navigate("/hotel/dashboard")}
-              >
-                Home
-              </Button>
-            )}
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Hotels @ Pet-Life
+              logo
             </Typography>
 
-            {/* <Button color="inherit">Login</Button>
-          <Button color="inherit">SignUp</Button> */}
-            {!hotel && (
-              <Button color="inherit" onClick={(e) => navigate("/hotel/login")}>
-                Login
-              </Button>
-            )}
-            {!hotel && (
-              <Button
-                color="inherit"
-                onClick={(e) => navigate("/hotel/register")}
-              >
-                SignUp
-              </Button>
-            )}
-            {hotel && hotel.name}
-            {hotel && (
+            {user && (<Button color="inherit" onClick={(e) => navigate("/")}>Home</Button>)}
+            {user && (<Button color="inherit" onClick={(e) => navigate("/menu")}>Hotels</Button>)}
+            {user && (<Button color="inherit" onClick={(e) => navigate("/about")}>About</Button>)}
+            {user && (<Button color="inherit" onClick={(e) => navigate("/contact")}>Contact</Button>)}
+
+            {!user && (<Button color="inherit" onClick={(e) => navigate("/")}>Home</Button>)}
+            {!user && (<Button color="inherit" onClick={(e) => navigate("/menu")}>Hotels</Button>)}
+            {!user && (<Button color="inherit" onClick={(e) => navigate("/about")}>About</Button>)}
+            {!user && (<Button color="inherit" onClick={(e) => navigate("/contact")}>Contact</Button>)}
+            {!user && (<Button color="inherit" onClick={(e) => navigate("/login")}>Login/Register</Button>)}
+          
+            
+            {user && (
               <Tooltip title="Account settings">
                 <IconButton
                   onClick={handleClick}
@@ -104,11 +66,11 @@ const HotelAppBar = () => {
                     sx={{
                       width: 32,
                       height: 32,
-                      backgroundColor: "#000",
+                      backgroundColor: "grey",
                       color: "white",
                     }}
                   >
-                    {`${hotel.name.split(" ")[0][0]}`}
+                    {`${user.name.split(" ")[0][0]}`}
                   </Avatar>
                 </IconButton>
               </Tooltip>
@@ -151,18 +113,18 @@ const HotelAppBar = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={(e) => navigate("/hotel/profile")}>
+        <MenuItem onClick={(e) => navigate("/profile")}>
           <Avatar /> Profile
         </MenuItem>
         <Divider />
 
-        <MenuItem onClick={(e) => navigate("/hotel/update-password")}>
+        <MenuItem onClick={(e) => navigate("/update-password")}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Update Password
         </MenuItem>
-        {hotel && (
+        {user && (
           <MenuItem onClick={logoutHandler}>
             <ListItemIcon>
               <Logout fontSize="small" />
@@ -175,4 +137,4 @@ const HotelAppBar = () => {
   );
 };
 
-export default HotelAppBar;
+export default Navbar;

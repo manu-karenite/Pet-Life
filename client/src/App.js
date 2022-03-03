@@ -7,17 +7,21 @@ import Contact from "./Pages/User/Contact.js";
 import Home from "./Pages/User/Home.js";
 import Login from "./Pages/User/Login.js";
 import Menu from "./Pages/User/Menu.js";
-import SignUp from "./Pages/User/SignUp.js";
-import Navbar from "./Components/Users/Navbar.js";
-import Footer from "./Components/Users/Footer.js";
+import Register from "./Pages/User/Register.js";
+import Navbar from "./Components/User/Navbar.js";
+import Footer from "./Components/User/Footer.js";
+import UserDashboard from "./Pages/User/Dashboard.js";
+import UserProtectRoute from "./Components/Utilities/User/ProtectRoute.js";
+import RegisterConfirmUser from "./Pages/User/RegisterConfirm.js";
+import ForgotPassword from "./Pages/User/ForgotPassword";
 
-//importing only Hotels Routes
+//importing only Hotels Routes 
 import HotelAppBar from "./Components/AppBar/HotelAppBar.js";
 import RegisterHotel from "./Pages/Hotels/Register.js";
 import HotelLogin from "./Pages/Hotels/Login.js";
 import RegisterConfirmHotel from "./Pages/Hotels/RegisterConfirm.js";
 import HotelDashboard from "./Pages/Hotels/Dashboard.js";
-import AddImages from "./Pages/Hotels/AddImages.js";
+import  AddImages from "./Pages/Hotels/AddImages.js";
 import Bookings from "./Pages/Hotels/Bookings.js";
 import Coupons from "./Pages/Hotels/Coupons.js";
 import Profile from "./Pages/Hotels/Profile.js";
@@ -88,13 +92,74 @@ function App() {
           }
         />
         <Route
-          path="/signup"
+          path="/register"
           exact
           element={
             <>
               <Navbar />
-              <SignUp />
+              <Register />
               <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/forgot-password"
+          exact
+          element={
+            <>
+              <Navbar />
+              <ForgotPassword />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/dashboard"
+          exact
+          element={
+            <>
+              <Navbar />
+              <UserProtectRoute>
+                <UserDashboard />
+              </UserProtectRoute>
+            </>
+          }
+        />
+
+        <Route
+          path="/profile"
+          exact
+          element={
+            <>
+              <Navbar />
+              <UserProtectRoute>
+                <Profile />
+              </UserProtectRoute>
+            </>
+          }
+        />
+
+        <Route
+          path="/update-password"
+          exact
+          element={
+            <>
+              <Navbar />
+              <UserProtectRoute>
+                <UpdatePassword />
+              </UserProtectRoute>
+            </>
+          }
+        />
+
+
+        <Route
+          path="/register/confirm/:jwt"
+          exact
+          element={
+            <>
+              <Navbar />
+              <RegisterConfirmUser />
             </>
           }
         />
