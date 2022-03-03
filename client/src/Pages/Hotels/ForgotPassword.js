@@ -1,7 +1,11 @@
 import React from "react";
 import styles from "../../Styles/ForgotPassword.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { forgotPassword, verifyOTP, updatePassword,} from "../../Axios/User/Authentication.js";
+import {
+  forgotPassword,
+  verifyOTP,
+  updatePassword,
+} from "../../Axios/Hotel/Authentication.js";
 import { toast } from "react-toastify";
 import { Steps } from "antd";
 const { Step } = Steps;
@@ -42,7 +46,7 @@ const ForgotPassword = () => {
     updatePassword(pass, confirmpass, email)
       .then((res) => {
         toast(`Password Succesfully Changed! Login to Continue`);
-        navigate("/login");
+        navigate("/hotel/login");
       })
       .catch((err) => {
         toast.error(err.response.data);
@@ -73,7 +77,7 @@ const ForgotPassword = () => {
                       <input
                         type="email"
                         className={styles.FPInput}
-                        placeholder="Mail Registered"
+                        placeholder="Business Mail Registered"
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
                       />
@@ -85,7 +89,7 @@ const ForgotPassword = () => {
                     </center>
                   </form>
                   <div className={styles.FPLabel2}>
-                    Want to Login? <Link to="/login">Login Here</Link>
+                    Want to Login? <Link to="/hotel/login">Login Here</Link>
                   </div>
                 </center>
               </div>
@@ -126,6 +130,9 @@ const ForgotPassword = () => {
                       />
                     </center>
                   </form>
+                  {/* <div className={styles.FPLabel2}>
+                    Want to Login? <Link to="/hotel/login">Login Here</Link>
+                  </div> */}
                 </center>
               </div>
             )}
@@ -174,6 +181,9 @@ const ForgotPassword = () => {
                       />
                     </center>
                   </form>
+                  {/* <div className={styles.FPLabel2}>
+                    Want to Login? <Link to="/hotel/login">Login Here</Link>
+                  </div> */}
                 </center>
               </div>
             )}

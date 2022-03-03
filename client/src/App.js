@@ -13,7 +13,8 @@ import Footer from "./Components/User/Footer.js";
 import UserDashboard from "./Pages/User/Dashboard.js";
 import UserProtectRoute from "./Components/Utilities/User/ProtectRoute.js";
 import RegisterConfirmUser from "./Pages/User/RegisterConfirm.js";
-import ForgotPassword from "./Pages/User/ForgotPassword";
+import UserForgotPassword from "./Pages/User/UserForgotPassword";
+import UserUpdatePassword from "./Pages/User/UserUpdatePassword.js";
 
 //importing only Hotels Routes 
 import HotelAppBar from "./Components/AppBar/HotelAppBar.js";
@@ -28,6 +29,7 @@ import Profile from "./Pages/Hotels/Profile.js";
 import Ratings from "./Pages/Hotels/Ratings.js";
 import Services from "./Pages/Hotels/Services.js";
 import UpdatePassword from "./Pages/Hotels/UpdatePassword.js";
+import ForgotPassword from "./Pages/Hotels/ForgotPassword.js";
 import HotelProtectRoute from "./Components/Utilities/Hotel/ProtectRoute.js";
 function App() {
   return (
@@ -108,7 +110,7 @@ function App() {
           element={
             <>
               <Navbar />
-              <ForgotPassword />
+              <UserForgotPassword />
               <Footer />
             </>
           }
@@ -146,7 +148,7 @@ function App() {
             <>
               <Navbar />
               <UserProtectRoute>
-                <UpdatePassword />
+                <UserUpdatePassword />
               </UserProtectRoute>
             </>
           }
@@ -287,6 +289,16 @@ function App() {
               <HotelProtectRoute>
                 <UpdatePassword />
               </HotelProtectRoute>
+            </>
+          }
+        />
+        <Route
+          path="/hotel/forgot-password"
+          exact
+          element={
+            <>
+              <HotelAppBar />
+              <ForgotPassword />
             </>
           }
         />

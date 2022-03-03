@@ -2,10 +2,14 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../../Axios/User/Authentication.js";
 import { toast } from "react-toastify";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const [data, setData] = React.useState({});
+  const [loading, setLoading] = React.useState(false);
   const loginHandler = (e) => {
     console.log(data);
     loginUser(data)

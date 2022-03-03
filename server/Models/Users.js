@@ -6,13 +6,17 @@ const usersSchema = new mongoose.Schema({
         required: [true, "A users Must Have a Name"],
     },
     email: {
-    type: String,
-    required: [true, "A users must have an email address for business emails"],
-    unqiue: true,
+        type: String,
+        required: [true, "A users must have an email address for business emails"],
+        unqiue: true,
     },
     password: {
-    type: String,
+        type: String,
     },
+    otp: {
+        type: "String",
+    },
+    otpValidUpto: Date,
 });
 
 //creating a model for users

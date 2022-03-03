@@ -21,6 +21,7 @@ const hotelSchema = new mongoose.Schema({
     type: Number,
     minLength: 10,
     maxlength: 10,
+    unqiue: true,
   },
   email: {
     type: String,
@@ -44,12 +45,16 @@ const hotelSchema = new mongoose.Schema({
       description: String,
     },
   ],
-  coupons: {
-    name: String,
-    discount: Number, //percentage here,
-    validFrom: Date,
-    validUpto: Date,
-  },
+  coupons: [
+    {
+      name: String,
+      discount: String, //percentage here,
+      validFrom: Date,
+      validUpto: Date,
+      minimumCartAmount: String,
+      maxDiscount: String,
+    },
+  ],
   images: {
     type: [String],
   },
@@ -58,6 +63,10 @@ const hotelSchema = new mongoose.Schema({
     enum: ["Active", "In-Active", "Queued"],
     default: "In-Active",
   },
+  otp: {
+    type: "String",
+  },
+  otpValidUpto: Date,
 });
 
 //creating a model for hotel

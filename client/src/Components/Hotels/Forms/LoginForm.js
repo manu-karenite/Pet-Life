@@ -1,12 +1,17 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { loginHotel } from "../../../Axios/Hotel/Authentication.js";
 import { toast } from "react-toastify";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+
 const LoginForm = () => {
   const navigate = useNavigate();
   const [data, setData] = React.useState({});
+  const [loading, setLoading] = React.useState(false);
   const loginHandler = (e) => {
-    console.log(data);
+    setLoading(true);
+    console.log(loading);
     loginHotel(data)
       .then((res) => {
         if (window !== undefined) {
@@ -16,9 +21,13 @@ const LoginForm = () => {
           );
         }
         toast.success("Login Success!");
+        setLoading(false);
         navigate("/hotel/dashboard");
       })
-      .catch((err) => toast.error(err.response.data));
+      .catch((err) => {
+        toast.error(err.response.data);
+        setLoading(false);
+      });
   };
   return (
     <section
@@ -43,7 +52,7 @@ const LoginForm = () => {
                       <p>Hotels Access Portal</p>
                       <div className="form-outline mb-4">
                         <input
-                          type="email"
+                          type="text"
                           id="form2Example11"
                           className="form-control"
                           placeholder="Phone number or email address"
@@ -51,6 +60,7 @@ const LoginForm = () => {
                           onChange={(e) =>
                             setData({ ...data, username: e.target.value })
                           }
+                          autocomplete="off"
                         />
                         <label className="form-label" htmlFor="form2Example11">
                           Username
@@ -65,22 +75,34 @@ const LoginForm = () => {
                           onChange={(e) =>
                             setData({ ...data, password: e.target.value })
                           }
+                          placeholder="Enter Password"
+                          style={{ fontWeight: "900 !important" }}
                         />
                         <label className="form-label" htmlFor="form2Example22">
                           Password
                         </label>
                       </div>
+
                       <div className="text-center pt-1 mb-5 pb-1">
                         <button
                           className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
                           type="button"
                           onClick={loginHandler}
+                          disabled={loading}
                         >
-                          Log in
+                          {loading ? (
+                            <LoadingOutlined
+                              style={{ fontSize: 25, color: "orange" }}
+                            />
+                          ) : (
+                            "Login"
+                          )}
                         </button>
-                        <a className="text-muted" href="#!">
-                          Forgot password?
-                        </a>
+                        <p className="text-muted">
+                          <Link to="/hotel/forgot-password">
+                            Forgot password?
+                          </Link>
+                        </p>
                       </div>
                       <div className="d-flex align-items-center justify-content-center pb-4">
                         <p className="mb-0 me-2">Don't have an account?</p>

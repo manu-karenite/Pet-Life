@@ -1,0 +1,116 @@
+@import "https://fonts.googleapis.com/css?family=Libre+Franklin:100,300,400,600,700,900";
+/* -----------------------
+  Presentational stuff 
+----------------------- */
+.couponOuter {
+  font-family: "Libre Franklin", sans-serif;
+  background: #111922;
+}
+.head {
+  font-weight: 900;
+  color: #ff8d00;
+  text-align: center;
+  margin-top: 30px;
+}
+@media (min-width: 1200px) {
+  .head {
+    font-size: 60px;
+  }
+}
+/* -----------------------
+  Form 
+----------------------- */
+.formControl {
+  border-radius: 0;
+}
+.formControl:focus {
+  box-shadow: none;
+}
+.formGroup {
+  position: relative;
+  margin-bottom: 25px;
+}
+.formGroup label {
+  text-transform: uppercase;
+  font-size: 10px;
+  color: #a1a2a3;
+  transform-origin: 0 0;
+  transform: scale(1.4);
+  pointer-events: none;
+  position: relative;
+  z-index: 5;
+}
+.formGroup input {
+  width: 100%;
+  padding-top: 10px;
+}
+.formGroup label {
+  transition: transform 0.4s;
+  transform-origin: 0 0;
+  transform: scale(1.4) translateY(20px);
+}
+.formGroup.not-empty label {
+  transform: none;
+}
+/*------------------------------
+	Form
+------------------------------*/
+.formControl {
+  border: 0;
+  border-bottom: 1px solid #a1a2a3;
+}
+.formControl,
+.formControl:focus,
+.formControl:focus:hover {
+  color: #ff8d00;
+  background: none;
+  outline: none;
+}
+.formControl:focus,
+.formControl:focus:hover {
+  border-bottom: 1px solid #ff8d00;
+}
+.formControl::placeholder {
+  text-transform: uppercase;
+  font-size: 10px;
+  color: #a1a2a3;
+  transform-origin: 0 0;
+  transform: scale(1.4);
+  pointer-events: none;
+  position: relative;
+  z-index: 5;
+  font-family: "Libre Franklin", sans-serif;
+  font-weight: lighter;
+}
+
+.btn {
+  background-color: #ff8d00;
+  border-radius: 5px;
+  border: 1px #ff8d00 solid;
+  color: #111922;
+}
+
+.expiryDate {
+  text-transform: uppercase;
+  font-size: 10px;
+  color: #a1a2a3;
+  transform-origin: 0 0;
+  transform: scale(1.4);
+  pointer-events: none;
+  position: relative;
+  z-index: 5;
+  font-family: "Libre Franklin", sans-serif;
+  font-weight: lighter;
+  margin-bottom: 10px;
+}
+.lower__title {
+  font-weight: 900;
+  color: #ff8d00;
+  text-align: center;
+  margin-top: 40px;
+  font-size: 50px;
+}
+
+.list {
+  margin: 15px 30px 15px 30px;
+}

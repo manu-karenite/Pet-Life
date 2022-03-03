@@ -27,8 +27,10 @@ mongoose
 
 //Importing Routers :
 const { AuthHotelRouter } = require("./Routes/Hotel/Authentication.js");
+const { dashboardRouter } = require("./Routes/Hotel/Dashboard.js");
 app.use("/api/v1", AuthHotelRouter);
 
 const { AuthUserRouter } = require("./Routes/User/Userauth.js");
 app.use("/api/v1", AuthUserRouter);
+app.use("/api/v1", dashboardRouter);
 module.exports = app;

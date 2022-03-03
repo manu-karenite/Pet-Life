@@ -1,6 +1,7 @@
 const hotel = require("../../Models/Hotel.js");
 const transporter = require("../../Utitlities/Mailers/transporter.js");
 const registrationTemplate = require("../../Utitlities/Templates/Hotel/Registration.js");
+const OTPTemplate = require("../../Utitlities/Templates/Hotel/ForgotPasswordOTP.js");
 const signToken = require("../../Utitlities/JWTHandlers/signToken.js");
 const verifyToken = require("../../Utitlities/JWTHandlers/verifyToken.js");
 const { promisify } = require("util");
@@ -14,9 +15,13 @@ const registerHotel = async (req, res) => {
     }
 
     //query the DB for any email present or not!
-    const checkEmail = await hotel.findOne({ email });
+    const checkEmail = await hotel.findOne({ email: email });
     if (checkEmail) {
       throw "Hotel Already Registered with Email Address! Please Login to Continue!";
+    }
+    const checkContact = await hotel.findOne({ contact: contact });
+    if (checkContact) {
+      throw "Hotel Already Registered with Contact Number! Please Login to Continue!";
     }
     //lets check whether email is going or not already
     let shallowCopy = registrationTemplate;
@@ -109,9 +114,9 @@ const loginHotel = async (req, res) => {
       throw "Incomplete Details";
     }
     //1) check whether hotel exists with email or phone in the username filed
-    let result = await hotel.findOne({ contact: username });
+    let result = await hotel.findOne({ email: username });
     if (!result) {
-      result = await hotel.findOne({ email: username });
+      result = await hotel.findOne({ contact: username });
     }
     if (!result) {
       throw "No Hotel Found with the username. Please Try Again";
@@ -169,11 +174,93 @@ const verifyHotel = async (req, res) => {
     if (decodedToken.exp * 1000 < Date.now()) {
       throw "JWT Expired";
     }
+    console.log("VERIFIED");
     res.status(200).json("ok");
   } catch (error) {
     console.log(error);
     res.status(401).json(error);
   }
 };
-const object = { registerHotel, registerHotelConfirm, loginHotel, verifyHotel };
+const forgotPassword = async (req, res) => {
+  try {
+    const hotelExists = await hotel.findOne({ email: req.body.email });
+    if (!hotelExists) {
+      throw "No Hotel Registered with this Email-Id";
+    }
+    let shallowCopy = OTPTemplate;
+    shallowCopy = shallowCopy.replace("FullName", hotelExists.name);
+    shallowCopy = shallowCopy.replace("ACCOUNT_EMAIL", hotelExists.email);
+    //create an OTP number
+    const random = Math.floor(Math.random() * 899999) + 100001; //6 digit OTP
+    const updated = await hotel.findByIdAndUpdate(hotelExists._id, {
+      otp: random,
+      otpValidUpto: Date.now() + 15 * 60 * 1000,
+    });
+    shallowCopy = shallowCopy.replace("OTP", random);
+    const result = await transporter(
+      hotelExists.email,
+      "One Time Password for Hotels",
+      shallowCopy
+    );
+    console.log(result);
+    res.status(200).json(hotelExists.email);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+};
+const verifyOTP = async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+    if (!email || !otp) {
+      throw "Details Missing";
+    }
+    const user = await hotel
+      .findOne({ email: email })
+      .select({ otp: 1, otpValidUpto: 1, _id: 0 });
+    console.log(user);
+
+    if (otp !== user.otp) {
+      throw "OTP Invalid";
+    }
+    if (Date.now() >= new Date(user.otpValidUpto)) {
+      throw "OTP Expired! Please";
+    }
+    return res.status(200).json("ok");
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+};
+const updatePassword = async (req, res) => {
+  try {
+    const { pass, confirmpass, email } = req.body;
+    if (!pass || !confirmpass || !email) {
+      throw "Incomplete Details. Cannot Continue";
+    }
+    if (pass !== confirmpass) {
+      throw "Passwords don't Match! Please check again and retry";
+    }
+    const hash = await bcrypt.hash(pass, 12);
+    console.log(hash);
+    const user = await hotel.findOneAndUpdate(
+      { email: email },
+      { password: hash, $unset: { otp: 1, otpValidUpto: 1 } },
+      { new: true }
+    );
+    res.status(200).json("ok");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+const object = {
+  registerHotel,
+  registerHotelConfirm,
+  loginHotel,
+  verifyHotel,
+  forgotPassword,
+  verifyOTP,
+  updatePassword,
+};
 module.exports = object;
