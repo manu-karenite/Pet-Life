@@ -11,7 +11,7 @@ const hotelSchema = new mongoose.Schema({
     city: String,
     state: String,
     PIN: {
-      type: "Number",
+      type: Number,
       minlength: 6,
       maxlength: 6,
     },

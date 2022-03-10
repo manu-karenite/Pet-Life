@@ -36,4 +36,30 @@ const deleteCoupon = async (jwt, id) => {
   });
   return result;
 };
-export { createCoupon, getCoupons, deleteCoupon };
+
+//FOR PROFILE
+const getProfile = async (jwt, id) => {
+  const result = await axios({
+    method: "GET",
+    url: `${process.env.REACT_APP_BACKEND_URL}/hotel/profile`,
+    headers: {
+      authorization: `Bearer ${jwt}`,
+    },
+    params: {
+      id: id,
+    },
+  });
+  return result;
+};
+const updateProfile = async (jwt, object) => {
+  const result = await axios({
+    method: "PATCH",
+    url: `${process.env.REACT_APP_BACKEND_URL}/hotel/update-profile`,
+    headers: {
+      authorization: `Bearer ${jwt}`,
+    },
+    data: object,
+  });
+  return result;
+};
+export { createCoupon, getCoupons, deleteCoupon, getProfile, updateProfile };
