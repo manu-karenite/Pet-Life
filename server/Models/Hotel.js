@@ -55,9 +55,12 @@ const hotelSchema = new mongoose.Schema({
       maxDiscount: String,
     },
   ],
-  images: {
-    type: [String],
-  },
+  images: [
+    {
+      public_id: String,
+      secure_url: String,
+    },
+  ],
   status: {
     type: String,
     enum: ["Active", "In-Active", "Queued"],

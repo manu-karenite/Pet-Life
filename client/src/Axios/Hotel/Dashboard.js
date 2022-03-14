@@ -62,4 +62,36 @@ const updateProfile = async (jwt, object) => {
   });
   return result;
 };
-export { createCoupon, getCoupons, deleteCoupon, getProfile, updateProfile };
+
+const uploadImage = async (jwt, binaryImg) => {
+  const result = await axios({
+    method: "POST",
+    url: `${process.env.REACT_APP_BACKEND_URL}/hotel/add-image`,
+    headers: {
+      authorization: `Bearer ${jwt}`,
+    },
+    data: {
+      binaryImg: binaryImg,
+    },
+  });
+  return result;
+};
+const getImages = async (jwt) => {
+  const result = await axios({
+    method: "GET",
+    url: `${process.env.REACT_APP_BACKEND_URL}/hotel/get-images`,
+    headers: {
+      authorization: `Bearer ${jwt}`,
+    },
+  });
+  return result;
+};
+export {
+  createCoupon,
+  getCoupons,
+  deleteCoupon,
+  getProfile,
+  updateProfile,
+  uploadImage,
+  getImages,
+};

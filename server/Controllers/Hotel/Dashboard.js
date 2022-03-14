@@ -1,4 +1,5 @@
 const hotel = require("../../Models/Hotel.js");
+
 const createCoupon = async (req, res) => {
   try {
     //we are here, it means we have a valid hotel authentication
@@ -104,11 +105,44 @@ const updateProfile = async (req, res) => {
     res.status(400).json(error);
   }
 };
+const responseAddImage = async (req, res) => {
+  //get the images Details
+  try {
+    console.log("Image Uploaded in DB");
+    //update the user with the hotel images
+    const updateHotel = await hotel.findOneAndUpdate(
+      { email: req.user },
+      {
+        $push: {
+          images: { secure_url: req.secure_url, public_id: req.public_id },
+        },
+      },
+      { new: true }
+    );
+    res.status(200).json("Uploaded Image");
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+const getImages = async (req, res) => {
+  console.log(req.user);
+  try {
+    const hotelExists = await hotel
+      .findOne({ email: req.user })
+      .select({ images: 1, _id: 0 });
+    console.log(hotelExists?.images);
+    res.status(200).json(hotelExists?.images);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
 const obj = {
   createCoupon,
   getCoupons,
   deleteCoupon,
   getProfile,
   updateProfile,
+  responseAddImage,
+  getImages,
 };
 module.exports = obj;

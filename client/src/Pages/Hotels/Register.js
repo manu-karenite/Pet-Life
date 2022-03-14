@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import RegisterForm from "../../Components/Hotels/Forms/RegisterForm.js";
 const RegisterHotel = () => {
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="container-fluid">
       <div className="row mt-3">

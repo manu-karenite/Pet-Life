@@ -1,5 +1,6 @@
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import React from "react";
+import { Routes, Route, useParams } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 //importing only Users Related Pages
 import About from "./Pages/User/About.js";
@@ -16,13 +17,13 @@ import RegisterConfirmUser from "./Pages/User/RegisterConfirm.js";
 import UserForgotPassword from "./Pages/User/UserForgotPassword";
 import UserUpdatePassword from "./Pages/User/UserUpdatePassword.js";
 
-//importing only Hotels Routes 
+//importing only Hotels Routes
 import HotelAppBar from "./Components/AppBar/HotelAppBar.js";
 import RegisterHotel from "./Pages/Hotels/Register.js";
 import HotelLogin from "./Pages/Hotels/Login.js";
 import RegisterConfirmHotel from "./Pages/Hotels/RegisterConfirm.js";
 import HotelDashboard from "./Pages/Hotels/Dashboard.js";
-import  AddImages from "./Pages/Hotels/AddImages.js";
+import AddImages from "./Pages/Hotels/AddImages.js";
 import Bookings from "./Pages/Hotels/Bookings.js";
 import Coupons from "./Pages/Hotels/Coupons.js";
 import Profile from "./Pages/Hotels/Profile.js";
@@ -31,6 +32,7 @@ import Services from "./Pages/Hotels/Services.js";
 import UpdatePassword from "./Pages/Hotels/UpdatePassword.js";
 import ForgotPassword from "./Pages/Hotels/ForgotPassword.js";
 import HotelProtectRoute from "./Components/Utilities/Hotel/ProtectRoute.js";
+
 function App() {
   return (
     <>
@@ -153,7 +155,6 @@ function App() {
             </>
           }
         />
-
 
         <Route
           path="/register/confirm/:jwt"

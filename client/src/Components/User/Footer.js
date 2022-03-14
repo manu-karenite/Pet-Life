@@ -1,28 +1,57 @@
 import React from "react";
-import GitHubIcon from "@material-ui/icons/GitHub";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import MailOutlineIcon from "@material-ui/icons/MailOutline";
-import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import "../../Styles/Footer.css";
-
+import { Link } from "react-router-dom";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import MailIcon from "@mui/icons-material/Mail";
+import styles from "./Footer.module.css";
 function Footer() {
   return (
-    <div className="footer">
-      <div className="socialMedia">
-        <GitHubIcon
-          onClick={(event) => (window.location.href = "https://www.google.com")}
-        />
-        <TwitterIcon
-          onClick={(event) => (window.location.href = "http://www.google.com")}
-        />
-        <MailOutlineIcon
-          onClick={(event) => (window.location.href = "http://www.yahoo.com")}
-        />
-        <LinkedInIcon
-          onClick={(event) => (window.location.href = "http://www.yahoo.com")}
-        />
+    <div className={styles.footerWrap}>
+      <div className={styles.footerItem}>
+        <div className={styles.footerLeft}>About Us</div>
+        <div className={styles.footerLeft}> Terms and Conditions</div>
+        <div className={styles.footerLeft}> Responsible Disclosures</div>
+        <div className={styles.footerLeft}> Register a Complaint</div>
+        <div className={styles.footerLeft}> Leave a Feedback</div>
       </div>
-      <p> &copy; 2022 petlife</p>
+      <div className={styles.footerItem}>
+        <div className={styles.footerLeft} style={{ fontSize: "150%" }}>
+          Reach Us
+        </div>
+        <div className={styles.description}>
+          Feel free to contact us, in case of any queries. Contact us from
+          Monday to Sunday, between 09:00 IST to 18:00 IST
+        </div>
+        <div className={styles.footerIcons}>
+          <div className={styles.footerIcon}>
+            <GitHubIcon sx={{ fontSize: 40, color: "#fff" }} />
+          </div>
+          <div className={styles.footerIcon}>
+            <a href="mailto:business.petlife@gmail.com">
+              <MailIcon sx={{ fontSize: 40, color: "#fff" }} />
+            </a>
+          </div>
+        </div>
+      </div>
+      <div className={styles.footerItem}>
+        <div className={styles.footerLeft} style={{ fontSize: "150%" }}>
+          Become Our Partner
+        </div>
+        <div className={styles.description}>
+          Support us in our Mission to achieve well cared pets around the
+          country. Join us and Get Amazing Deals.
+        </div>
+        <div className={styles.footerLeft} style={{ fontSize: "20px" }}>
+          Note for Partners
+        </div>
+        <center>
+          {" "}
+          <button className={styles.loginBtn}>
+            <Link to="/hotel/register" style={{ color: "#411313" }}>
+              Login
+            </Link>
+          </button>
+        </center>
+      </div>
     </div>
   );
 }

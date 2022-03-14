@@ -8,7 +8,14 @@ const {
   deleteCoupon,
   getProfile,
   updateProfile,
+  responseAddImage,
+  getImages,
 } = require("../../Controllers/Hotel/Dashboard.js");
+
+const {
+  uploadImages,
+  destroyImage,
+} = require("../../Utitlities/Cloudinary/cloudinary.js");
 dashboardRouter.route("/hotel/create-coupon").post(hotelLoggedIn, createCoupon);
 dashboardRouter.route("/hotel/coupons").get(hotelLoggedIn, getCoupons);
 dashboardRouter
@@ -20,5 +27,11 @@ dashboardRouter.route("/hotel/profile").get(hotelLoggedIn, getProfile);
 dashboardRouter
   .route("/hotel/update-profile")
   .patch(hotelLoggedIn, updateProfile);
+
+//for images section
+dashboardRouter
+  .route("/hotel/add-image")
+  .post(hotelLoggedIn, uploadImages, responseAddImage);
+dashboardRouter.route("/hotel/get-images").get(hotelLoggedIn, getImages);
 const obj = { dashboardRouter };
 module.exports = obj;

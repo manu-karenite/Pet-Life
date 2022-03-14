@@ -1,0 +1,173 @@
+.menuWrap {
+  display: flex;
+  flex-direction: row;
+}
+.drawer {
+  flex: 1 1 20%;
+  background-color: #fff;
+  padding: 20px 10px;
+}
+
+.hotels {
+  flex: 1 1 80%;
+}
+
+.drawerTitle {
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 30px;
+}
+.drawerSubTitle {
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.checkboxes label {
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 18px;
+  margin: 2px 8px;
+}
+/*for hotels section*/
+.hotels {
+  padding: 20px 10px;
+}
+.searchBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.searchButton {
+  background-color: #06a906;
+  border: #06a906 solid 2.5px;
+  padding: 5px 10px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.searchField {
+  background-color: white;
+  border: grey solid 2px;
+  padding: 5px 10px;
+  width: 250px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-right: 0px;
+
+  font-family: "Poppins";
+  font-weight: 600;
+}
+.searchField::placeholder {
+  color: rgb(186, 175, 175);
+}
+.hotel {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.hotelImage {
+  width: 215px;
+  margin-right: 20px;
+}
+.hotelMeta {
+  width: 100%;
+}
+.hotelTitleAndShare {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-grow: 1;
+  margin: 2.5px 0px;
+}
+.hotelTitle {
+  width: 95%;
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 24px;
+}
+.hotelShare {
+  width: 5%;
+}
+.starsList,
+.categories {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 2.5px 0px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.bookNow {
+  background: #ffffff;
+  border: 2.5px solid #1c0fb9;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  /* identical to box height */
+  color: #1c0fb9;
+  padding: 5px 20px;
+}
+
+.view {
+  background-color: #06a906;
+  border: 2.5px solid #06a906;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  /* identical to box height */
+  color: #fff;
+  padding: 5px 20px;
+  margin-right: 20px;
+}
+.hotelAddress {
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 16px;
+}
+.category {
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 16px;
+  background-color: purple;
+  color: #fff;
+  padding: 1.5px 6px;
+  border: 0.5px solid purple;
+  margin-right: 20px;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin-top: 5px;
+}
+.price {
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 18px;
+  margin: 10px 0px 2.5px 0px;
+}
+.hotelImg {
+  height: 215px;
+  width: 215px;
+  object-fit: cover;
+}
+.hotel {
+  margin: 20px 0px;
+}
+.review {
+  font-family: "Poppins";
+  font-weight: 600;
+  /* font-size: px; */
+}
+.pagination {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
