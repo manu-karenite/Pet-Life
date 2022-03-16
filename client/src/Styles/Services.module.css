@@ -1,0 +1,183 @@
+.wrapper {
+  background-color: #093545;
+  padding: 50px 100px;
+}
+.addService {
+  background-color: #0b444a;
+  border: solid 1px white;
+  border-radius: 10px;
+}
+.addService__title {
+  margin: 20px 0px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 54px;
+  /* identical to box height */
+
+  text-align: center;
+
+  color: #ffffff;
+}
+.addService__forms {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  /* flex-wrap: wrap; */
+}
+.addService__form {
+  flex: 1 1 50%;
+  margin: 20px 30px;
+  background-color: #093545;
+  border: solid 1px #093545;
+  border-radius: 10px;
+  padding: 25px;
+}
+.addService__formItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 30px 0px;
+}
+.addService__formItem__ask {
+  flex-basis: 30%;
+  text-align: right;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 36px;
+  /* identical to box height */
+
+  text-align: center;
+
+  color: #ffffff;
+}
+.addService__formItem__answer {
+  flex-basis: 70%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.left input {
+  width: 100%;
+  padding: 4px 10px;
+  border: 1px solid white;
+  font-weight: 600;
+  font-family: "Poppins";
+  font-size: 24px;
+  text-align: center;
+}
+.right {
+  background-color: #ffc93e;
+  color: black;
+  font-weight: 600;
+  padding: 4px 10px;
+  font-size: 24px;
+}
+
+.right1 {
+  background-color: #ff4242;
+  color: black;
+  font-weight: 600;
+  padding: 4px 10px;
+  font-size: 24px;
+  font-weight: bold;
+  width: 20%;
+  text-align: center;
+}
+.left1 input {
+  width: 100%;
+  padding: 4px 10px;
+  border: 1px solid white;
+  font-weight: 600;
+  font-family: "Poppins";
+  font-size: 24px;
+  text-align: center;
+}
+.addService__formItem__answer select option,
+.addService__formItem__answer select {
+  font-weight: 600;
+  font-family: "Poppins";
+  font-size: 24px;
+  text-align: center;
+}
+.addService__formItem__answerr {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.addServiceBtn {
+  background: #ff4242;
+  border-radius: 8px;
+  font-weight: 600;
+  font-family: "Poppins";
+  color: white;
+  padding: 10px 20px;
+  border: 1px solid #ff4242;
+  margin-bottom: 10px;
+}
+.left input::placeholder {
+  color: rgb(201, 193, 193);
+  font-weight: light;
+}
+/*FOR ALLOWED PETS*/
+.availableServicesList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.availableServices__Item label {
+  font-family: "Poppins";
+  color: white;
+  font-size: 20px;
+  margin: 0px 10px;
+}
+.allowedlist {
+  font-family: "Poppins";
+  color: white;
+  font-weight: 600;
+  font-size: 24px;
+}
+.alloweditem {
+  font-family: "Poppins";
+  color: white;
+  font-weight: 600;
+  font-size: 20px;
+}
+.servicesList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+
+.service {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #0b444a;
+  border: solid 1px white;
+  border-radius: 10px;
+  width: 25%;
+  margin: 20px;
+}
+.text {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  margin: 5px 0px;
+  /* identical to box height */
+
+  text-align: center;
+
+  color: #ffffff;
+}

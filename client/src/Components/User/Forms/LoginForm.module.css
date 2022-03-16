@@ -1,0 +1,139 @@
+.formWrapper {
+  width: 30%;
+  margin-top: 60px;
+}
+.formTitle {
+  font-family: "Lexend Deca";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 80px;
+  /* identical to box height */
+
+  text-align: center;
+  margin-bottom: 30px;
+  color: #ffffff;
+}
+.formTooltip {
+  font-family: "Lexend Deca";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height */
+
+  text-align: center;
+
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+.formFields {
+  display: flex;
+
+  flex-direction: column;
+  align-content: center;
+}
+.input {
+  background: #224957;
+  border-radius: 10px;
+  border: 1px #224957 solid;
+  font-family: "Lexend Deca";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  /* identical to box height, or 143% */
+
+  text-align: left;
+
+  color: #ffffff;
+  padding: 15px;
+  margin: 15px 0px;
+}
+.input::placeholder {
+  font-family: "Lexend Deca";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  /* identical to box height, or 143% */
+
+  text-align: left;
+
+  color: #ffffff;
+}
+.formBtn {
+  background: #20df7f;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.forgotPassword {
+  font-family: "Lexend Deca";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  margin-bottom: 15px;
+  /* identical to box height */
+
+  text-align: center;
+
+  color: #20df7f;
+
+  text-align: right;
+  cursor: pointer;
+}
+
+.formBtn {
+  font-family: "Lexend Deca";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  /* identical to box height, or 143% */
+
+  text-align: left;
+
+  color: #ffffff;
+  padding: 12px 0px;
+  text-align: center;
+}
+
+.vectorList {
+  position: relative;
+  width: 100%;
+  left: 0;
+  margin-top: 40px;
+}
+.image1 {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0px !important;
+}
+.image2 {
+  position: absolute;
+
+  left: 0px;
+  width: 100%;
+  padding: 0px !important;
+}
+.tootlip {
+  margin-top: 20px;
+  font-family: "Lexend Deca";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  margin-bottom: 15px;
+  /* identical to box height */
+
+  text-align: center;
+
+  color: #20df7f;
+}
+.tootlip span {
+  cursor: pointer;
+}

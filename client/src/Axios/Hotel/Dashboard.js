@@ -86,6 +86,58 @@ const getImages = async (jwt) => {
   });
   return result;
 };
+const updatePets = async (jwt, array) => {
+  const result = await axios({
+    method: "POST",
+    url: `${process.env.REACT_APP_BACKEND_URL}/hotel/update-pets`,
+    data: { array: array },
+    headers: {
+      authorization: `Bearer ${jwt}`,
+    },
+  });
+  return result;
+};
+const getPets = async (jwt) => {
+  const result = await axios({
+    method: "GET",
+    url: `${process.env.REACT_APP_BACKEND_URL}/hotel/get-pets`,
+    headers: {
+      authorization: `Bearer ${jwt}`,
+    },
+  });
+  return result;
+};
+const createService = async (jwt, data) => {
+  const result = await axios({
+    method: "POST",
+    url: `${process.env.REACT_APP_BACKEND_URL}/hotel/create-service`,
+    headers: {
+      authorization: `Bearer ${jwt}`,
+    },
+    data: data,
+  });
+  return result;
+};
+const getServices = async (jwt) => {
+  const result = await axios({
+    method: "GET",
+    url: `${process.env.REACT_APP_BACKEND_URL}/hotel/get-services`,
+    headers: {
+      authorization: `Bearer ${jwt}`,
+    },
+  });
+  return result;
+};
+const deleteService = async (jwt, id) => {
+  const result = await axios({
+    method: "DELETE",
+    url: `${process.env.REACT_APP_BACKEND_URL}/hotel/delete-service/${id}`,
+    headers: {
+      authorization: `Bearer ${jwt}`,
+    },
+  });
+  return result;
+};
 export {
   createCoupon,
   getCoupons,
@@ -94,4 +146,9 @@ export {
   updateProfile,
   uploadImage,
   getImages,
+  updatePets,
+  getPets,
+  createService,
+  getServices,
+  deleteService,
 };

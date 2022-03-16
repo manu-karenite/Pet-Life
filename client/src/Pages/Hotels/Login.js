@@ -1,7 +1,14 @@
 import React from "react";
 import LoginForm from "../../Components/Hotels/Forms/LoginForm.js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 const HotelLogin = () => {
+  const navigate = useNavigate();
+  const { hotel } = useSelector((state) => ({ ...state }));
+  React.useEffect(() => {
+    console.log(hotel);
+    hotel && navigate("/hotel/dashboard");
+  }, [hotel]);
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

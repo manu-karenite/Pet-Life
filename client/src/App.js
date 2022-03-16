@@ -1,6 +1,7 @@
 import "./App.css";
 import React from "react";
 import { Routes, Route, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
 //importing only Users Related Pages
 import About from "./Pages/User/About.js";
@@ -34,6 +35,32 @@ import ForgotPassword from "./Pages/Hotels/ForgotPassword.js";
 import HotelProtectRoute from "./Components/Utilities/Hotel/ProtectRoute.js";
 
 function App() {
+  //FIX THE REDUX ON EVERY STAGE
+  const dispatch = useDispatch();
+  const setRedux = () => {
+    let user = null;
+    if (window !== "undefined" && window.localStorage.getItem("UserLoggedIn")) {
+      user = JSON.parse(window.localStorage.getItem("UserLoggedIn"));
+    }
+    dispatch({
+      type: "USER",
+      payload: user,
+    });
+    let hotel = null;
+    if (
+      window !== "undefined" &&
+      window.localStorage.getItem("hotelLoggedIn")
+    ) {
+      hotel = JSON.parse(window.localStorage.getItem("hotelLoggedIn"));
+    }
+    dispatch({
+      type: "HOTEL",
+      payload: hotel,
+    });
+  };
+  React.useEffect(() => {
+    setRedux();
+  }, []);
   return (
     <>
       <ToastContainer />

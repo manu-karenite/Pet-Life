@@ -3,13 +3,13 @@ import styles from "../../Styles/UserPages/Menu.module.css";
 
 //MUI ICONS
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
+
 import ShareIcon from "@mui/icons-material/Share";
 import StarIcon from "@mui/icons-material/Star";
 import { Switch, Pagination } from "antd";
 import { RadioGroup, RadioButton } from "react-radio-buttons";
 import SearchIcon from "@mui/icons-material/Search";
-import { style } from "@mui/system";
+
 //function to return number of stars in each row, taking parameter as how many stars
 
 const Menu = () => {

@@ -1,14 +1,13 @@
 import React from "react";
 import LoginForm from "../../Components/User/Forms/LoginForm.js";
+import styles from "./Login.module.css";
 const UserLogin = () => {
   return (
     <div className="container-fluid">
-      <div className="row mt-3">
-        <div className="col-md-2" />
-        <div className="col-md-8" style={{ marginBottom: "20px" }}>
+      <div className="row">
+        <div className={`col-md-12 ${styles.loginBg}`}>
           <LoginForm />
         </div>
-        <div className="col-md-2" />
       </div>
     </div>
   );

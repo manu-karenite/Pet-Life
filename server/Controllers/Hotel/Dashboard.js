@@ -136,6 +136,93 @@ const getImages = async (req, res) => {
     res.status(500).json(error);
   }
 };
+const updatePets = async (req, res) => {
+  try {
+    //update the hoetl with pets
+    const updatedHotel = await hotel.findOneAndUpdate(
+      { email: req.user },
+      { petsAllowed: req.body.array },
+      { new: true }
+    );
+    res.status(200).json("okay");
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+const getPets = async (req, res) => {
+  try {
+    const hotelFind = await hotel.findOne({ email: req.user });
+    res.status(200).json(hotelFind.petsAllowed);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+};
+const createService = async (req, res) => {
+  try {
+    //create the price to Number of
+    let services = [];
+    if (req.body.s1 !== "") {
+      services.push(req.body.s1);
+    }
+    if (req.body.s2 !== "") {
+      services.push(req.body.s2);
+    }
+    if (req.body.s3 !== "") {
+      services.push(req.body.s3);
+    }
+    if (req.body.s4 !== "") {
+      services.push(req.body.s4);
+    }
+    const finalObject = {
+      servicePrice: Number(req.body.price),
+      serviceTime: req.body.time,
+      serviceNote: req.body.note,
+      servicePet: req.body.pet,
+      servicesList: services,
+    };
+
+    //update the hotel Now
+    const updateHotel = await hotel.findOneAndUpdate(
+      { email: req.user },
+      { $push: { services: finalObject } },
+      { new: true }
+    );
+    res.status(201).json("Updated");
+  } catch (error) {
+    res.json(400).json(error);
+  }
+};
+const getServices = async (req, res) => {
+  try {
+    const hotelFind = await hotel.findOne({ email: req.user });
+    res.status(200).json(hotelFind.services ? hotelFind.services : []);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+};
+const deleteService = async (req, res) => {
+  console.log(req.params.id);
+  try {
+    const hotelFound = await hotel.findOne({ email: req.user });
+    const services = hotelFound.services;
+    console.log(services.length);
+    let serviceUpdated = services.filter((curr, index) => {
+      return curr?._id != req.params.id;
+    });
+    console.log(serviceUpdated.length);
+    const hotelUpdated = await hotel.findOneAndUpdate(
+      { email: req.user },
+      { services: serviceUpdated },
+      { new: true }
+    );
+    return res.status(200).json("Deleted");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
 const obj = {
   createCoupon,
   getCoupons,
@@ -144,5 +231,10 @@ const obj = {
   updateProfile,
   responseAddImage,
   getImages,
+  updatePets,
+  getPets,
+  createService,
+  getServices,
+  deleteService,
 };
 module.exports = obj;

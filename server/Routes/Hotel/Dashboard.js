@@ -10,6 +10,11 @@ const {
   updateProfile,
   responseAddImage,
   getImages,
+  updatePets,
+  getPets,
+  createService,
+  getServices,
+  deleteService,
 } = require("../../Controllers/Hotel/Dashboard.js");
 
 const {
@@ -33,5 +38,17 @@ dashboardRouter
   .route("/hotel/add-image")
   .post(hotelLoggedIn, uploadImages, responseAddImage);
 dashboardRouter.route("/hotel/get-images").get(hotelLoggedIn, getImages);
+
+//for services section
+dashboardRouter.route("/hotel/update-pets").post(hotelLoggedIn, updatePets);
+dashboardRouter.route("/hotel/get-pets").get(hotelLoggedIn, getPets);
+dashboardRouter
+  .route("/hotel/create-service")
+  .post(hotelLoggedIn, createService);
+dashboardRouter.route("/hotel/get-services").get(hotelLoggedIn, getServices);
+dashboardRouter
+  .route("/hotel/delete-service/:id")
+  .delete(hotelLoggedIn, deleteService);
 const obj = { dashboardRouter };
+
 module.exports = obj;

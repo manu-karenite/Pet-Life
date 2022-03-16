@@ -24,7 +24,9 @@ const ProtectRoute = ({ children }) => {
         });
         setOk(true);
       })
-      .catch((err) => setOk(false));
+      .catch((err) => {
+        console.log(err.response.data);
+      });
   };
 
   useEffect(() => {

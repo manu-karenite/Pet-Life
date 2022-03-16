@@ -1,14 +1,13 @@
 import React from "react";
 import RegisterForm from "../../Components/User/Forms/RegisterForm.js";
+import styles from "./Login.module.css";
 const RegisterUser = () => {
   return (
     <div className="container-fluid">
-      <div className="row mt-3">
-        <div className="col-md-3" />
-        <div className="col-md-6" style={{ marginBottom: "20px" }}>
+      <div className="row">
+        <div className={`col-md-12 ${styles.loginBg}`}>
           <RegisterForm />
         </div>
-        <div className="col-md-3" />
       </div>
     </div>
   );

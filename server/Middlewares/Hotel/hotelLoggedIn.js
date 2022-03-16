@@ -27,6 +27,7 @@ const hotelLoggedIn = async (req, res, next) => {
     req.user = decodedToken.email;
     next();
   } catch (error) {
+    console.log(error);
     return res.status(401).json(error);
   }
 };

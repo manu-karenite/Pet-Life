@@ -40,9 +40,11 @@ const hotelSchema = new mongoose.Schema({
   petsAllowed: [String],
   services: [
     {
-      serviceName: String,
-      serviceCharge: Number,
-      description: String,
+      serviceTime: String,
+      servicePrice: Number,
+      serviceNote: String,
+      servicePet: String,
+      servicesList: [String],
     },
   ],
   coupons: [
