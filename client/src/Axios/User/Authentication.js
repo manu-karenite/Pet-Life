@@ -1,4 +1,5 @@
 import axios from "axios";
+import {useDispatch} from "react-redux";
 
 const registerUser = async (data) => {
   const result = await axios({
@@ -14,6 +15,7 @@ const registerUserConfirm = async (data) => {
     url: `${process.env.REACT_APP_BACKEND_URL}/register-user/confirm`,
     data: data,
   });
+
   return result;
 };
 const loginUser = async (data) => {
@@ -69,5 +71,54 @@ const updatePassword = async (pass, confirmpass, email) => {
   });
   return result;
 };
+const ProfileUpdatePassword = async (pass, confirmpass, email) => {
+  const result = await axios({
+    method: "PATCH",
+    url: `${process.env.REACT_APP_BACKEND_URL}/updatepassword`,
+    data: {
+      pass: pass,
+      confirmpass: confirmpass,
+      email: email,
+    },
+  });
+  return result;
+};
+const SendMessage = async (name, email, msg) => {
+  const result = await axios({
+    method: "POST",
+    url: `${process.env.REACT_APP_BACKEND_URL}/contact`,
+    data: {
+      name: name,
+      email: email,
+      msg: msg,
+    },
+  });
+  return result;
+};
 
-export { registerUser, registerUserConfirm, loginUser, verifyUser, forgotPassword, verifyOTP, updatePassword };
+const FetchHotels = async (name, email, msg) => {
+  const result = await axios({
+    method: "POST",
+    url: `${process.env.REACT_APP_BACKEND_URL}/menu`,
+    data: {
+      name: name,
+    },
+  });
+  return result;
+};
+
+const getDetails = async (id) => {
+  console.log(id)
+  
+  const result = await axios({
+    
+    method: "POST",
+    url: `${process.env.REACT_APP_BACKEND_URL}/presentation`,
+    data: {
+      id: id,
+    },
+  });
+  return result;
+};
+
+export { registerUser, registerUserConfirm, loginUser, verifyUser, forgotPassword, verifyOTP, updatePassword, ProfileUpdatePassword, SendMessage, FetchHotels, getDetails };

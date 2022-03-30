@@ -1,4 +1,6 @@
 const User = require("../../Models/Users.js");
+const Hotels = require("../../Models/Hotel.js");
+const Contact = require("../../Models/Contacts.js");
 const transporter = require("../../Utitlities/Mailers/usertrans.js");
 const registrationTemplate = require("../../Utitlities/Templates/User/UserRegistration.js");
 const OTPTemplate = require("../../Utitlities/Templates/Hotel/ForgotPasswordOTP.js");
@@ -7,6 +9,7 @@ const verifyToken = require("../../Utitlities/JWTHandlers/verifyToken.js");
 const { promisify } = require("util");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const Token=require("../../Models/Token");
 const registerUser = async (req, res) => {
   let { name, email, password } = req.body;
   try {
@@ -114,9 +117,10 @@ const loginUser = async (req, res) => {
       { email: result.email },
       process.env.JWT_SECRET,
       {
-        expiresIn: 2 * 60 * 60,
+        expiresIn: "10",
       }
     );
+    await Token.create({user:result._id,token:jwtCreated});
     const toReturn = {
       _id: result._id,
       name: result.name,
@@ -233,6 +237,89 @@ const updatePassword = async (req, res) => {
     res.status(500).json(error);
   }
 };
+const ProfileUpdatePassword = async (req, res) => {
+  try {
+    const { pass, confirmpass, email} = req.body;
+    if (!pass || !confirmpass ) {
+      throw "Incomplete Details. Cannot Continue";
+    }
+    if (pass !== confirmpass) {
+      throw "Passwords don't Match! Please check again and retry";
+    }
+    const hash = await bcrypt.hash(pass, 12);
+    console.log(hash);
+    const user = await User.findOneAndUpdate(
+      { email: email },
+      { password: hash },
+      { new: true }
+    );
+    res.status(200).json("ok");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+const SendMessage = async (req, res) => {
+  const { name, email, msg} = req.body;
+  console.log(req.body);
+  try {
+    if (!email || !msg || !name) {
+      throw "Please enter the details correctly";
+    }
+    let newMsg = new Contact({
+      name: req.body.name,
+      email: req.body.email,
+      msg: req.body.msg,
+    });
+    newMsg = await newMsg.save();
+    res.status(201).json("Created");
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
 
-const object = { registerUser, registerUserConfirm, loginUser, verifyUser, forgotPassword, verifyOTP, updatePassword, };
+const FetchHotels = async (req, res) => {
+  const { name } = req.body;
+  console.log(req.body);
+  try {
+    const hotels = await Hotels.find();
+    console.log(hotels);
+    res.status(200).send({hotels});
+   
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+const getDetails = async (req, res) => {
+  console.log("insideGetDetails")
+  console.log(req.body)
+  try {
+    const hotelExists = await Hotels.findOne({ _id: req.body.id });
+
+    console.log(hotelExists)
+    // console.log(userExists);
+    const toReturn = {
+      address1: hotelExists.address?.data1 ? hotelExists.address.data1 : "",
+      address2: hotelExists.address?.data2 ? hotelExists.address.data2 : "",
+      city: hotelExists.address?.city ? hotelExists.address.city : "",
+      state: hotelExists.address?.state ? hotelExists.address.state : "",
+      pin: hotelExists.address?.PIN ? hotelExists.address.PIN : "",
+      landmark: hotelExists.address?.landmark ? hotelExists.address.landmark : "",
+      description: hotelExists?.description ? hotelExists.description : "",
+      shortDescription: hotelExists?.shortDescription ? hotelExists.shortDescription : "",
+      name: hotelExists?.name ? hotelExists.name : "",
+      contact: hotelExists?.contact ? hotelExists.contact : "",
+      images: hotelExists?.images ? hotelExists.images : [],
+      services: hotelExists?.services ? hotelExists.services : []
+    };
+    console.log("toReturn",toReturn)
+    res.status(200).json(toReturn);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+
+const object = { registerUser, registerUserConfirm, loginUser, verifyUser, forgotPassword, verifyOTP, updatePassword, ProfileUpdatePassword, SendMessage, FetchHotels, getDetails,  };
 module.exports = object;

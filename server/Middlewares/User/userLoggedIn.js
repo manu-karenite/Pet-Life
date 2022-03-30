@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
+const Token=require("../../Models/Token");
 const userLoggedIn = async (req, res, next) => {
   try {
     if (!req.headers || !req.headers.authorization) {
@@ -18,15 +19,19 @@ const userLoggedIn = async (req, res, next) => {
       token,
       process.env.JWT_SECRET
     );
-    if (!decodedToken || !decodedToken.email || !decodedToken.exp) {
-      throw "Invalid JWT";
-    }
-    if (decodedToken.exp * 1000 < Date.now()) {
-      throw "JWT Expired";
-    }
-    req.user = decodedToken.email;
-    next();
+    const tokenDoc=await Token.findOne({});
+    if(tokenDoc)
+      next();
+   else throw new Error();
+    // if (!decodedToken || !decodedToken.email || !decodedToken.exp) {
+    //   throw "Invalid JWT";
+    // }
+    // if (decodedToken.exp * 1000 < Date.now()) {
+    //   throw "JWT Expired";
+    // }
+    // req.user = decodedToken.email;
   } catch (error) {
+    console.log(error)
     return res.status(401).json(error);
   }
 };

@@ -1,0 +1,42 @@
+@import "https://fonts.googleapis.com/css?family=Libre+Franklin:100,300,400,600,700,900";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,600;0,900;1,900&display=swap");
+.profileOuter {
+  background-color: white;
+}
+.title {
+  font-family: "Libre Franklin", sans-serif;
+  background-color: black;
+  font-weight: 600;
+  color: orange;
+  text-align: center;
+  margin-top: 30px;
+  font-size: 50px;
+  border-radius: 10px;
+}
+
+form label,
+form select,
+form select option,
+.quill {
+  font-weight: 600 !important;
+  font-family: "Poppins", sans-serif;
+  color: rgb(37, 34, 34);
+  letter-spacing: 2px;
+}
+
+form input {
+  font-weight: 600 !important;
+  font-family: "Poppins", sans-serif;
+  color: black;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.button {
+  background-color: blue;
+  font-weight: 600;
+  border-radius: 5px;
+}
+.button:hover {
+  background-color: orange;
+}

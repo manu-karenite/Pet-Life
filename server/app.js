@@ -34,5 +34,6 @@ app.use("/api/v1", AuthHotelRouter);
 
 const { AuthUserRouter } = require("./Routes/User/Userauth.js");
 app.use("/api/v1", AuthUserRouter);
+app.use("/api/v1", UserdashboardRouter);
 app.use("/api/v1", dashboardRouter);
 module.exports = app;

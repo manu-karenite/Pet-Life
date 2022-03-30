@@ -1,7 +1,5 @@
 import "./App.css";
-import React from "react";
-import { Routes, Route, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 //importing only Users Related Pages
 import About from "./Pages/User/About.js";
@@ -13,18 +11,20 @@ import Register from "./Pages/User/Register.js";
 import Navbar from "./Components/User/Navbar.js";
 import Footer from "./Components/User/Footer.js";
 import UserDashboard from "./Pages/User/Dashboard.js";
-import UserProtectRoute from "./Components/Utilities/User/ProtectRoute.js";
+import Presentation from "./Pages/User/Presentation.js";
+// import UserProtectRoute from "./Components/Utilities/User/ProtectRoute.js";
 import RegisterConfirmUser from "./Pages/User/RegisterConfirm.js";
 import UserForgotPassword from "./Pages/User/UserForgotPassword";
 import UserUpdatePassword from "./Pages/User/UserUpdatePassword.js";
+import UserProfile from "./Pages/User/Profile.js";
 
-//importing only Hotels Routes
+//importing only Hotels Routes 
 import HotelAppBar from "./Components/AppBar/HotelAppBar.js";
 import RegisterHotel from "./Pages/Hotels/Register.js";
 import HotelLogin from "./Pages/Hotels/Login.js";
 import RegisterConfirmHotel from "./Pages/Hotels/RegisterConfirm.js";
 import HotelDashboard from "./Pages/Hotels/Dashboard.js";
-import AddImages from "./Pages/Hotels/AddImages.js";
+import  AddImages from "./Pages/Hotels/AddImages.js";
 import Bookings from "./Pages/Hotels/Bookings.js";
 import Coupons from "./Pages/Hotels/Coupons.js";
 import Profile from "./Pages/Hotels/Profile.js";
@@ -33,34 +33,7 @@ import Services from "./Pages/Hotels/Services.js";
 import UpdatePassword from "./Pages/Hotels/UpdatePassword.js";
 import ForgotPassword from "./Pages/Hotels/ForgotPassword.js";
 import HotelProtectRoute from "./Components/Utilities/Hotel/ProtectRoute.js";
-
 function App() {
-  //FIX THE REDUX ON EVERY STAGE
-  const dispatch = useDispatch();
-  const setRedux = () => {
-    let user = null;
-    if (window !== "undefined" && window.localStorage.getItem("UserLoggedIn")) {
-      user = JSON.parse(window.localStorage.getItem("UserLoggedIn"));
-    }
-    dispatch({
-      type: "USER",
-      payload: user,
-    });
-    let hotel = null;
-    if (
-      window !== "undefined" &&
-      window.localStorage.getItem("hotelLoggedIn")
-    ) {
-      hotel = JSON.parse(window.localStorage.getItem("hotelLoggedIn"));
-    }
-    dispatch({
-      type: "HOTEL",
-      payload: hotel,
-    });
-  };
-  React.useEffect(() => {
-    setRedux();
-  }, []);
   return (
     <>
       <ToastContainer />
@@ -150,9 +123,10 @@ function App() {
           element={
             <>
               <Navbar />
-              <UserProtectRoute>
+              {/* <UserProtectRoute> */}
                 <UserDashboard />
-              </UserProtectRoute>
+              {/* </UserProtectRoute> */}
+              <Footer />
             </>
           }
         />
@@ -163,22 +137,24 @@ function App() {
           element={
             <>
               <Navbar />
-              <UserProtectRoute>
-                <Profile />
-              </UserProtectRoute>
+              {/* <UserProtectRoute> */}
+                <UserProfile />
+              {/* </UserProtectRoute> */}
+              <Footer />
             </>
           }
         />
 
         <Route
-          path="/update-password"
+          path="/updatepassword"
           exact
           element={
             <>
               <Navbar />
-              <UserProtectRoute>
+              {/* <UserProtectRoute> */}
                 <UserUpdatePassword />
-              </UserProtectRoute>
+              {/* </UserProtectRoute> */}
+              <Footer />
             </>
           }
         />
@@ -193,6 +169,20 @@ function App() {
             </>
           }
         />
+
+        <Route
+          path="/presentation/:id"
+          exact
+          element={
+            <>
+              <Navbar />
+              <Presentation />
+              <Footer />
+            </>
+          }
+        />
+
+
         {/*FOR HOTELS ROUTES*/}
         <Route
           path="/hotel/register"
