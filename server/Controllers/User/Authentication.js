@@ -7,6 +7,7 @@ const verifyToken = require("../../Utitlities/JWTHandlers/verifyToken.js");
 const { promisify } = require("util");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const ContactUS = require("../../Utitlities/Templates/User/ContactUs.js");
 const registerUser = async (req, res) => {
   let { name, email, password } = req.body;
   try {
@@ -194,9 +195,11 @@ const verifyOTP = async (req, res) => {
     if (!email || !otp) {
       throw "Details Missing";
     }
-    const user = await User
-      .findOne({ email: email })
-      .select({ otp: 1, otpValidUpto: 1, _id: 0 });
+    const user = await User.findOne({ email: email }).select({
+      otp: 1,
+      otpValidUpto: 1,
+      _id: 0,
+    });
     console.log(user);
 
     if (otp !== user.otp) {
@@ -233,6 +236,50 @@ const updatePassword = async (req, res) => {
     res.status(500).json(error);
   }
 };
+const contactUs = async (req, res) => {
+  console.log(req.body);
+  const { name, email, data } = req.body;
+  try {
+    if (!name) {
+      throw "Please Enter Full Name";
+    }
+    if (!email) {
+      throw "Please Enter Email Address Name";
+    }
+    if (!data) {
+      throw "Please Enter Your Message";
+    }
+    //now we can send the message
+    let shallowCopy = ContactUS; //shallow copy created
+    shallowCopy = shallowCopy.replace("{{SENDER_NAME}}", req.body.name);
+    shallowCopy = shallowCopy.replace("{{SENDER_NAME}}", req.body.name);
+    //two times because, there are two places to replace the email
+    shallowCopy = shallowCopy.replace("{{SENDER_EMAIL}}", req.body.email);
+    shallowCopy = shallowCopy.replace("{{SENDER_MESSAGE}}", req.body.data);
 
-const object = { registerUser, registerUserConfirm, loginUser, verifyUser, forgotPassword, verifyOTP, updatePassword, };
+    //now our template is readyn , and we are ready to send the message
+
+    const result = await transporter(
+      "business.petlife@gmail.com",
+      `Message from ${req.body.name}`,
+      shallowCopy
+    );
+    console.log(result);
+    return res.status(200).json("Okay");
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+};
+
+const object = {
+  registerUser,
+  registerUserConfirm,
+  loginUser,
+  verifyUser,
+  forgotPassword,
+  verifyOTP,
+  updatePassword,
+  contactUs,
+};
 module.exports = object;

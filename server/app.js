@@ -26,13 +26,18 @@ mongoose
   .catch((err) => console.log(err));
 
 //Importing Routers :
+//for hotels routes
 const { AuthHotelRouter } = require("./Routes/Hotel/Authentication.js");
 const { dashboardRouter } = require("./Routes/Hotel/Dashboard.js");
-// const adminRouter = require("./Routes/Admin.js");
-// app.use("/api/v1", adminRouter);
-app.use("/api/v1", AuthHotelRouter);
-
+//for user routes
 const { AuthUserRouter } = require("./Routes/User/Userauth.js");
+const { DashboardRouter } = require("./Routes/User/Dashboard.js");
+
+//hotel Middlewares
 app.use("/api/v1", AuthUserRouter);
 app.use("/api/v1", dashboardRouter);
+//user middlewares
+app.use("/api/v1", AuthHotelRouter);
+app.use("/api/v1", DashboardRouter);
+
 module.exports = app;

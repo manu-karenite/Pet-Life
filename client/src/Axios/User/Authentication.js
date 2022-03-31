@@ -70,4 +70,20 @@ const updatePassword = async (pass, confirmpass, email) => {
   return result;
 };
 
-export { registerUser, registerUserConfirm, loginUser, verifyUser, forgotPassword, verifyOTP, updatePassword };
+const contactUs = async (body) => {
+  const result = await axios({
+    method: "POST",
+    url: `${process.env.REACT_APP_BACKEND_URL}/contact-us`,
+    data: body,
+  });
+};
+export {
+  registerUser,
+  registerUserConfirm,
+  loginUser,
+  verifyUser,
+  forgotPassword,
+  verifyOTP,
+  updatePassword,
+  contactUs,
+};

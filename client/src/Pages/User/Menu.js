@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import styles from "../../Styles/UserPages/Menu.module.css";
 
 //MUI ICONS
@@ -10,9 +10,21 @@ import { Switch, Pagination } from "antd";
 import { RadioGroup, RadioButton } from "react-radio-buttons";
 import SearchIcon from "@mui/icons-material/Search";
 
+import { getHotels } from "../../Axios/User/Dashboard.js";
+
 //function to return number of stars in each row, taking parameter as how many stars
 
 const Menu = () => {
+  const [allHotels, setAllHotels] = useState([]);
+  const [search, setSearch] = useState("");
+  const getDataOfHotels = () => {
+    getHotels()
+      .then((res) => setAllHotels(res.data))
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => {
+    getDataOfHotels();
+  }, []);
   return (
     <div className="container-fluid">
       <div className="row">
@@ -241,6 +253,8 @@ const Menu = () => {
                   type="text"
                   className={styles.searchField}
                   placeholder="Search by Location, or Pets"
+                  onChange={(e) => setSearch(e.target.value)}
+                  value={search}
                 />
                 <button className={styles.searchButton}>
                   <SearchIcon sx={{ color: "#fff" }} />
@@ -248,277 +262,77 @@ const Menu = () => {
               </div>
             </div>
             <div className={styles.drawerSubTitle}>Our Curated Hotels </div>
+
             <div className={styles.hotelList}>
-              <div className={styles.hotel}>
-                <div className={styles.hotelImage}>
-                  <img
-                    src="https://res.cloudinary.com/pet-life/image/upload/v1646942669/i1mvjuwjayy4yugopset.jpg"
-                    alt="hotel"
-                    className={styles.hotelImg}
-                  />
-                </div>
-                <div className={styles.hotelMeta}>
-                  <div className={styles.hotelTitleAndShare}>
-                    <div className={styles.hotelTitle}>Hotel One</div>
-                    <div className={styles.hotelShare}>
-                      <ShareIcon style={{ cursor: "pointer" }} />
-                    </div>
-                  </div>
-                  <div className={styles.hotelAddress}>
-                    874 Plainfield Avenue, Cato
-                  </div>
-                  <div className={styles.starsList}>
-                    <div>
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                    </div>
-                    <div className={styles.review}> &emsp;(233 Reviews)</div>
-                  </div>
-                  <div className={styles.categories}>
-                    <span className={styles.category}>Cats</span>
-                    <span className={styles.category}>Dogs</span>
-                  </div>
-                  <div className={styles.price}>Starts ₹ 599/- Onwards</div>
-                  <div className={styles.buttons}>
-                    <button className={styles.view}>View</button>
-                    <button className={styles.bookNow}>Book</button>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.hotel}>
-                <div className={styles.hotelImage}>
-                  <img
-                    src="https://res.cloudinary.com/pet-life/image/upload/v1646942641/zaqgzajkgucd1ufvidbp.jpg"
-                    alt="hotel"
-                    className={styles.hotelImg}
-                  />
-                </div>
-                <div className={styles.hotelMeta}>
-                  <div className={styles.hotelTitleAndShare}>
-                    <div className={styles.hotelTitle}>Hotel One</div>
-                    <div className={styles.hotelShare}>
-                      <ShareIcon style={{ cursor: "pointer" }} />
-                    </div>
-                  </div>
-                  <div className={styles.hotelAddress}>
-                    874 Plainfield Avenue, Cato
-                  </div>
-                  <div className={styles.starsList}>
-                    <div>
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                    </div>
-                    <div className={styles.review}> &emsp;(233 Reviews)</div>
-                  </div>
-                  <div className={styles.categories}>
-                    <span className={styles.category}>Cats</span>
-                    <span className={styles.category}>Dogs</span>
-                  </div>
-                  <div className={styles.price}>Starts ₹ 599/- Onwards</div>
-                  <div className={styles.buttons}>
-                    <button className={styles.view}>View</button>
-                    <button className={styles.bookNow}>Book</button>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.hotel}>
-                <div className={styles.hotelImage}>
-                  <img
-                    src="https://res.cloudinary.com/pet-life/image/upload/v1646930417/sample.jpg"
-                    alt="hotel"
-                    className={styles.hotelImg}
-                  />
-                </div>
-                <div className={styles.hotelMeta}>
-                  <div className={styles.hotelTitleAndShare}>
-                    <div className={styles.hotelTitle}>Hotel One</div>
-                    <div className={styles.hotelShare}>
-                      <ShareIcon style={{ cursor: "pointer" }} />
-                    </div>
-                  </div>
-                  <div className={styles.hotelAddress}>
-                    874 Plainfield Avenue, Cato
-                  </div>
-                  <div className={styles.starsList}>
-                    <div>
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                    </div>
-                    <div className={styles.review}> &emsp;(233 Reviews)</div>
-                  </div>
-                  <div className={styles.categories}>
-                    <span className={styles.category}>Cats</span>
-                    <span className={styles.category}>Dogs</span>
-                  </div>
-                  <div className={styles.price}>Starts ₹ 599/- Onwards</div>
-                  <div className={styles.buttons}>
-                    <button className={styles.view}>View</button>
-                    <button className={styles.bookNow}>Book</button>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.hotel}>
-                <div className={styles.hotelImage}>
-                  <img
-                    src="https://res.cloudinary.com/pet-life/image/upload/v1646942629/ojblwmrdomioedgdfzoy.jpg"
-                    alt="hotel"
-                    className={styles.hotelImg}
-                  />
-                </div>
-                <div className={styles.hotelMeta}>
-                  <div className={styles.hotelTitleAndShare}>
-                    <div className={styles.hotelTitle}>Hotel One</div>
-                    <div className={styles.hotelShare}>
-                      <ShareIcon style={{ cursor: "pointer" }} />
-                    </div>
-                  </div>
-                  <div className={styles.hotelAddress}>
-                    874 Plainfield Avenue, Cato
-                  </div>
-                  <div className={styles.starsList}>
-                    <div>
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                    </div>
-                    <div className={styles.review}> &emsp;(233 Reviews)</div>
-                  </div>
-                  <div className={styles.categories}>
-                    <span className={styles.category}>Cats</span>
-                    <span className={styles.category}>Dogs</span>
-                  </div>
-                  <div className={styles.price}>Starts ₹ 599/- Onwards</div>
-                  <div className={styles.buttons}>
-                    <button className={styles.view}>View</button>
-                    <button className={styles.bookNow}>Book</button>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.hotel}>
-                <div className={styles.hotelImage}>
-                  <img
-                    src="https://res.cloudinary.com/pet-life/image/upload/v1646942656/ea4cqtbze3hpi0ljhla1.jpg"
-                    alt="hotel"
-                    className={styles.hotelImg}
-                  />
-                </div>
-                <div className={styles.hotelMeta}>
-                  <div className={styles.hotelTitleAndShare}>
-                    <div className={styles.hotelTitle}>Hotel One</div>
-                    <div className={styles.hotelShare}>
-                      <ShareIcon style={{ cursor: "pointer" }} />
-                    </div>
-                  </div>
-                  <div className={styles.hotelAddress}>
-                    874 Plainfield Avenue, Cato
-                  </div>
-                  <div className={styles.starsList}>
-                    <div>
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                      <StarIcon
-                        sx={{ color: "#f8d312", fontSize: 28 }}
-                        style={{ cursor: "pointer" }}
-                      />
-                    </div>
-                    <div className={styles.review}> &emsp;(233 Reviews)</div>
-                  </div>
-                  <div className={styles.categories}>
-                    <span className={styles.category}>Cats</span>
-                    <span className={styles.category}>Dogs</span>
-                  </div>
-                  <div className={styles.price}>Starts ₹ 599/- Onwards</div>
-                  <div className={styles.buttons}>
-                    <button className={styles.view}>View</button>
-                    <button className={styles.bookNow}>Book</button>
-                  </div>
-                </div>
-              </div>
+              {allHotels &&
+                allHotels.length > 0 &&
+                allHotels.map((curr, index) => {
+                  return (
+                    curr?.name.includes(search) && (
+                      <div className={styles.hotel} key={index}>
+                        <div className={styles.hotelImage}>
+                          <img
+                            src="https://res.cloudinary.com/pet-life/image/upload/v1646942669/i1mvjuwjayy4yugopset.jpg"
+                            alt="hotel"
+                            className={styles.hotelImg}
+                          />
+                        </div>
+                        <div className={styles.hotelMeta}>
+                          <div className={styles.hotelTitleAndShare}>
+                            <div className={styles.hotelTitle}>
+                              {curr?.name}
+                            </div>
+                            <div className={styles.hotelShare}>
+                              <ShareIcon style={{ cursor: "pointer" }} />
+                            </div>
+                          </div>
+                          <div className={styles.hotelAddress}>
+                            874 Plainfield Avenue, Cato
+                          </div>
+                          <div className={styles.starsList}>
+                            <div>
+                              <StarIcon
+                                sx={{ color: "#f8d312", fontSize: 28 }}
+                                style={{ cursor: "pointer" }}
+                              />
+                              <StarIcon
+                                sx={{ color: "#f8d312", fontSize: 28 }}
+                                style={{ cursor: "pointer" }}
+                              />
+                              <StarIcon
+                                sx={{ color: "#f8d312", fontSize: 28 }}
+                                style={{ cursor: "pointer" }}
+                              />
+                              <StarIcon
+                                sx={{ color: "#f8d312", fontSize: 28 }}
+                                style={{ cursor: "pointer" }}
+                              />
+                              <StarIcon
+                                sx={{ color: "#f8d312", fontSize: 28 }}
+                                style={{ cursor: "pointer" }}
+                              />
+                            </div>
+                            <div className={styles.review}>
+                              {" "}
+                              &emsp;(233 Reviews)
+                            </div>
+                          </div>
+                          <div className={styles.categories}>
+                            <span className={styles.category}>Cats</span>
+                            <span className={styles.category}>Dogs</span>
+                          </div>
+                          <div className={styles.price}>
+                            Starts ₹ 599/- Onwards
+                          </div>
+                          <div className={styles.buttons}>
+                            <button className={styles.view}>View</button>
+                            <button className={styles.bookNow}>Book</button>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  );
+                })}
             </div>
             <div className={styles.pagination}>
               <Pagination defaultCurrent={1} total={50} />
