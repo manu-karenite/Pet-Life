@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
+const users = require("../../Models/Users.js");
 const userLoggedIn = async (req, res, next) => {
   try {
     if (!req.headers || !req.headers.authorization) {
@@ -25,8 +26,11 @@ const userLoggedIn = async (req, res, next) => {
       throw "JWT Expired";
     }
     req.user = decodedToken.email;
+    const userExists = await users.findOne({ email: decodedToken.email });
+    req._id = userExists._id;
     next();
   } catch (error) {
+    console.log(error);
     return res.status(401).json(error);
   }
 };

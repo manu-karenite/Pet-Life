@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { verifyUser } from "../../../Axios/User/Authentication.js";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 const ProtectRoute = ({ children }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [data, setData] = useState(null);
   const [ok, setOk] = useState(true);
@@ -25,7 +27,20 @@ const ProtectRoute = ({ children }) => {
         setOk(true);
       })
       .catch((err) => {
-        console.log(err.response.data);
+        console.log("SOME ERRO HERE");
+        toast.error(err.response.data);
+        //logout the user fromm here
+        dispatch({
+          type: "USER",
+          payload: null,
+        });
+        if (
+          window !== "undefined" &&
+          window.localStorage.getItem("UserLoggedIn")
+        ) {
+          window.localStorage.removeItem("UserLoggedIn");
+        }
+        navigate("/login");
       });
   };
 

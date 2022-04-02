@@ -2,8 +2,43 @@ import React from "react";
 import styles from "../../Styles/UserPages/Checkout.module.css";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import { getSavedItem } from "../../Axios/User/Checkout.js";
+import { useSelector } from "react-redux";
+import moment from "moment";
 // import { RadioGroup, RadioButton } from "react-radio-buttons";
 const Checkout = () => {
+  React.useEffect(() => {
+    window && window.scrollTo(0, 0);
+  }, []);
+  const { user } = useSelector((state) => ({ ...state }));
+  const [data, setData] = React.useState(null);
+  const [service, setService] = React.useState(null);
+  const [door, setDoor] = React.useState(true);
+  const [couponAmt, setCouponAmt] = React.useState(0);
+  const [timeepoch, setTimeepoch] = React.useState(
+    new Date(Date.now() + 24 * 60 * 60 * 1000)
+  ); //default time of booking be after 24 hours
+  const setServices = (data) => {
+    const serviceId = data?.serviceId;
+    for (let i = 0; i < data?.hotel?.services.length; i++) {
+      let curr = data?.hotel?.services[i];
+      if (curr?._id === serviceId) {
+        setService(curr, serviceId);
+        break;
+      }
+    }
+  };
+  const getData = () => {
+    getSavedItem(user?.jwt)
+      .then((res) => {
+        setData(res.data);
+        setServices(data);
+      })
+      .catch((err) => console.log(err));
+  };
+  React.useEffect(() => {
+    user && user.jwt && getData();
+  }, [user]);
   return (
     <>
       <div className={styles.heading}>Confirm Your Booking</div>
@@ -11,53 +46,113 @@ const Checkout = () => {
         <div className={styles.priceAndHotel}>
           <div className={styles.metaAndImage}>
             <div className={styles.address}>
-              <div className={styles.bold1}>884 Sibanda Spurs Apt. 380, </div>
-              <div className={styles.add1}>884 Sibanda Spurs Apt. 380,</div>
-              <div className={styles.add1}>West Arnoldberg, Bilzen, 1507</div>
+              <div className={styles.bold1}>{data?.hotel?.name}</div>
+              <div className={styles.add1}>
+                {data?.hotel?.address?.data1 +
+                  " " +
+                  data?.hotel?.address?.data2}
+              </div>
+              <div className={styles.add1}>
+                {data?.hotel?.address?.city +
+                  " " +
+                  data?.hotel?.address?.state +
+                  " " +
+                  data?.hotel?.address?.PIN}
+              </div>
             </div>
             <div className={styles.address}>
               <img
-                src="https://res.cloudinary.com/techbuy/image/upload/v1648820175/cat-g9ff46c1b5_1920_bdlbr0.jpg"
-                alt="Checkout Page Images Here"
+                src={data?.hotel?.images[0]?.secure_url}
                 className={styles.checkoutImage}
+                alt="Hotel Piture"
               />
             </div>
           </div>
+
           <div className={styles.detailBooking}>
-            <div className={styles.services}>
-              <div className={styles.servicesLeft}>Hello</div>
-              <div className={styles.servicesRight}>Right</div>
-            </div>
+            {data?.hotel?.services &&
+              data?.hotel?.services.map((curr, index) => {
+                return (
+                  curr?._id === data?.serviceId && (
+                    <div className={styles.services} key={index}>
+                      <div className={styles.servicesLeft}>
+                        {curr?.servicePet} : {curr?.serviceTime} Hours X 1 Round
+                      </div>
+                      <div className={styles.servicesRight}>
+                        {moment(timeepoch).format("MMMM Do YYYY, h:mm a")}
+                      </div>
+                    </div>
+                  )
+                );
+              })}
+
             <div className={styles.transitMode}>Transit Mode</div>
           </div>
-          <div className={styles.priceBreakout}>
-            <div className={styles.priceHeading}>Price Breakout</div>
-            <div className={styles.price1}>
-              <div className={styles.priceAsk}>Service Charge X 1 Slot</div>
-              <div className={styles.priceAnswer}>₹ 1000.00</div>
-            </div>
-            <div className={styles.price1}>
-              <div className={styles.priceAsk}>Taxes @18%</div>
-              <div className={styles.priceAnswer}> + ₹180.00</div>
-            </div>
-            <div className={styles.price1}>
-              <div className={styles.priceAsk}>Home Pickup Charge</div>
-              <div className={styles.priceAnswer}> + ₹50.00</div>
-            </div>
-            <div className={styles.price1}>
-              <div className={styles.priceAsk1}>Subtotal</div>
-              <div className={styles.priceAnswer1}>₹ 1230.00</div>
-            </div>
-            <div className={styles.price1}>
-              <div className={styles.priceAsk}>Coupon Discount</div>
-              <div className={styles.priceAnswer}>- ₹500.00</div>
-            </div>
-            <hr />
-            <div className={styles.price1}>
-              <div className={styles.priceAsk2}>Total</div>
-              <div className={styles.priceAnswer2}>₹ 730.00</div>
-            </div>
-          </div>
+          {data?.hotel?.services &&
+            data?.hotel?.services.map((curr, index) => {
+              return (
+                curr?._id === data?.serviceId && (
+                  <div className={styles.priceBreakout} key={index}>
+                    <div className={styles.priceHeading}>Price Breakout</div>
+                    <div className={styles.price1}>
+                      <div className={styles.priceAsk}>
+                        Service Charge X 1 Slot
+                      </div>
+                      <div className={styles.priceAnswer}>
+                        ₹ {Number(curr?.servicePrice).toFixed(2)}
+                      </div>
+                    </div>
+                    <div className={styles.price1}>
+                      <div className={styles.priceAsk}>Taxes @18%</div>
+                      <div className={styles.priceAnswer}>
+                        {" "}
+                        + ₹ {Number(0.18 * curr?.servicePrice).toFixed(2)}
+                      </div>
+                    </div>
+                    <div className={styles.price1}>
+                      <div className={styles.priceAsk}>Home Pickup Charge</div>
+                      <div className={styles.priceAnswer}>
+                        {" "}
+                        + ₹{" "}
+                        {door ? Number(50).toFixed(2) : Number(0).toFixed(2)}
+                      </div>
+                    </div>
+                    <br />
+                    <div className={styles.price1}>
+                      <div className={styles.priceAsk1}>Subtotal</div>
+                      <div className={styles.priceAnswer1}>
+                        ₹{" "}
+                        {Number(
+                          Number(curr?.servicePrice) +
+                            Number(0.18 * curr?.servicePrice) +
+                            Number(door ? 50.0 : 0.0)
+                        ).toFixed(2)}
+                      </div>
+                    </div>
+                    <div className={styles.price1}>
+                      <div className={styles.priceAsk}>Coupon Discount</div>
+                      <div className={styles.priceAnswer}>
+                        - ₹ {Number.parseInt(Number(couponAmt)).toFixed(2)}
+                      </div>
+                    </div>
+                    <hr />
+                    <div className={styles.price1}>
+                      <div className={styles.priceAsk2}>Total</div>
+                      <div className={styles.priceAnswer2}>
+                        ₹{" "}
+                        {Number(
+                          Number(curr?.servicePrice) +
+                            Number(0.18 * curr?.servicePrice) +
+                            Number(door ? 50.0 : 0.0) -
+                            Number(couponAmt)
+                        ).toFixed(2)}
+                      </div>
+                    </div>
+                  </div>
+                )
+              );
+            })}
+
           <div className={styles.priceButton}>
             <button>Pay Status &#8594;</button>
           </div>

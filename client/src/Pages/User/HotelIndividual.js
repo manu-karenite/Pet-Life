@@ -4,6 +4,7 @@ import {
   getIndividualHotel,
   getMoreHotelDetails,
 } from "../../Axios/User/Dashboard.js";
+import { createCheckout } from "../../Axios/User/Checkout.js";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "../../Styles/UserPages/HotelIndividual.module.css";
 import { getAnImage } from "../../StaticFiles/PetImages.js";
@@ -22,7 +23,7 @@ const HotelIndividual = () => {
   const navigate = useNavigate();
   const params = useParams();
   React.useEffect(() => {
-    window.scrollTo(0, 0);
+    window && window.scrollTo(0, 0);
   }, [params]);
   const [hotel, setHotel] = React.useState(null);
 
@@ -52,7 +53,15 @@ const HotelIndividual = () => {
       navigate("/login");
       return;
     }
-    navigate("/checkout");
+    //first send the data to backend..
+    const data = {
+      user: user._id,
+      hotel: params.hotelId,
+      serviceId,
+    };
+    createCheckout(data, user?.jwt)
+      .then((res) => navigate("/checkout"))
+      .catch((err) => console.log(err));
   };
   return (
     <div>
