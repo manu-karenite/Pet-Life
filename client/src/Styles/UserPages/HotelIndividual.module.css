@@ -1,0 +1,366 @@
+.bannerDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+.banner {
+  height: 65vh;
+  width: 10vw;
+  object-fit: cover;
+  flex-grow: 1;
+}
+
+/*BANNER COMPLETE*/
+/*WHEN THERE ARE MORE IMAGES, WILL REPLAVCE WITH SLICK*/
+.divider {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.left {
+  flex-basis: 60%;
+  padding: 30px 10px 0px 30px;
+}
+.right {
+  flex-basis: 40%;
+  padding: 30px 30px 0px 10px;
+}
+
+.left_title {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 48px;
+  line-height: 72px;
+  color: #000000;
+}
+.left_address {
+  font-family: "Overpass";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 36px;
+  word-wrap: break-word;
+
+  color: #9b8787 !important;
+  white-space: pre-line;
+}
+.left_address span {
+  color: #9b8787 !important;
+}
+.left_best_title {
+  margin-top: 10px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 54px;
+  /* identical to box height */
+
+  color: #000000;
+}
+.best_cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin: 20px 30px;
+}
+.best_card {
+  flex-basis: 40%;
+  background: #f8d312;
+  border-radius: 10px 0px;
+  border: solid 1px #f8d312;
+  margin: 3px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 54px;
+  text-align: center;
+  display: inline-block;
+  color: #000000;
+}
+.left_moreHotels {
+  display: flex;
+
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: stretch;
+  padding: 30px;
+  flex-wrap: wrap;
+}
+.left_moreHotel {
+  border: solid 3px black;
+  margin-bottom: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.left_more_title {
+  padding: 0px 30px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 54px;
+  color: black;
+}
+
+.left_moreMetaData {
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 15px;
+}
+.left_moreMetaData_title {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 28px;
+
+  color: #000000;
+}
+.moreImage {
+  width: 350px;
+  height: 250px;
+  object-fit: cover;
+}
+.left_moreMetaData button {
+  width: 100%;
+  background-color: #a0522d;
+  color: white;
+  font-size: 20px;
+  border: 0.1px solid #a0522d;
+  font-family: "Overpass";
+  font-weight: 600;
+  padding: 2px 0px;
+}
+.left_moreMetaData button:hover {
+  background-color: #502511;
+}
+/*FOR RIGHT SIDE -> SERVICES*/
+.service_meta {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border: 3px solid #fccc4d;
+  box-sizing: border-box;
+  border-radius: 10px 0px;
+  padding: 10px;
+  margin-bottom: 14px;
+}
+.service_meta_textContent_services {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  font-weight: 600;
+
+  color: #000000;
+  mix-blend-mode: normal;
+  margin-bottom: 20px;
+}
+.service_meta_textContent_time {
+  font-family: "Poppins";
+  color: white;
+  background-color: #0000ff;
+  border: 1px solid #0000ff;
+  font-weight: 600;
+  padding: 10px;
+  font-size: 18px;
+  border-top-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  margin-top: 20px;
+}
+.service_meta_textContent_cost {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  font-weight: 600;
+
+  color: #000000;
+  mix-blend-mode: normal;
+  margin-top: 20px;
+}
+.serviceImage {
+  width: 150px;
+  width: 150px;
+  object-fit: cover;
+}
+.service_btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.service_btn button {
+  background: #ff4242;
+  border-radius: 10px 0px;
+  font-family: "Overpass";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  border: 1px solid #ff4242;
+  padding: 2px 16px;
+  text-align: center;
+
+  color: #000000;
+}
+.service {
+  margin-bottom: 14px;
+}
+
+/*FOR REVIEWS SECTION*/
+/* @media (max-width: 400px) {
+  .manavesh_1 {
+    display: block;
+  }
+  @media (min-width: 401px) {
+    .form-group--number {
+      width: 50%;
+    }
+  }
+}
+.scroll {
+  height: 500px;
+  overflow-y: scroll;
+}
+.btnMinus {
+  background-color: blueviolet;
+  color: white;
+  border: solid blueviolet;
+  font-size: 20px;
+  padding: 0px 10px;
+  width: 20%;
+}
+.btnPlus {
+  background-color: orange;
+  color: white;
+  border: solid orange;
+  font-size: 20px;
+  padding: 0px 10px;
+  width: 20%;
+}
+input {
+  border: none;
+  padding: 0px 10px;
+  border: solid rgb(175, 175, 181);
+  text-align: center;
+  width: 80%;
+  font-size: 20px !important;
+}
+
+.outerDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+} */
+
+/*-------------------NEW-----------------------*/
+.reviews_stars {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.stars {
+  flex-basis: 50%;
+}
+.averageStars {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 65px;
+  line-height: 29px;
+  font-weight: 600;
+  /* identical to box height, or 45% */
+  margin: 40px 0px 20px 0px;
+  color: #000000;
+}
+.singleStarItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin: 15px 0px;
+  padding-left: 20px;
+}
+.singleStarItemCount {
+  width: 20%;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 23px;
+  /* or 135% */
+
+  color: #0093c1;
+  font-weight: 600;
+}
+.singleStarItemTable {
+  width: 80%;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 23px;
+  /* identical to box height, or 153% */
+
+  color: #00273e;
+
+  opacity: 0.9;
+}
+.reviewBox {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 33px;
+  /* identical to box height */
+
+  letter-spacing: -0.002em;
+  margin: 20px 0px;
+  color: #000000;
+}
+.textInput {
+  border: none;
+  border-bottom: solid 1px grey;
+  padding: 20px 0px 5px 0px;
+  width: 100%;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 23px;
+  line-height: 29px;
+  /* identical to box height, or 126% */
+
+  color: #000000;
+
+  opacity: 0.56;
+}
+.addToCart {
+  background: #a0522d;
+  border-radius: 2px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 23px;
+  /* identical to box height, or 128% */
+  border: #a0522d solid 1px;
+  color: #ffffff;
+  padding: 5px 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.starsTotal {
+  margin: 20px 0px;
+}

@@ -1,20 +1,31 @@
 import { useEffect, useState } from "react";
 import styles from "../../Styles/UserPages/Menu.module.css";
-
+import { useNavigate } from "react-router-dom";
 //MUI ICONS
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 
 import ShareIcon from "@mui/icons-material/Share";
 import StarIcon from "@mui/icons-material/Star";
 import { Switch, Pagination } from "antd";
-import { RadioGroup, RadioButton } from "react-radio-buttons";
+// import { RadioGroup, RadioButton } from "react-radio-buttons";
 import SearchIcon from "@mui/icons-material/Search";
 
 import { getHotels } from "../../Axios/User/Dashboard.js";
 
 //function to return number of stars in each row, taking parameter as how many stars
-
+const getStaringPrice = (el) => {
+  let minimumCost = Number.MAX_SAFE_INTEGER;
+  let array = el?.services;
+  if (!array || array.length === 0) {
+    return;
+  }
+  for (let i = 0; i < array.length; i++) {
+    minimumCost = Math.min(minimumCost, array[i]?.servicePrice);
+  }
+  return minimumCost;
+};
 const Menu = () => {
+  const navigate = useNavigate();
   const [allHotels, setAllHotels] = useState([]);
   const [search, setSearch] = useState("");
   const getDataOfHotels = () => {
@@ -141,7 +152,7 @@ const Menu = () => {
             <Switch defaultChecked />
             <hr />
             <div className={styles.drawerSubTitle}>Top Cities</div>
-            <RadioGroup>
+            {/* <RadioGroup>
               <RadioButton
                 value="apple"
                 iconSize={20}
@@ -244,7 +255,7 @@ const Menu = () => {
                   Mysore
                 </span>
               </RadioButton>
-            </RadioGroup>
+            </RadioGroup> */}
           </div>
           <div className={styles.hotels}>
             <div className={styles.searchBar}>
@@ -272,7 +283,7 @@ const Menu = () => {
                       <div className={styles.hotel} key={index}>
                         <div className={styles.hotelImage}>
                           <img
-                            src="https://res.cloudinary.com/pet-life/image/upload/v1646942669/i1mvjuwjayy4yugopset.jpg"
+                            src={curr?.images[0]?.secure_url}
                             alt="hotel"
                             className={styles.hotelImg}
                           />
@@ -287,7 +298,14 @@ const Menu = () => {
                             </div>
                           </div>
                           <div className={styles.hotelAddress}>
-                            874 Plainfield Avenue, Cato
+                            {curr?.address?.data1 + " " + curr?.address?.data2}
+                          </div>
+                          <div className={styles.hotelAddress}>
+                            {curr?.address?.city +
+                              " " +
+                              curr?.address?.state +
+                              " " +
+                              curr?.address.PIN}
                           </div>
                           <div className={styles.starsList}>
                             <div>
@@ -318,15 +336,33 @@ const Menu = () => {
                             </div>
                           </div>
                           <div className={styles.categories}>
-                            <span className={styles.category}>Cats</span>
-                            <span className={styles.category}>Dogs</span>
+                            {curr &&
+                              curr.petsAllowed &&
+                              curr.petsAllowed.length > 0 &&
+                              curr.petsAllowed.map((curr1, index1) => {
+                                return (
+                                  <span
+                                    className={styles.category}
+                                    key={index1}
+                                  >
+                                    {curr1}
+                                  </span>
+                                );
+                              })}
                           </div>
                           <div className={styles.price}>
-                            Starts ₹ 599/- Onwards
+                            Starts ₹ {getStaringPrice(curr)}/- Onwards
                           </div>
                           <div className={styles.buttons}>
-                            <button className={styles.view}>View</button>
-                            <button className={styles.bookNow}>Book</button>
+                            <button
+                              className={styles.view}
+                              onClick={(e) =>
+                                navigate(`/menu/hotel/${curr?._id}`)
+                              }
+                            >
+                              View
+                            </button>
+                            {/* <button className={styles.bookNow}>Book</button> */}
                           </div>
                         </div>
                       </div>

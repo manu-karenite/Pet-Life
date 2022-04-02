@@ -1,0 +1,321 @@
+@import url("https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200&family=Rubik:wght@400;500;600&display=swap");
+.heading {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 43px;
+  margin: 15px 0px;
+  /* identical to box height */
+  font-family: "Rubik", sans-serif;
+  text-align: center;
+  color: #000000;
+}
+.divider {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.priceAndHotel {
+  background: #ffffff;
+  mix-blend-mode: darken;
+  box-shadow: 4px 4px 10px 5px rgba(15, 15, 15, 0.5);
+  border-radius: 10px;
+}
+.metaAndImage {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.checkoutImage {
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+}
+.bold1 {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 43px;
+  margin: 3px 0px;
+  /* identical to box height */
+  font-family: "Rubik", sans-serif;
+  color: #000000;
+}
+.add1 {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+
+  color: #9b8787;
+}
+.services {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.servicesLeft,
+.servicesRight,
+.transitMode {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+
+  /* identical to box height */
+  text-align: center;
+  color: #000000;
+}
+.priceBreakout {
+  padding: 10px;
+}
+.priceHeading {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+
+  margin: 15px 0px;
+  /* identical to box height */
+  font-family: "Rubik", sans-serif;
+
+  color: #000000;
+}
+.price1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.priceAsk,
+.priceAnswer {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  /* identical to box height */
+  color: #000000;
+}
+.priceAsk1,
+.priceAnswer1 {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  /* identical to box height */
+  color: #000000;
+}
+.priceAsk2,
+.priceAnswer2 {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  /* identical to box height */
+  color: #000000;
+}
+.priceButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 10px;
+}
+.priceButton button {
+  background: #10c610;
+  border-radius: 5px;
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #ffffff;
+  padding: 3px 8px;
+  border: solid #10c610 0.2px;
+}
+.addressMeta {
+  margin-top: 20px;
+  padding: 10px !important;
+}
+.addressHead1 {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  margin-bottom: 8px;
+  /* identical to box height */
+  color: #000000;
+}
+.addressHead2 {
+  font-family: "Rubik";
+  font-weight: lighter;
+  font-size: 12px;
+
+  color: #000000;
+}
+form {
+  padding: 0px !important;
+}
+form input {
+  font-family: "Rubik";
+
+  font-size: 16px;
+  /* identical to box height */
+
+  color: #8c8a8a !important;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #8c8a8a;
+}
+form input::placeholder {
+  font-family: "Rubik";
+  font-weight: lighter;
+  font-size: 16px;
+  /* identical to box height */
+
+  color: #8c8a8a;
+}
+.addressDivider {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+}
+.addressDivider div:nth-child(2) {
+  margin-left: 10px;
+}
+.addressDivider div:nth-child(1) {
+  margin-right: 10px;
+}
+label {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  background: #ffffff;
+  padding-left: 20px;
+  width: 80%;
+  /* identical to box height */
+  color: black;
+}
+.radioButtonDiv {
+  margin: 10px 0px;
+  box-shadow: -1px 4px 24px rgba(0, 0, 0, 0.08);
+  border-radius: 5px;
+  padding-left: 10px;
+  padding: 8px 10px;
+  border-radius: 5px;
+}
+
+/*MEDIA QUERIES*/
+@media (min-width: 500px) {
+  .radioButtonDiv {
+    width: 70%;
+  }
+  .addressDivider div:nth-child(2) {
+    width: 100%;
+  }
+  .addressDivider div:nth-child(1) {
+    width: 100%;
+  }
+  .metaAndImage {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+  }
+  .bold1,
+  .add1,
+  .add1 {
+    text-align: left;
+  }
+}
+@media (min-width: 1024px) {
+  .divider {
+    padding: 20px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .priceAndHotel {
+    width: 40%;
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+  }
+  .addressMeta {
+    width: 60%;
+    padding-right: 30px !important;
+    padding-left: 20px !important;
+  }
+  .checkoutImage {
+    height: 125px;
+    width: 125px;
+  }
+  .metaAndImage {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+  .services {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .transitMode {
+    text-align: left;
+  }
+  .heading {
+    font-size: 30px;
+  }
+}
+@media (min-width: 1280px) {
+  .divider {
+    padding: 20px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .priceAndHotel {
+    width: 40%;
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+  }
+  .addressMeta {
+    width: 60%;
+    padding-right: 30px !important;
+    padding-left: 20px !important;
+  }
+  .checkoutImage {
+    height: 160px;
+    width: 160px;
+  }
+  .metaAndImage {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+  .services {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .transitMode {
+    text-align: left;
+  }
+  .heading {
+    font-size: 30px;
+  }
+}

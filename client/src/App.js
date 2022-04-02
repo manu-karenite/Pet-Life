@@ -17,6 +17,8 @@ import UserProtectRoute from "./Components/Utilities/User/ProtectRoute.js";
 import RegisterConfirmUser from "./Pages/User/RegisterConfirm.js";
 import UserForgotPassword from "./Pages/User/UserForgotPassword";
 import UserUpdatePassword from "./Pages/User/UserUpdatePassword.js";
+import HotelIndividual from "./Pages/User/HotelIndividual.js";
+import Checkout from "./Pages/User/Checkout.js";
 
 //importing only Hotels Routes
 import HotelAppBar from "./Components/AppBar/HotelAppBar.js";
@@ -156,7 +158,6 @@ function App() {
             </>
           }
         />
-
         <Route
           path="/profile"
           exact
@@ -169,7 +170,6 @@ function App() {
             </>
           }
         />
-
         <Route
           path="/update-password"
           exact
@@ -182,7 +182,6 @@ function App() {
             </>
           }
         />
-
         <Route
           path="/register/confirm/:jwt"
           exact
@@ -193,6 +192,31 @@ function App() {
             </>
           }
         />
+        <Route
+          path="/menu/hotel/:hotelId"
+          exact
+          element={
+            <>
+              <Navbar />
+              <HotelIndividual />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/checkout"
+          exact
+          element={
+            <>
+              <Navbar />
+              <UserProtectRoute>
+                <Checkout />
+              </UserProtectRoute>
+              <Footer />
+            </>
+          }
+        />
+        MapIcon
         {/*FOR HOTELS ROUTES*/}
         <Route
           path="/hotel/register"
