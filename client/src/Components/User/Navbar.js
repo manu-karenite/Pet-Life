@@ -3,7 +3,21 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Settings from "@mui/icons-material/Settings";
 import { useState } from "react";
-import { AppBar, Tooltip, Avatar, Divider, ListItemIcon, MenuItem, Box, Toolbar, Typography, Button, IconButton, MenuIcon, Menu,} from "@mui/material";
+import {
+  AppBar,
+  Tooltip,
+  Avatar,
+  Divider,
+  ListItemIcon,
+  MenuItem,
+  Box,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+  MenuIcon,
+  Menu,
+} from "@mui/material";
 import { Logout } from "@mui/icons-material";
 
 const Navbar = () => {
@@ -23,10 +37,7 @@ const Navbar = () => {
       type: "USER",
       payload: null,
     });
-    if (
-      window !== "undefined" &&
-      window.localStorage.getItem("UserLoggedIn")
-    ) {
+    if (window !== "undefined" && window.localStorage.getItem("UserLoggedIn")) {
       window.localStorage.removeItem("UserLoggedIn");
     }
     navigate("/login");
@@ -34,24 +45,59 @@ const Navbar = () => {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="sticky" style={{backgroundColor:"#121916"}}>
+        <AppBar position="sticky" style={{ backgroundColor: "#121916" }}>
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               logo
             </Typography>
 
-            {user && (<Button color="inherit" onClick={(e) => navigate("/")}>Home</Button>)}
-            {user && (<Button color="inherit" onClick={(e) => navigate("/menu")}>Hotels</Button>)}
-            {user && (<Button color="inherit" onClick={(e) => navigate("/about")}>About</Button>)}
-            {user && (<Button color="inherit" onClick={(e) => navigate("/contact")}>Contact</Button>)}
+            {user && (
+              <Button color="inherit" onClick={(e) => navigate("/")}>
+                Home
+              </Button>
+            )}
+            {user && (
+              <Button color="inherit" onClick={(e) => navigate("/menu")}>
+                Hotels
+              </Button>
+            )}
+            {user && (
+              <Button color="inherit" onClick={(e) => navigate("/about")}>
+                About
+              </Button>
+            )}
+            {user && (
+              <Button color="inherit" onClick={(e) => navigate("/contact")}>
+                Contact
+              </Button>
+            )}
 
-            {!user && (<Button color="inherit" onClick={(e) => navigate("/")}>Home</Button>)}
-            {!user && (<Button color="inherit" onClick={(e) => navigate("/menu")}>Hotels</Button>)}
-            {!user && (<Button color="inherit" onClick={(e) => navigate("/about")}>About</Button>)}
-            {!user && (<Button color="inherit" onClick={(e) => navigate("/contact")}>Contact</Button>)}
-            {!user && (<Button color="inherit" onClick={(e) => navigate("/login")}>Login/Register</Button>)}
-          
-            
+            {!user && (
+              <Button color="inherit" onClick={(e) => navigate("/")}>
+                Home
+              </Button>
+            )}
+            {!user && (
+              <Button color="inherit" onClick={(e) => navigate("/menu")}>
+                Hotels
+              </Button>
+            )}
+            {!user && (
+              <Button color="inherit" onClick={(e) => navigate("/about")}>
+                About
+              </Button>
+            )}
+            {!user && (
+              <Button color="inherit" onClick={(e) => navigate("/contact")}>
+                Contact
+              </Button>
+            )}
+            {!user && (
+              <Button color="inherit" onClick={(e) => navigate("/login")}>
+                Login/Register
+              </Button>
+            )}
+
             {user && (
               <Tooltip title="Account settings">
                 <IconButton
@@ -115,6 +161,9 @@ const Navbar = () => {
       >
         <MenuItem onClick={(e) => navigate("/profile")}>
           <Avatar /> Profile
+        </MenuItem>
+        <MenuItem onClick={(e) => navigate("/your-pet")}>
+          <Avatar /> Your Pet
         </MenuItem>
         <Divider />
 

@@ -322,3 +322,23 @@ label {
     font-size: 24px;
   }
 }
+.stepsButton {
+  width: 100%;
+  background-color: blue;
+  border: solid 0.5px blue;
+  border-radius: 2px;
+  color: white !important;
+  padding: 4px;
+  font-family: "Rubik";
+  font-size: 14px;
+}
+.finalButton {
+  width: 100%;
+  background-color: green;
+  border: solid 0.5px green;
+  border-radius: 2px;
+  color: white !important;
+  padding: 8px;
+  font-family: "Rubik";
+  font-size: 16px;
+}

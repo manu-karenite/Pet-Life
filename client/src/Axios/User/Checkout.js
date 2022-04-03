@@ -20,4 +20,15 @@ const getSavedItem = async (jwt) => {
   });
   return result;
 };
-export { createCheckout, getSavedItem };
+const createBooking = async (jwt, data) => {
+  const result = await axios({
+    method: "POST",
+    url: `${process.env.REACT_APP_BACKEND_URL}/create-booking`,
+    headers: {
+      authorization: `Bearer ${jwt}`,
+    },
+    data: data,
+  });
+  return result;
+};
+export { createCheckout, getSavedItem, createBooking };

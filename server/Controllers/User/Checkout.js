@@ -1,6 +1,8 @@
 const Checkout = require("../../Models/Checkout.js");
 const users = require("../../Models/Users.js");
 const hotel = require("../../Models/Hotel.js");
+const { nanoid } = require("nanoid");
+const Booking = require("../../Models/Booking.js");
 const createCheckout = async (req, res) => {
   const { user, hotel, serviceId } = req.body;
   try {
@@ -38,5 +40,59 @@ const getSavedItem = async (req, res) => {
     res.status(400).json(error);
   }
 };
-const obj = { createCheckout, getSavedItem };
+const createBooking = async (req, res) => {
+  try {
+    //what do we need? service Details
+    const hotelHere = await hotel.findOne({ _id: req.body.hotel });
+    let service = null;
+
+    for (let i = 0; i < hotelHere.services.length; i++) {
+      if (String(hotelHere.services[i]._id) == req.body.serviceId) {
+        service = hotelHere.services[i];
+        break;
+      }
+    }
+
+    const toSave = {
+      user: req.body.user,
+      hotel: req.body.hotel,
+      serviceId: req.body.serviceId,
+      time: new Date(req.body.slot),
+      coupon: req.body.coupon ? req.body.coupon : "",
+      couponDiscount: req.body.couponDiscount
+        ? Number.parseInt(req.body.couponDiscount)
+        : 0,
+      baseCharge: Number.parseInt(service.servicePrice),
+      taxes: Number.parseInt(0.18 * service.servicePrice),
+      charge: Number.parseInt(req.body.charge),
+      total: Number.parseInt(
+        Number(service.servicePrice) +
+          Number(0.18 * service.servicePrice) +
+          Number(req.body.charge) -
+          (req.body.couponDiscount ? Number(req.body.couponDiscount) : 0)
+      ),
+      pet: req.body.pet,
+      paymentMode: req.body.paymentMethod,
+      bookingId: nanoid(),
+      billingDetails: {
+        billingEmail: req.body.form.email,
+        billingName: req.body.form.name,
+        billingContact: req.body.form.contact,
+        billingAddress1: req.body.form.add1,
+        billingAddress2: req.body.form.add2,
+        billingPin: req.body.form.pin,
+        billingCity: req.body.form.city,
+        billingState: req.body.form.state,
+      },
+    };
+    let query = new Booking(toSave);
+    query = await query.save();
+    console.log(query);
+    res.status(201).json("Created");
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+};
+const obj = { createCheckout, getSavedItem, createBooking };
 module.exports = obj;

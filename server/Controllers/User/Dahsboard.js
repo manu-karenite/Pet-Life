@@ -1,7 +1,7 @@
 //importing models
 var shuffle = require("shuffle-array");
 const Hotel = require("../../Models/Hotel.js");
-
+const pets = require("../../Models/Pets.js");
 const getHotels = async (req, res) => {
   try {
     const allHotels = await Hotel.find({});
@@ -43,5 +43,61 @@ const getMoreHotelDetails = async (req, res) => {
     res.status(400).json(err);
   }
 };
-const object = { getHotels, getIndividualHotel, getMoreHotelDetails };
+const updatePetDetails = async (req, res) => {
+  console.log(req.body);
+  const { name, age, mark, all1, all2, all3, category } = req.body;
+  try {
+    const userExists = await pets.findOne({ user: req._id });
+    if (!userExists) {
+      //just create a new and update....
+      let query = new pets({
+        user: req._id,
+        nickname: name,
+        age: age,
+        identificationMark: mark,
+        allergy1: all1,
+        allergy2: all2,
+        allergy3: all3,
+        category: category,
+      });
+      query = await query.save();
+      console.log(query);
+    } else {
+      let query = await pets.findOneAndUpdate(
+        { user: req._id },
+        {
+          nickname: name,
+          age: age,
+          identificationMark: mark,
+          allergy1: all1,
+          allergy2: all2,
+          allergy3: all3,
+          category: category,
+        },
+        { new: true }
+      );
+      console.log(query);
+    }
+    return res.status(200).json("Okay");
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+};
+const getPetDetails = async (req, res) => {
+  try {
+    const pet = await pets.findOne({ user: req._id });
+    return res.status(200).json(pet);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+const object = {
+  getHotels,
+  getIndividualHotel,
+  getMoreHotelDetails,
+  updatePetDetails,
+  getPetDetails,
+};
 module.exports = object;

@@ -20,4 +20,31 @@ const getMoreHotelDetails = async (id) => {
   });
   return result;
 };
-export { getHotels, getIndividualHotel, getMoreHotelDetails };
+const updatePetDetails = async (id, data) => {
+  const result = await axios({
+    method: "POST",
+    url: `${process.env.REACT_APP_BACKEND_URL}/update-pet`,
+    headers: {
+      authorization: `Bearer ${id}`,
+    },
+    data: data,
+  });
+  return result;
+};
+const getPetDetails = async (id) => {
+  const result = await axios({
+    method: "GET",
+    url: `${process.env.REACT_APP_BACKEND_URL}/get-my-pet`,
+    headers: {
+      authorization: `Bearer ${id}`,
+    },
+  });
+  return result;
+};
+export {
+  getHotels,
+  getIndividualHotel,
+  getMoreHotelDetails,
+  updatePetDetails,
+  getPetDetails,
+};

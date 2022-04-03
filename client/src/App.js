@@ -19,6 +19,7 @@ import UserForgotPassword from "./Pages/User/UserForgotPassword";
 import UserUpdatePassword from "./Pages/User/UserUpdatePassword.js";
 import HotelIndividual from "./Pages/User/HotelIndividual.js";
 import Checkout from "./Pages/User/Checkout.js";
+import YourPet from "./Pages/User/YourPet.js";
 
 //importing only Hotels Routes
 import HotelAppBar from "./Components/AppBar/HotelAppBar.js";
@@ -216,7 +217,20 @@ function App() {
             </>
           }
         />
-        MapIcon
+        <Route
+          path="/your-pet"
+          exact
+          element={
+            <>
+              <Navbar />
+              <UserProtectRoute>
+                <YourPet />
+              </UserProtectRoute>
+              <Footer />
+            </>
+          }
+        />
+
         {/*FOR HOTELS ROUTES*/}
         <Route
           path="/hotel/register"
