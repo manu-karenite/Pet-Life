@@ -7,6 +7,7 @@ const verifyToken = async (token) => {
       token,
       process.env.JWT_SECRET
     );
+
     return decodedToken;
   } catch (error) {
     return error;

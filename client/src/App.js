@@ -37,6 +37,14 @@ import UpdatePassword from "./Pages/Hotels/UpdatePassword.js";
 import ForgotPassword from "./Pages/Hotels/ForgotPassword.js";
 import HotelProtectRoute from "./Components/Utilities/Hotel/ProtectRoute.js";
 
+//for Admin Pages
+import AdminProtectRoute from "./Components/Utilities/AdminProtectRoute.js";
+import AdminLogin from "./Pages/Admin/Login.js";
+import AdminBookings from "./Pages/Admin/Bookings.js";
+import AdminHome from "./Pages/Admin/Home.js";
+import AdminHotels from "./Pages/Admin/Hotels.js";
+import AdminPets from "./Pages/Admin/Pets.js";
+import AdminUsers from "./Pages/Admin/Users.js";
 function App() {
   //FIX THE REDUX ON EVERY STAGE
   const dispatch = useDispatch();
@@ -365,6 +373,72 @@ function App() {
             <>
               <HotelAppBar />
               <ForgotPassword />
+            </>
+          }
+        />
+        {/*FOR ADMIN ROUTES*/}
+        <Route
+          path="/admin"
+          exact
+          element={
+            <>
+              <AdminLogin />
+            </>
+          }
+        />
+        <Route
+          path="/admin/login"
+          exact
+          element={
+            <>
+              <AdminLogin />
+            </>
+          }
+        />
+        <Route
+          path="/admin/bookings"
+          exact
+          element={
+            <>
+              <AdminBookings />
+            </>
+          }
+        />
+        <Route
+          path="/admin/home"
+          exact
+          element={
+            <>
+              <AdminProtectRoute>
+                <AdminHome />
+              </AdminProtectRoute>
+            </>
+          }
+        />
+        <Route
+          path="/admin/hotels"
+          exact
+          element={
+            <>
+              <AdminHotels />
+            </>
+          }
+        />
+        <Route
+          path="/admin/pets"
+          exact
+          element={
+            <>
+              <AdminPets />
+            </>
+          }
+        />
+        <Route
+          path="/admin/users"
+          exact
+          element={
+            <>
+              <AdminUsers />
             </>
           }
         />

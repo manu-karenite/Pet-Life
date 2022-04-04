@@ -1,14 +1,9 @@
-const AdminJS = require("adminjs");
-const AdminJSExpress = require("@adminjs/express");
-
 const express = require("express");
-const app = express();
-const AdminJSMongoose = require("@adminjs/mongoose");
-AdminJS.registerAdapter(AdminJSMongoose);
-const adminJs = new AdminJS({
-  databases: [],
-  rootPath: "/admin",
-});
+const AdminRouter = express.Router();
 
-const router = AdminJSExpress.buildRouter(adminJs);
-module.exports = router;
+const { loginAdmin, verifyJWT } = require("../Controllers/Admin.js");
+
+AdminRouter.route("/admin/login").post(loginAdmin);
+AdminRouter.route("/admin/verify-jwt").post(verifyJWT);
+const object = { AdminRouter };
+module.exports = object;

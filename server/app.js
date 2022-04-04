@@ -34,6 +34,8 @@ const { AuthUserRouter } = require("./Routes/User/Userauth.js");
 const { DashboardRouter } = require("./Routes/User/Dashboard.js");
 const { CheckoutRouter } = require("./Routes/User/Checkout.js");
 
+//for admin only  routes
+const { AdminRouter } = require("./Routes/Admin.js");
 //hotel Middlewares
 app.use("/api/v1", AuthUserRouter);
 app.use("/api/v1", dashboardRouter);
@@ -41,5 +43,7 @@ app.use("/api/v1", dashboardRouter);
 app.use("/api/v1", AuthHotelRouter);
 app.use("/api/v1", DashboardRouter);
 app.use("/api/v1", CheckoutRouter);
+//admin middlewares
+app.use("/api/v1", AdminRouter);
 
 module.exports = app;
