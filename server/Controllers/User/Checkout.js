@@ -5,6 +5,7 @@ const { nanoid } = require("nanoid");
 const Booking = require("../../Models/Booking.js");
 const newBookingTemplate = require("../../Utitlities/Templates/User/newBooking.js");
 const mailer = require("../../Utitlities/Mailers/transporter.js");
+const temp = require("../../Utitlities/Templates/Hotel/newBooking.js");
 const createCheckout = async (req, res) => {
   const { user, hotel, serviceId } = req.body;
   try {
@@ -169,6 +170,91 @@ const createBooking = async (req, res) => {
       query?.billingDetails?.billingEmail,
       `Booking Confirmation at ${hotelHere?.name}`,
       shallowCopy
+    );
+
+    //FOR ADMIN SIDE......AND HOTEL SIDE
+    let adminSide = temp;
+    //replace all the details with user defined details...
+    adminSide = adminSide.replace(
+      "{BILLING_NAME}",
+      query?.billingDetails?.billingName
+    );
+    adminSide = adminSide.replace(
+      "{DATE_OF_BOOKING}",
+      new Date(query?.createdAt)
+    );
+    adminSide = adminSide.replace("{BOOKING_ID}", query?.bookingId);
+    adminSide = adminSide.replace("{PAYMENT_MODE}", query?.paymentMode);
+    adminSide = adminSide.replace("{HOTEL_NAME}", hotelHere?.name);
+    adminSide = adminSide.replace(
+      "{ADDRESS_LINE_1}",
+      hotelHere?.address?.data1 + " " + hotelHere?.address?.data2
+    );
+    adminSide = adminSide.replace(
+      "{ADDRESS_LINE_2}",
+      hotelHere?.address?.city +
+        " " +
+        hotelHere?.address?.state +
+        " " +
+        hotelHere?.address?.PIN +
+        " " +
+        "India"
+    );
+    adminSide = adminSide.replace("{SERVICE_PET}", service?.servicePet);
+    adminSide = adminSide.replace("{slot_time}", new Date(query?.time));
+    adminSide = adminSide.replace(
+      "{SUBTOTAL_AMOUNT}",
+      "₹ " + query?.baseCharge
+    );
+    adminSide = adminSide.replace(
+      "{DISCOUNT_AMOUNT}",
+      "₹ " + query?.couponDiscount
+    );
+    adminSide = adminSide.replace(
+      "{PICKUP_CHARGE_AMOUNT}",
+      "₹ " + query?.charge
+    );
+    adminSide = adminSide.replace("{TAX_AMOUNT}", "₹ " + query?.taxes);
+    adminSide = adminSide.replace("{FINAL_AMOUNT}", "₹ " + query?.total);
+
+    //Filling Billing Details...
+    adminSide = adminSide.replace(
+      "{BILLER_NAME}",
+      query?.billingDetails?.billingName
+    );
+    adminSide = adminSide.replace(
+      "{BILLING_ADDRESS1}",
+      query?.billingDetails?.billingAddress1
+    );
+    adminSide = adminSide.replace(
+      "{BILLING_CITY}",
+      query?.billingDetails?.billingCity
+    );
+    adminSide = adminSide.replace(
+      "{BILLING_STATE}",
+      query?.billingDetails?.billingState
+    );
+    adminSide = adminSide.replace(
+      "{BILLING_ADDRESS2}",
+      query?.billingDetails?.billingAddress2
+    );
+    adminSide = adminSide.replace(
+      "{BILLING_PIN}",
+      query?.billingDetails?.billingPin
+    );
+    adminSide = adminSide.replace(
+      "{IMAGE_OF_HOTEL}",
+      hotelHere?.images[0]?.secure_url
+    );
+    const sentMail1 = await mailer(
+      "business.petlife@gmail.com",
+      `New Booking for ${hotelHere?.name}`,
+      adminSide
+    );
+    const sentMail2 = await mailer(
+      hotelHere?.email,
+      `New Booking for ${hotelHere?.name}`,
+      adminSide
     );
     console.log(sentMail);
     res.status(201).json("Created");
