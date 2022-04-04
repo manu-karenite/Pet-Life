@@ -3,6 +3,8 @@ const users = require("../../Models/Users.js");
 const hotel = require("../../Models/Hotel.js");
 const { nanoid } = require("nanoid");
 const Booking = require("../../Models/Booking.js");
+const newBookingTemplate = require("../../Utitlities/Templates/User/newBooking.js");
+const mailer = require("../../Utitlities/Mailers/transporter.js");
 const createCheckout = async (req, res) => {
   const { user, hotel, serviceId } = req.body;
   try {
@@ -85,9 +87,90 @@ const createBooking = async (req, res) => {
         billingState: req.body.form.state,
       },
     };
+
     let query = new Booking(toSave);
     query = await query.save();
-    console.log(query);
+    //LETS'S SEND A MAIL HERE TO THE BILLING USER...
+    //create a shallowcopy of the mail..
+    let shallowCopy = newBookingTemplate;
+    //replace all the details with user defined details...
+    shallowCopy = shallowCopy.replace(
+      "{BILLING_NAME}",
+      query?.billingDetails?.billingName
+    );
+    shallowCopy = shallowCopy.replace(
+      "{DATE_OF_BOOKING}",
+      new Date(query?.createdAt)
+    );
+    shallowCopy = shallowCopy.replace("{BOOKING_ID}", query?.bookingId);
+    shallowCopy = shallowCopy.replace("{PAYMENT_MODE}", query?.paymentMode);
+    shallowCopy = shallowCopy.replace("{HOTEL_NAME}", hotelHere?.name);
+    shallowCopy = shallowCopy.replace(
+      "{ADDRESS_LINE_1}",
+      hotelHere?.address?.data1 + " " + hotelHere?.address?.data2
+    );
+    shallowCopy = shallowCopy.replace(
+      "{ADDRESS_LINE_2}",
+      hotelHere?.address?.city +
+        " " +
+        hotelHere?.address?.state +
+        " " +
+        hotelHere?.address?.PIN +
+        " " +
+        "India"
+    );
+    shallowCopy = shallowCopy.replace("{SERVICE_PET}", service?.servicePet);
+    shallowCopy = shallowCopy.replace("{slot_time}", new Date(query?.time));
+    shallowCopy = shallowCopy.replace(
+      "{SUBTOTAL_AMOUNT}",
+      "₹ " + query?.baseCharge
+    );
+    shallowCopy = shallowCopy.replace(
+      "{DISCOUNT_AMOUNT}",
+      "₹ " + query?.couponDiscount
+    );
+    shallowCopy = shallowCopy.replace(
+      "{PICKUP_CHARGE_AMOUNT}",
+      "₹ " + query?.charge
+    );
+    shallowCopy = shallowCopy.replace("{TAX_AMOUNT}", "₹ " + query?.taxes);
+    shallowCopy = shallowCopy.replace("{FINAL_AMOUNT}", "₹ " + query?.total);
+
+    //Filling Billing Details...
+    shallowCopy = shallowCopy.replace(
+      "{BILLER_NAME}",
+      query?.billingDetails?.billingName
+    );
+    shallowCopy = shallowCopy.replace(
+      "{BILLING_ADDRESS1}",
+      query?.billingDetails?.billingAddress1
+    );
+    shallowCopy = shallowCopy.replace(
+      "{BILLING_CITY}",
+      query?.billingDetails?.billingCity
+    );
+    shallowCopy = shallowCopy.replace(
+      "{BILLING_STATE}",
+      query?.billingDetails?.billingState
+    );
+    shallowCopy = shallowCopy.replace(
+      "{BILLING_ADDRESS2}",
+      query?.billingDetails?.billingAddress2
+    );
+    shallowCopy = shallowCopy.replace(
+      "{BILLING_PIN}",
+      query?.billingDetails?.billingPin
+    );
+    shallowCopy = shallowCopy.replace(
+      "{IMAGE_OF_HOTEL}",
+      hotelHere?.images[0]?.secure_url
+    );
+    const sentMail = await mailer(
+      query?.billingDetails?.billingEmail,
+      `Booking Confirmation at ${hotelHere?.name}`,
+      shallowCopy
+    );
+    console.log(sentMail);
     res.status(201).json("Created");
   } catch (error) {
     console.log(error);
