@@ -1,0 +1,56 @@
+.terms-container {
+  font-family: "Rubik";
+  color: #262626;
+  margin-top: "15px";
+}
+
+.terms-title h1 {
+  font-size: 24px;
+  font-family: "Rubik";
+  text-align: center;
+  font-weight: bold;
+}
+
+.terms-body h4 {
+  color: #eb573d;
+  font-size: 14px;
+  line-height: 25px;
+}
+
+.terms-body h3 {
+  font-family: "Rubik";
+  color: #262626;
+  font-weight: bold;
+  text-align: left;
+
+  font-size: 17px;
+}
+
+.terms-body p {
+  font-size: 15px;
+  line-height: 25px;
+}
+
+.terms-body a {
+  color: #eb573d;
+}
+
+.terms-body a:hover {
+  color: #eb573d;
+  text-decoration: none;
+}
+
+.terms_footer h3 {
+  margin-top: 60px;
+  margin-bottom: 125px;
+  text-align: center;
+  font-weight: bold;
+
+  line-height: 1.5;
+  color: #262626;
+}
+
+.terms_footer h3 a:link {
+  color: #eb573d;
+  text-decoration: none;
+}

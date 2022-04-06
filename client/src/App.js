@@ -4,6 +4,7 @@ import { Routes, Route, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
 //importing only Users Related Pages
+import TermsAncConditions from "./Pages/User/TermsAncConditions.js";
 import About from "./Pages/User/About.js";
 import Contact from "./Pages/User/Contact.js";
 import Home from "./Pages/User/Home.js";
@@ -89,6 +90,17 @@ function App() {
             <>
               <Navbar />
               <Home />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/terms-and-conditions"
+          exact
+          element={
+            <>
+              <Navbar />
+              <TermsAncConditions />
               <Footer />
             </>
           }
