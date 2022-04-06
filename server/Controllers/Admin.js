@@ -113,7 +113,6 @@ const changeStatus = async (req, res) => {
 };
 const getAllHotels = async (req, res) => {
   try {
-    console.log("GET ALL HOTELS FROM BACKEND");
     const allHotels = await hotel.find({}).sort({ name: 1 });
     let final = [];
     for (let i = 0; i < allHotels.length; i++) {
@@ -121,7 +120,7 @@ const getAllHotels = async (req, res) => {
       curr = { ...curr, key: `${i + 1}` };
       final.push(curr);
     }
-    console.log(final);
+
     res.status(200).json(final);
   } catch (error) {
     console.log(error);

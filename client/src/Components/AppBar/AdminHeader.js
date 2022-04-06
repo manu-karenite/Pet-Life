@@ -34,16 +34,7 @@ const AdminHeader = () => {
                 </a>
               </Link>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                About
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                Services
-              </a>
-            </li>
+
             <li class="nav-item">
               <a class="nav-link" onClick={logoutHandler}>
                 Logout

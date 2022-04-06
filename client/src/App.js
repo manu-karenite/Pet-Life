@@ -404,7 +404,10 @@ function App() {
           exact
           element={
             <>
-              <AdminBookings />
+              <AdminProtectRoute>
+                <AdminHeader />
+                <AdminBookings />
+              </AdminProtectRoute>
             </>
           }
         />
@@ -413,8 +416,10 @@ function App() {
           exact
           element={
             <>
-              <AdminHeader />
-              <AdminBookingIndividual />
+              <AdminProtectRoute>
+                <AdminHeader />
+                <AdminBookingIndividual />
+              </AdminProtectRoute>
             </>
           }
         />
@@ -435,8 +440,10 @@ function App() {
           exact
           element={
             <>
-              <AdminHeader />
-              <AdminHotels />
+              <AdminProtectRoute>
+                <AdminHeader />
+                <AdminHotels />
+              </AdminProtectRoute>
             </>
           }
         />
@@ -445,8 +452,10 @@ function App() {
           exact
           element={
             <>
-              <AdminHeader />
-              <AdminPets />
+              <AdminProtectRoute>
+                <AdminHeader />
+                <AdminPets />
+              </AdminProtectRoute>
             </>
           }
         />
@@ -455,8 +464,10 @@ function App() {
           exact
           element={
             <>
-              <AdminHeader />
-              <AdminUsers />
+              <AdminProtectRoute>
+                <AdminHeader />
+                <AdminUsers />
+              </AdminProtectRoute>
             </>
           }
         />
@@ -465,8 +476,10 @@ function App() {
           exact
           element={
             <>
-              <AdminHeader />
-              <AdminHotelIndividual />
+              <AdminProtectRoute>
+                <AdminHeader />
+                <AdminHotelIndividual />
+              </AdminProtectRoute>
             </>
           }
         />
@@ -475,8 +488,10 @@ function App() {
           exact
           element={
             <>
-              <AdminHeader />
-              <AdminPetIndividual />
+              <AdminProtectRoute>
+                <AdminHeader />
+                <AdminPetIndividual />
+              </AdminProtectRoute>
             </>
           }
         />
