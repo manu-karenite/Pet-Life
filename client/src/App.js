@@ -38,6 +38,7 @@ import ForgotPassword from "./Pages/Hotels/ForgotPassword.js";
 import HotelProtectRoute from "./Components/Utilities/Hotel/ProtectRoute.js";
 
 //for Admin Pages
+import AdminHeader from "./Components/AppBar/AdminHeader.js";
 import AdminProtectRoute from "./Components/Utilities/AdminProtectRoute.js";
 import AdminLogin from "./Pages/Admin/Login.js";
 import AdminBookings from "./Pages/Admin/Bookings.js";
@@ -45,6 +46,9 @@ import AdminHome from "./Pages/Admin/Home.js";
 import AdminHotels from "./Pages/Admin/Hotels.js";
 import AdminPets from "./Pages/Admin/Pets.js";
 import AdminUsers from "./Pages/Admin/Users.js";
+import AdminHotelIndividual from "./Pages/Admin/HotelIndividual.js";
+import AdminPetIndividual from "./Pages/Admin/PetIndividual.js";
+import AdminBookingIndividual from "./Pages/Admin/BookingIndividual.js";
 function App() {
   //FIX THE REDUX ON EVERY STAGE
   const dispatch = useDispatch();
@@ -405,11 +409,22 @@ function App() {
           }
         />
         <Route
+          path="/admin/booking/:bookingId"
+          exact
+          element={
+            <>
+              <AdminHeader />
+              <AdminBookingIndividual />
+            </>
+          }
+        />
+        <Route
           path="/admin/home"
           exact
           element={
             <>
               <AdminProtectRoute>
+                <AdminHeader />
                 <AdminHome />
               </AdminProtectRoute>
             </>
@@ -420,6 +435,7 @@ function App() {
           exact
           element={
             <>
+              <AdminHeader />
               <AdminHotels />
             </>
           }
@@ -429,6 +445,7 @@ function App() {
           exact
           element={
             <>
+              <AdminHeader />
               <AdminPets />
             </>
           }
@@ -438,7 +455,28 @@ function App() {
           exact
           element={
             <>
+              <AdminHeader />
               <AdminUsers />
+            </>
+          }
+        />
+        <Route
+          path="/admin/hotel/:hotelId"
+          exact
+          element={
+            <>
+              <AdminHeader />
+              <AdminHotelIndividual />
+            </>
+          }
+        />
+        <Route
+          path="/admin/pet/:petId"
+          exact
+          element={
+            <>
+              <AdminHeader />
+              <AdminPetIndividual />
             </>
           }
         />

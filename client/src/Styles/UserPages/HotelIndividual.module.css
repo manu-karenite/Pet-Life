@@ -34,7 +34,7 @@
   font-family: "Poppins";
   font-style: normal;
   font-weight: 800;
-  font-size: 48px;
+  font-size: 36px;
   line-height: 72px;
   color: #000000;
 }
@@ -42,7 +42,7 @@
   font-family: "Overpass";
   font-style: normal;
   font-weight: 600;
-  font-size: 24px;
+  font-size: 18px;
   line-height: 36px;
   word-wrap: break-word;
 
@@ -57,8 +57,8 @@
   font-family: "Poppins";
   font-style: normal;
   font-weight: 600;
-  font-size: 36px;
-  line-height: 54px;
+  font-size: 27px;
+  line-height: 40.5px;
   /* identical to box height */
 
   color: #000000;
@@ -68,7 +68,7 @@
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
-  margin: 20px 30px;
+  margin: 15px 22.5px;
 }
 .best_card {
   flex-basis: 40%;
@@ -79,8 +79,8 @@
   font-family: "Poppins";
   font-style: normal;
   font-weight: 700;
-  font-size: 30px;
-  line-height: 54px;
+  font-size: 22.5px;
+
   text-align: center;
   display: inline-block;
   color: #000000;

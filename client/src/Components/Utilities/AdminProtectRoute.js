@@ -18,6 +18,7 @@ const AdminProtectRoute = ({ children }) => {
       .catch((err) => {
         setProceed(false);
         toast.error(err.response.data);
+        navigate("/admin/login");
       });
   };
   React.useEffect(() => {
