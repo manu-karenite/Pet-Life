@@ -364,3 +364,57 @@ input {
 .starsTotal {
   margin: 20px 0px;
 }
+.reviewPerson {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 23px;
+  /* identical to box height, or 135% */
+
+  color: #000000;
+  margin-right: 10px;
+}
+.reviewText {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 23px;
+  /* or 153% */
+
+  color: #000000;
+
+  opacity: 0.9;
+  margin-top: 10px;
+}
+.reviewsSection {
+  padding-left: 20px;
+
+  padding-right: 20px;
+}
+.date {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 23px;
+  /* identical to box height, or 128% */
+
+  color: #4d4d4d;
+
+  opacity: 0.7;
+}
+.textInput {
+  font-size: 23px;
+  line-height: 29px;
+  /* identical to box height, or 126% */
+  font-weight: 600;
+  color: #000000;
+  padding: 10px;
+  opacity: 0.56;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  border-bottom: 1px solid black;
+}
