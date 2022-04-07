@@ -32,7 +32,7 @@ const hotelSchema = new mongoose.Schema({
     type: String,
   },
   starRating: {
-    type: "Number",
+    type: Number,
   },
   numberOfRatings: Number,
   description: String,

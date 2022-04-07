@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "../../Styles/UserPages/Menu.module.css";
 import { useNavigate } from "react-router-dom";
 //MUI ICONS
+import StarRatings from "react-star-ratings";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 
 import ShareIcon from "@mui/icons-material/Share";
@@ -305,34 +306,27 @@ const Menu = () => {
                               " " +
                               curr?.address?.state +
                               " " +
-                              curr?.address.PIN}
+                              curr?.address?.PIN}
                           </div>
                           <div className={styles.starsList}>
                             <div>
-                              <StarIcon
-                                sx={{ color: "#f8d312", fontSize: 28 }}
-                                style={{ cursor: "pointer" }}
-                              />
-                              <StarIcon
-                                sx={{ color: "#f8d312", fontSize: 28 }}
-                                style={{ cursor: "pointer" }}
-                              />
-                              <StarIcon
-                                sx={{ color: "#f8d312", fontSize: 28 }}
-                                style={{ cursor: "pointer" }}
-                              />
-                              <StarIcon
-                                sx={{ color: "#f8d312", fontSize: 28 }}
-                                style={{ cursor: "pointer" }}
-                              />
-                              <StarIcon
-                                sx={{ color: "#f8d312", fontSize: 28 }}
-                                style={{ cursor: "pointer" }}
+                              <StarRatings
+                                rating={Number(
+                                  curr?.starRating ? curr?.starRating : 0
+                                )}
+                                starRatedColor="#fccc4d"
+                                numberOfStars={5}
+                                svgIconPath="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
+                                starDimension="20px"
+                                starSpacing="5px"
                               />
                             </div>
                             <div className={styles.review}>
-                              {" "}
-                              &emsp;(233 Reviews)
+                              &emsp; ({" "}
+                              {curr?.numberOfRatings
+                                ? curr?.numberOfRatings
+                                : 0}{" "}
+                              Reviews)
                             </div>
                           </div>
                           <div className={styles.categories}>

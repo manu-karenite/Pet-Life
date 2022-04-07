@@ -478,6 +478,7 @@ const Checkout = () => {
                   </div>
                   <button
                     className={styles.stepsButton}
+                    disabled={petData === null}
                     onClick={(e) => completeStep3(e)}
                   >
                     Proceed to Next Step

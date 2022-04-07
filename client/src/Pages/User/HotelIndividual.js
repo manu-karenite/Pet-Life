@@ -3,7 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import {
   getIndividualHotel,
   getMoreHotelDetails,
+  getReviewsHotelWise,
 } from "../../Axios/User/Dashboard.js";
+import { addReview } from "../../Axios/User/Dashboard.js";
 import { createCheckout } from "../../Axios/User/Checkout.js";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "../../Styles/UserPages/HotelIndividual.module.css";
@@ -15,6 +17,7 @@ import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MapIcon from "@mui/icons-material/Map";
 import { toast } from "react-toastify";
+import moment from "moment";
 function createMarkup(text) {
   return { __html: text };
 }
@@ -26,7 +29,12 @@ const HotelIndividual = () => {
     window && window.scrollTo(0, 0);
   }, [params]);
   const [hotel, setHotel] = React.useState(null);
-
+  const [rev, setRev] = React.useState([]);
+  const getReviews = () => {
+    getReviewsHotelWise(params?.hotelId)
+      .then((res) => setRev(res.data))
+      .catch((err) => toast("Reviews Could not be fetched!"));
+  };
   const getData = () => {
     getIndividualHotel(params?.hotelId)
       .then((res) => setHotel(res.data))
@@ -34,6 +42,7 @@ const HotelIndividual = () => {
   };
   React.useEffect(() => {
     getData();
+    getReviews();
   }, [params]);
   const [otherHotels, setOtherHotels] = React.useState([]);
   const getOther = () => {
@@ -63,6 +72,62 @@ const HotelIndividual = () => {
       .then((res) => navigate("/checkout"))
       .catch((err) => console.log(err));
   };
+
+  //for reviews..........
+  const [reviewText, setReviewText] = React.useState("");
+  const [star, setStar] = React.useState(0);
+  const changeRating = (value) => {
+    console.log(value);
+  };
+  const reviewHandler = (e) => {
+    if (!user) {
+      toast.warning("Please Login to Review Hotels and Book");
+      return;
+    }
+    if (star === 0) {
+      toast.warning("Please Choose a Minimum Rating 1 to Rate the Pet Hotel");
+      return;
+    }
+    if (reviewText === "") {
+      toast.warning("Please Review a Few Words Before Saving");
+      return;
+    }
+    //Now, we have the user................................................................
+    addReview(user?.jwt, {
+      hotelId: params?.hotelId,
+      user: user?._id,
+      review: reviewText,
+      star: star,
+    })
+      .then((res) => {
+        toast.success("Review has been added successfully");
+        getData();
+        getReviews();
+      })
+      .catch((err) => toast.error(err.response.data));
+  };
+  //now get the reviewMarks
+  let one = 0;
+  let two = 0;
+  let three = 0;
+  let four = 0;
+  let five = 0;
+
+  for (let i = 0; i < rev?.length; i++) {
+    const rate = rev[i].star;
+    if (rate === 1) one++;
+    if (rate === 2) two++;
+    if (rate === 3) three++;
+    if (rate === 4) four++;
+    if (rate === 5) five++;
+  }
+  let avg = 0;
+  if (rev.length === 0) {
+    avg = 0;
+  } else {
+    avg = one * 1 + two * 2 + three * 3 + five * 5 + four * 4;
+    avg = (avg / rev.length).toFixed(1);
+  }
   return (
     <div>
       <div className={styles.bannerDiv}>
@@ -133,12 +198,13 @@ const HotelIndividual = () => {
           <hr />
           <div className={styles.reviews_stars}>
             <div className={styles.stars}>
-              <div className={styles.averageStars}>{2.3}</div>
+              <div className={styles.averageStars}>{avg}</div>
               <div className={styles.starsTotal}>
                 <StarRatings
-                  rating={Number(4.2)}
+                  rating={Number(
+                    hotel?.starRating ? hotel.starRating.toFixed(1) : 0
+                  )}
                   starRatedColor="#fccc4d"
-                  // changeRating={this.changeRating}
                   numberOfStars={5}
                   svgIconPath="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
                 />
@@ -147,31 +213,61 @@ const HotelIndividual = () => {
                 <div className={styles.singleStarItem}>
                   <div className={styles.singleStarItemCount}>1 Star</div>
                   <div className={styles.singleStarItemTable}>
-                    <Progress percent={50} strokeColor="#fccc4d" />
+                    <Progress
+                      percent={(
+                        (one / (rev.length ? rev.length : 1)) *
+                        100
+                      ).toFixed(1)}
+                      strokeColor="#fccc4d"
+                    />
                   </div>
                 </div>
                 <div className={styles.singleStarItem}>
                   <div className={styles.singleStarItemCount}>2 Stars</div>
                   <div className={styles.singleStarItemTable}>
-                    <Progress percent={30} strokeColor="#fccc4d" />
+                    <Progress
+                      percent={(
+                        (two / (rev.length ? rev.length : 1)) *
+                        100
+                      ).toFixed(1)}
+                      strokeColor="#fccc4d"
+                    />
                   </div>
                 </div>
                 <div className={styles.singleStarItem}>
                   <div className={styles.singleStarItemCount}>3 Stars</div>
                   <div className={styles.singleStarItemTable}>
-                    <Progress percent={20} strokeColor="#fccc4d" />
+                    <Progress
+                      percent={(
+                        (three / (rev.length ? rev.length : 1)) *
+                        100
+                      ).toFixed(1)}
+                      strokeColor="#fccc4d"
+                    />
                   </div>
                 </div>
                 <div className={styles.singleStarItem}>
                   <div className={styles.singleStarItemCount}>4 Stars</div>
                   <div className={styles.singleStarItemTable}>
-                    <Progress percent={40} strokeColor="#fccc4d" />
+                    <Progress
+                      percent={(
+                        (four / (rev.length ? rev.length : 1)) *
+                        100
+                      ).toFixed(1)}
+                      strokeColor="#fccc4d"
+                    />
                   </div>
                 </div>
                 <div className={styles.singleStarItem}>
                   <div className={styles.singleStarItemCount}>5 Stars</div>
                   <div className={styles.singleStarItemTable}>
-                    <Progress percent={60} strokeColor="#fccc4d" />
+                    <Progress
+                      percent={(
+                        (five / (rev.length ? rev.length : 1)) *
+                        100
+                      ).toFixed(1)}
+                      strokeColor="#fccc4d"
+                    />
                   </div>
                 </div>
               </div>
@@ -179,42 +275,44 @@ const HotelIndividual = () => {
               <div className={styles.rateUs}>
                 <div className={styles.starRate}>
                   <StarRatings
-                    rating={2.3}
+                    rating={star}
                     starRatedColor="#fccc4d"
-                    // changeRating={this.changeRating}
                     numberOfStars={5}
                     name="rating"
                     svgIconPath="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"
                     starDimension="40px"
                     starHoverColor="#0000ff"
                     isSelectable={true}
-                    // changeRating={(value) => setStar(value)}
+                    changeRating={(value) => setStar(value)}
                   />
                 </div>
                 <div className={styles.text}>
                   <input
                     type="text"
                     className={styles.textInput}
-                    // onChange={(e) => setText(e.target.value)}
+                    onChange={(e) => setReviewText(e.target.value)}
                     placeholder="Add a Review"
+                    value={reviewText}
                   />
                 </div>
                 <div className={styles.btnReview}>
-                  <button className={styles.addToCart}>POST</button>
+                  <button className={styles.addToCart} onClick={reviewHandler}>
+                    POST
+                  </button>
                 </div>
               </div>
             </div>
 
             <div className={styles.reviews}>
               <div className={styles.reviewBox}>Reviews</div>
-              {/* {rev &&
+              {rev &&
                 rev.length > 0 &&
                 rev.map((curr, index) => {
                   return (
                     <div className={styles.reviewsSection}>
                       <div className={styles.review}>
                         <span className={styles.reviewPerson}>
-                          {curr?.name}
+                          {curr?.user?.name}
                         </span>
                         <span className={styles.date}>
                           {moment(curr?.createdAt).format(
@@ -224,7 +322,7 @@ const HotelIndividual = () => {
                       </div>
                       <div className={styles.reviewStars}>
                         <StarRatings
-                          rating={curr?.rating}
+                          rating={curr?.star}
                           starRatedColor="#fccc4d"
                           // changeRating={this.changeRating}
                           numberOfStars={5}
@@ -237,10 +335,10 @@ const HotelIndividual = () => {
                       <div className={styles.reviewText}>{curr?.comment}</div>
                     </div>
                   );
-                })} */}
-              {/* {rev && rev.length === 0 && (
+                })}
+              {rev && rev.length === 0 && (
                 <p>No Review Yet! Be The First One to Review</p>
-              )} */}
+              )}
             </div>
           </div>
         </div>

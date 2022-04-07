@@ -181,3 +181,6 @@
 
   color: #ffffff;
 }
+.availableServices__Item label {
+  background-color: #093545;
+}

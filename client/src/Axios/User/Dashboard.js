@@ -41,10 +41,31 @@ const getPetDetails = async (id) => {
   });
   return result;
 };
+const addReview = async (JWT, data) => {
+  const result = await axios({
+    method: "POST",
+    url: `${process.env.REACT_APP_BACKEND_URL}/add-review`,
+    headers: {
+      authorization: `Bearer ${JWT}`,
+    },
+    data: data,
+  });
+  return result;
+};
+const getReviewsHotelWise = async (hotelId) => {
+  const result = await axios({
+    method: "GET",
+    url: `${process.env.REACT_APP_BACKEND_URL}/get-all-reviews/${hotelId}`,
+  });
+  return result;
+};
+
 export {
   getHotels,
   getIndividualHotel,
   getMoreHotelDetails,
   updatePetDetails,
   getPetDetails,
+  addReview,
+  getReviewsHotelWise,
 };
