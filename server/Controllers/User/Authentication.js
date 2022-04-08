@@ -8,6 +8,11 @@ const { promisify } = require("util");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const ContactUS = require("../../Utitlities/Templates/User/ContactUs.js");
+
+const Booking = require("../../Models/Booking.js");
+const Checkout = require("../../Models/Checkout.js");
+const pets = require("../../Models/Pets.js");
+const reviews = require("../../Models/Review.js");
 const registerUser = async (req, res) => {
   let { name, email, password } = req.body;
   try {
@@ -118,11 +123,16 @@ const loginUser = async (req, res) => {
         expiresIn: 2 * 60 * 60,
       }
     );
+    //get the booking made, and then the pets having.
+    const one = await Booking.find({ user: result?._id });
+    const two = await pets.find({ user: result?._id });
     const toReturn = {
       _id: result._id,
       name: result.name,
       email: result.email,
       jwt: jwtCreated,
+      bookingsMade: one.length,
+      petsAdded: two.length,
     };
     console.log(toReturn);
     res.status(200).json(toReturn);
@@ -346,7 +356,21 @@ const changePasswordSetPassword = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
+const deleteProfile = async (req, res) => {
+  //what to delete ?
+  //1)reviews,booking,user,checkout,pets
+  try {
+    let deletePets = await pets.deleteMany({ user: req._id });
+    deletePets = await Checkout.deleteMany({ user: req._id });
+    deletePets = await reviews.deleteMany({ user: req._id });
+    deletePets = await Booking.deleteMany({ user: req._id });
+    deletePets = await User.deleteMany({ _id: req._id });
+    res.status(200).json("Deleted All");
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+};
 const object = {
   registerUser,
   registerUserConfirm,
@@ -359,5 +383,6 @@ const object = {
   changePasswordCreateOTP,
   changePasswordVerifyOTP,
   changePasswordSetPassword,
+  deleteProfile,
 };
 module.exports = object;

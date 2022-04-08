@@ -263,5 +263,29 @@ const createBooking = async (req, res) => {
     res.status(400).json(error);
   }
 };
-const obj = { createCheckout, getSavedItem, createBooking };
+const checkCoupon = async (req, res) => {
+  console.log(req.body);
+  try {
+    const getHotel = await hotel
+      .findOne({ _id: req.body.hotelId })
+      .sort({ discount: 1 });
+    let curr = null;
+    for (let i = 0; i < getHotel?.coupons?.length; i++) {
+      console.log(String(getHotel?.coupons[i]?.name), req.body.name);
+      if (String(getHotel?.coupons[i]?.name) == req.body.name) {
+        curr = getHotel?.coupons[i];
+        break;
+      }
+    }
+    if (curr === null) {
+      throw "No Coupon Found";
+    }
+    console.log(curr);
+    res.status(200).json(curr);
+  } catch (err) {
+    console.log(err);
+    res.status(400).json(err);
+  }
+};
+const obj = { createCheckout, getSavedItem, createBooking, checkCoupon };
 module.exports = obj;

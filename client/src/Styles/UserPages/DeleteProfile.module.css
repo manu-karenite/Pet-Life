@@ -1,0 +1,36 @@
+.bg {
+  background-color: black;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.formBoundary {
+  background-color: #15172b;
+  color: white !important;
+  font-family: "Rubik";
+  padding: 20px;
+  border-radius: 10px;
+}
+h3,
+h5 {
+  color: white !important;
+}
+.inputfield {
+  width: 100%;
+  background-color: #303245;
+  border: solid 1px #303245;
+  margin: 10px 0px;
+  padding: 5px;
+  border-radius: 8px;
+  text-align: center;
+}
+.formBoundary button {
+  width: 100%;
+  background-color: #08d;
+  color: white;
+  border: none;
+  font-size: 20px;
+  margin: 10px 0px;
+}

@@ -118,7 +118,16 @@ const changePasswordSetPassword = async (JWT, p, cp) => {
   });
   return result;
 };
-
+const deleteProfile = async (JWT, id) => {
+  const result = await axios({
+    method: "DELETE",
+    url: `${process.env.REACT_APP_BACKEND_URL}/delete-profile/${id}`,
+    headers: {
+      authorization: `Bearer ${JWT}`,
+    },
+  });
+  return result;
+};
 export {
   registerUser,
   registerUserConfirm,
@@ -131,4 +140,5 @@ export {
   changePasswordCreateOTP,
   changePasswordVerifyOTP,
   changePasswordSetPassword,
+  deleteProfile,
 };

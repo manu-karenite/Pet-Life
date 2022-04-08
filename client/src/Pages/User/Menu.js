@@ -37,6 +37,15 @@ const Menu = () => {
   useEffect(() => {
     getDataOfHotels();
   }, []);
+  const getPetsAvailableForServices = (data) => {
+    const mySet1 = new Set();
+    for (let i = 0; i < data?.services.length; i++) {
+      mySet1.add(data?.services[i]?.servicePet);
+    }
+    return Array.from(mySet1);
+  };
+  //for checkbox related filtering.......
+  let petsFull = ["Rabbits", "Dogs", "Cats", "Birds", "Fishes"];
   return (
     <div className="container-fluid">
       <div className="row">
@@ -123,28 +132,33 @@ const Menu = () => {
             <div className={styles.drawerSubTitle}>Find your Pet</div>
             <div>
               <div className={styles.checkboxes}>
-                <input type="checkbox" id="cats" name="cats" />
+                <input
+                  type="checkbox"
+                  id="cats"
+                  name="Cats"
+                  onClick={(e) => console.table(e.target.checked, e)}
+                />
                 <label htmlFor="cats">Cats</label>
               </div>
               <div className={styles.checkboxes}>
-                <input type="checkbox" id="dogs" name="dogs" />
+                <input type="checkbox" id="dogs" name="Dogs" />
                 <label htmlFor="dogs">Dogs</label>
               </div>
               <div className={styles.checkboxes}>
-                <input type="checkbox" id="fished" name="fished" />
+                <input type="checkbox" id="fished" name="Fishes" />
                 <label htmlFor="fished">Fishes</label>
               </div>
               <div className={styles.checkboxes}>
                 <input
                   type="checkbox"
                   id="birds"
-                  name="birds"
+                  name="Birds"
                   className={styles.cb}
                 />
                 <label htmlFor="birds">Birds</label>
               </div>
               <div className={styles.checkboxes}>
-                <input type="checkbox" id="rabbits" name="rabbits" />
+                <input type="checkbox" id="rabbits" name="Rabbits" />
                 <label htmlFor="rabbits">Rabbits</label>
               </div>
             </div>
@@ -322,7 +336,7 @@ const Menu = () => {
                               />
                             </div>
                             <div className={styles.review}>
-                              &emsp; ({" "}
+                              &emsp; (
                               {curr?.numberOfRatings
                                 ? curr?.numberOfRatings
                                 : 0}{" "}
@@ -330,7 +344,7 @@ const Menu = () => {
                             </div>
                           </div>
                           <div className={styles.categories}>
-                            {curr &&
+                            {/* {curr &&
                               curr.petsAllowed &&
                               curr.petsAllowed.length > 0 &&
                               curr.petsAllowed.map((curr1, index1) => {
@@ -342,7 +356,19 @@ const Menu = () => {
                                     {curr1}
                                   </span>
                                 );
-                              })}
+                              })} */}
+                            {getPetsAvailableForServices(curr).map(
+                              (curr1, index1) => {
+                                return (
+                                  <span
+                                    className={styles.category}
+                                    key={index1}
+                                  >
+                                    {curr1}
+                                  </span>
+                                );
+                              }
+                            )}
                           </div>
                           <div className={styles.price}>
                             Starts ₹ {getStaringPrice(curr)}/- Onwards

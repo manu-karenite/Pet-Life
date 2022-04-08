@@ -13,6 +13,7 @@ const {
   changePasswordCreateOTP,
   changePasswordVerifyOTP,
   changePasswordSetPassword,
+  deleteProfile,
 } = require("../../Controllers/User/Authentication.js");
 
 const userLoggedIn = require("../../Middlewares/User/userLoggedIn.js");
@@ -39,5 +40,7 @@ AuthUserRouter.route("/change-password/set-password").patch(
 );
 //to Contact the Admin
 AuthUserRouter.route("/contact-us").post(contactUs);
+
+AuthUserRouter.route("/delete-profile/:id").delete(userLoggedIn, deleteProfile);
 const object = { AuthUserRouter };
 module.exports = object;

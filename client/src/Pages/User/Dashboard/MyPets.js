@@ -53,6 +53,12 @@ const MyPets = () => {
                   className={styles.text1}
                   style={{ fontSize: "18px", textAlign: "center" }}
                 >
+                  Category : {CURR?.category}
+                </div>
+                <div
+                  className={styles.text1}
+                  style={{ fontSize: "18px", textAlign: "center" }}
+                >
                   Mark : {CURR?.identificationMark}
                 </div>
                 <div

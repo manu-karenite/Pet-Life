@@ -23,7 +23,8 @@ import Checkout from "./Pages/User/Checkout.js";
 import YourPet from "./Pages/User/YourPet.js";
 import MyBookings from "./Pages/User/Dashboard/MyBookings.js";
 import MyPets from "./Pages/User/Dashboard/MyPets.js";
-
+import MyDeleteProfile from "./Pages/User/Dashboard/MyDeleteProfile.js";
+import MyProfile from "./Pages/User/Dashboard/MyProfile.js";
 //importing only Hotels Routes
 import HotelAppBar from "./Components/AppBar/HotelAppBar.js";
 import RegisterHotel from "./Pages/Hotels/Register.js";
@@ -207,6 +208,32 @@ function App() {
               <Navbar />
               <UserProtectRoute>
                 <MyPets />
+                <Footer />
+              </UserProtectRoute>
+            </>
+          }
+        />
+        <Route
+          path="/dashboard/my-profile"
+          exact
+          element={
+            <>
+              <Navbar />
+              <UserProtectRoute>
+                <MyProfile />
+                <Footer />
+              </UserProtectRoute>
+            </>
+          }
+        />
+        <Route
+          path="/dashboard/delete-profile"
+          exact
+          element={
+            <>
+              <Navbar />
+              <UserProtectRoute>
+                <MyDeleteProfile />
                 <Footer />
               </UserProtectRoute>
             </>

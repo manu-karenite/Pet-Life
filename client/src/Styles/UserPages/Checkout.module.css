@@ -342,3 +342,31 @@ label {
   font-family: "Rubik";
   font-size: 16px;
 }
+.coupon {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10px 0px;
+}
+.couponInput {
+  width: 100%;
+  flex-basis: 80%;
+  border: none;
+  border-bottom: 1px solid grey;
+  /* border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px; */
+  font-family: "Rubik";
+  padding: 5px 10px;
+  text-align: center;
+}
+.couponInput::placeholder {
+  text-align: center;
+  color: grey;
+}
+.coupon button {
+  width: 20%;
+  background-color: green;
+  color: white;
+  font-family: "Rubik";
+  border: none;
+}

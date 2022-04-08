@@ -119,6 +119,7 @@ const deleteMyPet = async (req, res) => {
 const getPetDetails = async (req, res) => {
   try {
     const pet = await pets.find({ user: req._id });
+    console.log(pet);
     return res.status(200).json(pet);
   } catch (error) {
     res.status(400).json(error);
