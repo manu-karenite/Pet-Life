@@ -21,6 +21,8 @@ import UserUpdatePassword from "./Pages/User/UserUpdatePassword.js";
 import HotelIndividual from "./Pages/User/HotelIndividual.js";
 import Checkout from "./Pages/User/Checkout.js";
 import YourPet from "./Pages/User/YourPet.js";
+import MyBookings from "./Pages/User/Dashboard/MyBookings.js";
+import MyPets from "./Pages/User/Dashboard/MyPets.js";
 
 //importing only Hotels Routes
 import HotelAppBar from "./Components/AppBar/HotelAppBar.js";
@@ -179,6 +181,33 @@ function App() {
               <Navbar />
               <UserProtectRoute>
                 <UserDashboard />
+                <Footer />
+              </UserProtectRoute>
+            </>
+          }
+        />
+        <Route
+          path="/dashboard/my-bookings"
+          exact
+          element={
+            <>
+              <Navbar />
+              <UserProtectRoute>
+                <MyBookings />
+                <Footer />
+              </UserProtectRoute>
+            </>
+          }
+        />
+        <Route
+          path="/dashboard/my-pets"
+          exact
+          element={
+            <>
+              <Navbar />
+              <UserProtectRoute>
+                <MyPets />
+                <Footer />
               </UserProtectRoute>
             </>
           }
@@ -203,6 +232,7 @@ function App() {
               <Navbar />
               <UserProtectRoute>
                 <UserUpdatePassword />
+                <Footer />
               </UserProtectRoute>
             </>
           }

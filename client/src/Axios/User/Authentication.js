@@ -76,7 +76,49 @@ const contactUs = async (body) => {
     url: `${process.env.REACT_APP_BACKEND_URL}/contact-us`,
     data: body,
   });
+  return result;
 };
+
+const changePasswordCreateOTP = async (JWT) => {
+  console.log("ahahah");
+  const result = await axios({
+    method: "POST",
+    url: `${process.env.REACT_APP_BACKEND_URL}/change-password/create-otp`,
+    headers: {
+      authorization: `Bearer ${JWT}`,
+    },
+  });
+  return result;
+};
+
+const changePasswordVerifyOTP = async (JWT, otp) => {
+  const result = await axios({
+    method: "POST",
+    url: `${process.env.REACT_APP_BACKEND_URL}/change-password/verify-otp`,
+    headers: {
+      authorization: `Bearer ${JWT}`,
+    },
+    data: {
+      otp: otp,
+    },
+  });
+  return result;
+};
+const changePasswordSetPassword = async (JWT, p, cp) => {
+  const result = await axios({
+    method: "PATCH",
+    url: `${process.env.REACT_APP_BACKEND_URL}/change-password/set-password`,
+    headers: {
+      authorization: `Bearer ${JWT}`,
+    },
+    data: {
+      pass: p,
+      confirmpass: cp,
+    },
+  });
+  return result;
+};
+
 export {
   registerUser,
   registerUserConfirm,
@@ -86,4 +128,7 @@ export {
   verifyOTP,
   updatePassword,
   contactUs,
+  changePasswordCreateOTP,
+  changePasswordVerifyOTP,
+  changePasswordSetPassword,
 };

@@ -271,6 +271,81 @@ const contactUs = async (req, res) => {
     res.status(400).json(error);
   }
 };
+const changePasswordCreateOTP = async (req, res) => {
+  try {
+    const userExists = await User.findOne({ _id: String(req._id) });
+    if (!userExists) {
+      throw "No user Registered with this Email-Id";
+    }
+
+    let shallowCopy = OTPTemplate;
+    shallowCopy = shallowCopy.replace("FullName", userExists.name);
+    shallowCopy = shallowCopy.replace("ACCOUNT_EMAIL", userExists.email);
+    //create an OTP number
+    const random = Math.floor(Math.random() * 899999) + 100001; //6 digit OTP
+    const updated = await User.findByIdAndUpdate(userExists._id, {
+      otp: random,
+      otpValidUpto: Date.now() + 15 * 60 * 1000,
+    });
+    shallowCopy = shallowCopy.replace("OTP", random);
+    const result = await transporter(
+      userExists.email,
+      "One Time Password for User",
+      shallowCopy
+    );
+    console.log(result);
+    res.status(200).json(userExists.email);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+};
+const changePasswordVerifyOTP = async (req, res) => {
+  console.log(req.body);
+  try {
+    const { otp } = req.body;
+
+    const user = await User.findOne({ _id: req._id }).select({
+      otp: 1,
+      otpValidUpto: 1,
+      _id: 0,
+    });
+    console.log(user);
+
+    if (otp !== user.otp) {
+      throw "OTP Invalid";
+    }
+    if (Date.now() >= new Date(user.otpValidUpto)) {
+      throw "OTP Expired! Please Retry Sending a Fresh OTP";
+    }
+    return res.status(200).json("ok");
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+};
+const changePasswordSetPassword = async (req, res) => {
+  try {
+    const { pass, confirmpass } = req.body;
+    if (!pass || !confirmpass) {
+      throw "Incomplete Details. Cannot Continue";
+    }
+    if (pass !== confirmpass) {
+      throw "Passwords don't Match! Please check again and retry";
+    }
+    const hash = await bcrypt.hash(pass, 12);
+    console.log(hash);
+    const user = await User.findOneAndUpdate(
+      { _id: req._id },
+      { password: hash, $unset: { otp: 1, otpValidUpto: 1 } },
+      { new: true }
+    );
+    res.status(200).json("ok");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
 
 const object = {
   registerUser,
@@ -281,5 +356,8 @@ const object = {
   verifyOTP,
   updatePassword,
   contactUs,
+  changePasswordCreateOTP,
+  changePasswordVerifyOTP,
+  changePasswordSetPassword,
 };
 module.exports = object;
