@@ -33,6 +33,8 @@ const { dashboardRouter } = require("./Routes/Hotel/Dashboard.js");
 const { AuthUserRouter } = require("./Routes/User/Userauth.js");
 const { DashboardRouter } = require("./Routes/User/Dashboard.js");
 const { CheckoutRouter } = require("./Routes/User/Checkout.js");
+console.log(process.env.ADMIN_MAIL);
+console.log(process.env.ADMIN_PASSWORD);
 
 //for admin only  routes
 const { AdminRouter } = require("./Routes/Admin.js");
