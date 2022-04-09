@@ -138,6 +138,30 @@ const deleteService = async (jwt, id) => {
   });
   return result;
 };
+const getHotelBook = async (jwt, id) => {
+  const result = await axios({
+    method: "GET",
+    url: `${process.env.REACT_APP_BACKEND_URL}/hotel/get-hotel-bookings/${id}`,
+    headers: {
+      authorization: `Bearer ${jwt}`,
+    },
+  });
+  return result;
+};
+const acceptRejectBooking = async (jwt, status, bookingId) => {
+  const result = await axios({
+    method: "POST",
+    url: `${process.env.REACT_APP_BACKEND_URL}/hotel/accept-reject-booking`,
+    headers: {
+      authorization: `Bearer ${jwt}`,
+    },
+    data: {
+      status: status,
+      bookingId: bookingId,
+    },
+  });
+  return result;
+};
 export {
   createCoupon,
   getCoupons,
@@ -151,4 +175,6 @@ export {
   createService,
   getServices,
   deleteService,
+  getHotelBook,
+  acceptRejectBooking,
 };

@@ -15,6 +15,8 @@ const {
   createService,
   getServices,
   deleteService,
+  getHotelBook,
+  acceptRejectBooking,
 } = require("../../Controllers/Hotel/Dashboard.js");
 
 const {
@@ -49,6 +51,14 @@ dashboardRouter.route("/hotel/get-services").get(hotelLoggedIn, getServices);
 dashboardRouter
   .route("/hotel/delete-service/:id")
   .delete(hotelLoggedIn, deleteService);
+
+//for services section
+dashboardRouter
+  .route("/hotel/get-hotel-bookings/:id")
+  .get(hotelLoggedIn, getHotelBook);
+dashboardRouter
+  .route("/hotel/accept-reject-booking")
+  .post(hotelLoggedIn, acceptRejectBooking);
 const obj = { dashboardRouter };
 
 module.exports = obj;

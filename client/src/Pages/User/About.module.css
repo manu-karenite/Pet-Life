@@ -1,0 +1,29 @@
+.innerImage {
+  height: 60vh;
+  width: 100%;
+  object-fit: cover;
+}
+.outerImage {
+  width: 100%;
+}
+.innerText {
+  padding: 20px 40px;
+  font-family: "Rubik";
+  font-size: 18px;
+  line-height: 42px;
+  text-justify: distribute-all-lines;
+}
+
+@media (min-width: 768px) {
+  .innerText {
+    padding: 30px 60px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .innerText {
+    padding: 30px 400px;
+    font-size: 26px;
+    line-height: 54px;
+  }
+}

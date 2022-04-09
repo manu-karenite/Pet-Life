@@ -136,6 +136,53 @@ const columns = [
       );
     },
   },
+  {
+    title: (
+      <h6 style={{ fontWeight: "bolder" }}>
+        <strong>Status</strong>
+      </h6>
+    ),
+    dataIndex: "status",
+    width: "200px",
+
+    align: "center",
+    render: function (text, record, index) {
+      return text === "Pending" ? (
+        <span
+          style={{
+            fontFamily: "Nunito Sans",
+            fontWeight: "bold",
+            backgroundColor: "orange",
+            padding: "5px 10px",
+          }}
+        >
+          {text}
+        </span>
+      ) : text === "Accepted" ? (
+        <span
+          style={{
+            fontFamily: "Nunito Sans",
+            fontWeight: "bold",
+            backgroundColor: "green",
+            padding: "5px 10px",
+          }}
+        >
+          {text}
+        </span>
+      ) : (
+        <span
+          style={{
+            fontFamily: "Nunito Sans",
+            fontWeight: "bold",
+            backgroundColor: "red",
+            padding: "5px 10px",
+          }}
+        >
+          {text}
+        </span>
+      );
+    },
+  },
 ];
 
 const Bookings = () => {

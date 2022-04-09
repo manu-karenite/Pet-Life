@@ -68,6 +68,10 @@ const bookingSchema = new Schema(
       billingCity: String,
       billingState: String,
     },
+    status: {
+      type: String,
+      default: "Pending",
+    },
   },
   { timestamps: true }
 );

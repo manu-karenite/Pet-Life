@@ -268,7 +268,7 @@ const newBookingTemplate = `<!doctype html>
                   <tr>
                     <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                       <div style="font-family:Nunito, Helvetica, Arial, sans-serif;font-size:16px;font-weight:400;line-height:20px;text-align:left;color:#54595f;">
-                        <p style="margin: 0 0 5px 0;">Your Booking has been successfully Processed. Here is your Booking Summary: </p>
+                        <p style="margin: 0 0 5px 0;">Your Booking has been successfully Processed. <br>You will get a Status of Your Booking, after it is accepted/rejected by the Hotel.<br>Here is your Booking Summary: </p>
                       </div>
                     </td>
                   </tr>

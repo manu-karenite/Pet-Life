@@ -51,7 +51,7 @@ const Dashboard = () => {
             Check all Your Bookings Here
           </div>
         </div>
-        <div
+        {/* <div
           className={styles.item}
           onClick={(e) => navigate("/hotel/ratings")}
         >
@@ -62,7 +62,7 @@ const Dashboard = () => {
           <div className={styles.item__preview}>
             Read Customer Reviews and Ratings
           </div>
-        </div>
+        </div> */}
         <div
           className={styles.item}
           onClick={(e) => navigate("/hotel/coupons")}
