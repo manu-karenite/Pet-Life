@@ -8,6 +8,11 @@ const { promisify } = require("util");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const ContactUS = require("../../Utitlities/Templates/User/ContactUs.js");
+
+const Booking = require("../../Models/Booking.js");
+const Checkout = require("../../Models/Checkout.js");
+const pets = require("../../Models/Pets.js");
+const reviews = require("../../Models/Review.js");
 const registerUser = async (req, res) => {
   let { name, email, password } = req.body;
   try {
@@ -118,11 +123,16 @@ const loginUser = async (req, res) => {
         expiresIn: 2 * 60 * 60,
       }
     );
+    //get the booking made, and then the pets having.
+    const one = await Booking.find({ user: result?._id });
+    const two = await pets.find({ user: result?._id });
     const toReturn = {
       _id: result._id,
       name: result.name,
       email: result.email,
       jwt: jwtCreated,
+      bookingsMade: one.length,
+      petsAdded: two.length,
     };
     console.log(toReturn);
     res.status(200).json(toReturn);
@@ -271,7 +281,96 @@ const contactUs = async (req, res) => {
     res.status(400).json(error);
   }
 };
+const changePasswordCreateOTP = async (req, res) => {
+  try {
+    const userExists = await User.findOne({ _id: String(req._id) });
+    if (!userExists) {
+      throw "No user Registered with this Email-Id";
+    }
 
+    let shallowCopy = OTPTemplate;
+    shallowCopy = shallowCopy.replace("FullName", userExists.name);
+    shallowCopy = shallowCopy.replace("ACCOUNT_EMAIL", userExists.email);
+    //create an OTP number
+    const random = Math.floor(Math.random() * 899999) + 100001; //6 digit OTP
+    const updated = await User.findByIdAndUpdate(userExists._id, {
+      otp: random,
+      otpValidUpto: Date.now() + 15 * 60 * 1000,
+    });
+    shallowCopy = shallowCopy.replace("OTP", random);
+    const result = await transporter(
+      userExists.email,
+      "One Time Password for User",
+      shallowCopy
+    );
+    console.log(result);
+    res.status(200).json(userExists.email);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+};
+const changePasswordVerifyOTP = async (req, res) => {
+  console.log(req.body);
+  try {
+    const { otp } = req.body;
+
+    const user = await User.findOne({ _id: req._id }).select({
+      otp: 1,
+      otpValidUpto: 1,
+      _id: 0,
+    });
+    console.log(user);
+
+    if (otp !== user.otp) {
+      throw "OTP Invalid";
+    }
+    if (Date.now() >= new Date(user.otpValidUpto)) {
+      throw "OTP Expired! Please Retry Sending a Fresh OTP";
+    }
+    return res.status(200).json("ok");
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+};
+const changePasswordSetPassword = async (req, res) => {
+  try {
+    const { pass, confirmpass } = req.body;
+    if (!pass || !confirmpass) {
+      throw "Incomplete Details. Cannot Continue";
+    }
+    if (pass !== confirmpass) {
+      throw "Passwords don't Match! Please check again and retry";
+    }
+    const hash = await bcrypt.hash(pass, 12);
+    console.log(hash);
+    const user = await User.findOneAndUpdate(
+      { _id: req._id },
+      { password: hash, $unset: { otp: 1, otpValidUpto: 1 } },
+      { new: true }
+    );
+    res.status(200).json("ok");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+const deleteProfile = async (req, res) => {
+  //what to delete ?
+  //1)reviews,booking,user,checkout,pets
+  try {
+    let deletePets = await pets.deleteMany({ user: req._id });
+    deletePets = await Checkout.deleteMany({ user: req._id });
+    deletePets = await reviews.deleteMany({ user: req._id });
+    deletePets = await Booking.deleteMany({ user: req._id });
+    deletePets = await User.deleteMany({ _id: req._id });
+    res.status(200).json("Deleted All");
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+};
 const object = {
   registerUser,
   registerUserConfirm,
@@ -281,5 +380,9 @@ const object = {
   verifyOTP,
   updatePassword,
   contactUs,
+  changePasswordCreateOTP,
+  changePasswordVerifyOTP,
+  changePasswordSetPassword,
+  deleteProfile,
 };
 module.exports = object;

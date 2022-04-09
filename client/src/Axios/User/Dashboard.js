@@ -31,6 +31,27 @@ const updatePetDetails = async (id, data) => {
   });
   return result;
 };
+const createPet = async (id, data) => {
+  const result = await axios({
+    method: "POST",
+    url: `${process.env.REACT_APP_BACKEND_URL}/create-my-pet`,
+    headers: {
+      authorization: `Bearer ${id}`,
+    },
+    data: data,
+  });
+  return result;
+};
+const deleteMyPet = async (JWT, id) => {
+  const result = await axios({
+    method: "DELETE",
+    url: `${process.env.REACT_APP_BACKEND_URL}/delete-my-pet/${id}`,
+    headers: {
+      authorization: `Bearer ${JWT}`,
+    },
+  });
+  return result;
+};
 const getPetDetails = async (id) => {
   const result = await axios({
     method: "GET",
@@ -59,13 +80,25 @@ const getReviewsHotelWise = async (hotelId) => {
   });
   return result;
 };
-
+const getUserBookings = async (JWT) => {
+  const result = await axios({
+    method: "GET",
+    url: `${process.env.REACT_APP_BACKEND_URL}/get-user-bookings`,
+    headers: {
+      authorization: `Bearer ${JWT}`,
+    },
+  });
+  return result;
+};
 export {
   getHotels,
   getIndividualHotel,
   getMoreHotelDetails,
   updatePetDetails,
+  createPet,
+  deleteMyPet,
   getPetDetails,
   addReview,
   getReviewsHotelWise,
+  getUserBookings,
 };

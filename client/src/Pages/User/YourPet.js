@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../../Styles/UserPages/YourPet.module.css";
 import { toast } from "react-toastify";
-import { updatePetDetails } from "../../Axios/User/Dashboard.js";
+import { createPet } from "../../Axios/User/Dashboard.js";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const YourPet = () => {
@@ -35,14 +35,12 @@ const YourPet = () => {
       return;
     }
     console.log(data);
-    updatePetDetails(user?.jwt, data)
+    createPet(user?.jwt, data)
       .then((res) => {
-        toast.success("Pet Details Have Been Updated Successfully");
-        navigate("/menu");
+        toast.success("Pet Details Have Been Saved Successfully");
+        navigate("/dashboard/my-pets");
       })
-      .catch((err) =>
-        toast.error("Pets Details Have Been Updated Succesfully")
-      );
+      .catch((err) => toast.error("Pets Details Could not be Created"));
   };
   return (
     <>

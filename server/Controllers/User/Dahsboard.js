@@ -86,9 +86,40 @@ const updatePetDetails = async (req, res) => {
     res.status(400).json(error);
   }
 };
+const createMyPet = async (req, res) => {
+  const { name, age, mark, all1, all2, all3, category } = req.body;
+  try {
+    let query = new pets({
+      user: req._id,
+
+      nickname: req.body.name,
+      age: req.body.age,
+      identificationMark: mark,
+      allergy1: all1,
+      allergy2: all2,
+      allergy3: all3,
+      category: category,
+    });
+    query = await query.save();
+    console.log(query);
+    res.status(201).json("Okay");
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+const deleteMyPet = async (req, res) => {
+  console.log(req.params);
+  try {
+    const result = await pets.findByIdAndDelete(req.params?.petId);
+    res.status(200).json("Deleted");
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
 const getPetDetails = async (req, res) => {
   try {
-    const pet = await pets.findOne({ user: req._id });
+    const pet = await pets.find({ user: req._id });
+    console.log(pet);
     return res.status(200).json(pet);
   } catch (error) {
     res.status(400).json(error);
@@ -187,13 +218,28 @@ const getReviewsHotelWise = async (req, res) => {
     res.status(400).json(error);
   }
 };
+const getUserBookings = async (req, res) => {
+  console.log("GET BOOKINGS FROM USER");
+  try {
+    const result = await Booking.find({ user: String(req._id) }).populate(
+      "hotel"
+    );
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+};
 const object = {
   getHotels,
   getIndividualHotel,
   getMoreHotelDetails,
   updatePetDetails,
+  createMyPet,
+  deleteMyPet,
   getPetDetails,
   addReview,
   getReviewsHotelWise,
+  getUserBookings,
 };
 module.exports = object;

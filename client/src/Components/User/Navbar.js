@@ -52,8 +52,8 @@ const Navbar = () => {
             </Typography>
 
             {user && (
-              <Button color="inherit" onClick={(e) => navigate("/")}>
-                Home
+              <Button color="inherit" onClick={(e) => navigate("/dashboard")}>
+                Dashboard
               </Button>
             )}
             {user && (

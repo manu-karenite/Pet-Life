@@ -3,7 +3,11 @@ import styles from "../../Styles/UserPages/Checkout.module.css";
 import { useNavigate } from "react-router-dom";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { getSavedItem, createBooking } from "../../Axios/User/Checkout.js";
+import {
+  getSavedItem,
+  createBooking,
+  checkCoupon,
+} from "../../Axios/User/Checkout.js";
 import { getPetDetails } from "../../Axios/User/Dashboard.js";
 import { useSelector } from "react-redux";
 import moment from "moment";
@@ -20,7 +24,9 @@ const { Panel } = Collapse;
 
 // import { RadioGroup, RadioButton } from "react-radio-buttons";
 const Checkout = () => {
+  const [allow, setAllow] = React.useState(false);
   const [placing, setPlacing] = React.useState(false);
+  const [selectedPet, setSelectedPet] = React.useState("");
   const navigate = useNavigate();
   React.useEffect(() => {
     window && window.scrollTo(0, 0);
@@ -43,25 +49,31 @@ const Checkout = () => {
   const [service, setService] = React.useState(null);
   const [door, setDoor] = React.useState(true);
   const [couponAmt, setCouponAmt] = React.useState(0);
+  const [couponName, setCouponName] = React.useState("");
   const [activeCollapse, setActiveCollapse] = React.useState(1);
   const [timeepoch, setTimeepoch] = React.useState(
     new Date(Date.now() + 24 * 60 * 60 * 1000)
   ); //default time of booking be after 24 hours
   const setServices = (data) => {
+    console.log("SERVUCE CHOOSER");
     const serviceId = data?.serviceId;
+    console.log(data);
     for (let i = 0; i < data?.hotel?.services.length; i++) {
       let curr = data?.hotel?.services[i];
+      console.log(curr?._id, serviceId);
+      console.log(curr);
       if (curr?._id === serviceId) {
-        setService(curr, serviceId);
+        setService(curr);
         break;
       }
     }
   };
+
   const getData = () => {
     getSavedItem(user?.jwt)
       .then((res) => {
         setData(res.data);
-        setServices(data);
+        setServices(res.data);
       })
       .catch((err) => console.log(err));
   };
@@ -73,7 +85,9 @@ const Checkout = () => {
   const [petData, setPetData] = React.useState(null);
   const getPetData = () => {
     getPetDetails(user?.jwt)
-      .then((res) => setPetData(res.data))
+      .then((res) => {
+        setPetData(res.data);
+      })
       .catch((err) => console.log(err));
   };
   React.useEffect(() => {
@@ -176,9 +190,11 @@ const Checkout = () => {
       serviceId: data?.serviceId,
       charge: door ? 50 : 0,
       form: form,
-      pet: petData._id,
+      pet: selectedPet,
       paymentMethod: pay,
       slot: date,
+      coupon: couponName,
+      couponDiscount: couponAmt,
     };
     console.log(object);
     createBooking(user?.jwt, object)
@@ -195,12 +211,87 @@ const Checkout = () => {
       });
   };
 
+  const set = () => {
+    for (let i = 0; i < petData?.length; i++) {
+      console.log(petData[i]);
+      if (petData[i]?.category === service?.servicePet) {
+        setAllow(true);
+      }
+    }
+  };
+  React.useEffect(() => {
+    set();
+  }, []);
+  const [c, setC] = React.useState("");
+  const [result, setResult] = React.useState(null);
+  const couponHandler = () => {
+    if (c === "") {
+      toast.error("Coupon Name Cannot be Empty!");
+      return;
+    }
+    checkCoupon(user?.jwt, { name: c, hotelId: data?.hotel?._id })
+      .then((res) => {
+        setResult(res.data);
+
+        const value = Number(
+          Number(service?.servicePrice) +
+            Number(0.18 * service?.servicePrice) +
+            Number(door ? 50.0 : 0.0)
+        ).toFixed(2);
+        if (Number(value) < Number(res.data?.minimumCartAmount)) {
+          toast.warning(
+            `Total Amount not Sufficient for Coupon! Please Choose Another Coupon or Hotel.`
+          );
+          setCouponAmt(0);
+          return;
+        }
+        const option1 = (value * Number(res.data?.discount)) / 100.0;
+        const option2 = res.data?.maxDiscount;
+        if (option1 < option2) {
+          // setCouponAmt(option1);
+          setCouponAmt(option1.toFixed(2));
+        } else {
+          // setCouponAmt(option2);
+          setCouponAmt(option2.toFixed(2));
+        }
+        toast.success("Coupon Applied Sucessfully! 🎉");
+        setCouponName(res.data?.name);
+      })
+      .catch((err) => toast.error(err.response.data));
+  };
+  const getAns = (value) => {
+    if (Number(value) < Number(result?.minimumCartAmount)) {
+      // toast.warning(
+      //   `Total Amount not Sufficient for Coupon! Please Choose Another Coupon or Hotel.`
+      // );
+      return 0;
+    }
+    const option1 = (value * Number(result?.discount)) / 100.0;
+    const option2 = result?.maxDiscount;
+    if (option1 < option2) {
+      // setCouponAmt(option1);
+      return option1;
+    } else {
+      // setCouponAmt(option2);
+      return option2;
+    }
+  };
   return (
     <>
       <div className={styles.heading}>Confirm Your Booking</div>
-
       <div className={styles.divider}>
         <div className={styles.priceAndHotel}>
+          <div className={styles.coupon}>
+            <input
+              type="text"
+              className={styles.couponInput}
+              placeholder="Check Coupon"
+              value={c}
+              onChange={(e) => setC(e.target.value)}
+            />
+            <button onClick={couponHandler}>Check</button>
+          </div>
+
           <div className={styles.metaAndImage}>
             <div className={styles.address}>
               <div className={styles.bold1}>{data?.hotel?.name}</div>
@@ -225,7 +316,6 @@ const Checkout = () => {
               />
             </div>
           </div>
-
           <div className={styles.detailBooking}>
             {data?.hotel?.services &&
               data?.hotel?.services.map((curr, index) => {
@@ -245,70 +335,60 @@ const Checkout = () => {
 
             <div className={styles.transitMode}>Transit Mode</div>
           </div>
-          {data?.hotel?.services &&
-            data?.hotel?.services.map((curr, index) => {
-              return (
-                curr?._id === data?.serviceId && (
-                  <div className={styles.priceBreakout} key={index}>
-                    <div className={styles.priceHeading}>Price Breakout</div>
-                    <div className={styles.price1}>
-                      <div className={styles.priceAsk}>
-                        Service Charge X 1 Slot
-                      </div>
-                      <div className={styles.priceAnswer}>
-                        ₹ {Number(curr?.servicePrice).toFixed(2)}
-                      </div>
-                    </div>
-                    <div className={styles.price1}>
-                      <div className={styles.priceAsk}>Taxes @18%</div>
-                      <div className={styles.priceAnswer}>
-                        {" "}
-                        + ₹ {Number(0.18 * curr?.servicePrice).toFixed(2)}
-                      </div>
-                    </div>
-                    <div className={styles.price1}>
-                      <div className={styles.priceAsk}>Home Pickup Charge</div>
-                      <div className={styles.priceAnswer}>
-                        {" "}
-                        + ₹{" "}
-                        {door ? Number(50).toFixed(2) : Number(0).toFixed(2)}
-                      </div>
-                    </div>
-                    <br />
-                    <div className={styles.price1}>
-                      <div className={styles.priceAsk1}>Subtotal</div>
-                      <div className={styles.priceAnswer1}>
-                        ₹{" "}
-                        {Number(
-                          Number(curr?.servicePrice) +
-                            Number(0.18 * curr?.servicePrice) +
-                            Number(door ? 50.0 : 0.0)
-                        ).toFixed(2)}
-                      </div>
-                    </div>
-                    <div className={styles.price1}>
-                      <div className={styles.priceAsk}>Coupon Discount</div>
-                      <div className={styles.priceAnswer}>
-                        - ₹ {Number.parseInt(Number(couponAmt)).toFixed(2)}
-                      </div>
-                    </div>
-                    <hr />
-                    <div className={styles.price1}>
-                      <div className={styles.priceAsk2}>Total</div>
-                      <div className={styles.priceAnswer2}>
-                        ₹{" "}
-                        {Number.parseInt(
-                          Number(curr?.servicePrice) +
-                            Number(0.18 * curr?.servicePrice) +
-                            Number(door ? 50.0 : 0.0) -
-                            Number(couponAmt)
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                )
-              );
-            })}
+          <div className={styles.priceBreakout}>
+            <div className={styles.priceHeading}>Price Breakout</div>
+            <div className={styles.price1}>
+              <div className={styles.priceAsk}>Service Charge X 1 Slot</div>
+              <div className={styles.priceAnswer}>
+                ₹ {Number(service?.servicePrice).toFixed(2)}
+              </div>
+            </div>
+            <div className={styles.price1}>
+              <div className={styles.priceAsk}>Taxes @18%</div>
+              <div className={styles.priceAnswer}>
+                {" "}
+                + ₹ {Number(0.18 * service?.servicePrice).toFixed(2)}
+              </div>
+            </div>
+            <div className={styles.price1}>
+              <div className={styles.priceAsk}>Home Pickup Charge</div>
+              <div className={styles.priceAnswer}>
+                {" "}
+                + ₹ {door ? Number(50).toFixed(2) : Number(0).toFixed(2)}
+              </div>
+            </div>
+            <br />
+            <div className={styles.price1}>
+              <div className={styles.priceAsk1}>Subtotal</div>
+              <div className={styles.priceAnswer1}>
+                ₹{" "}
+                {Number(
+                  Number(service?.servicePrice) +
+                    Number(0.18 * service?.servicePrice) +
+                    Number(door ? 50.0 : 0.0)
+                ).toFixed(2)}
+              </div>
+            </div>
+            <div className={styles.price1}>
+              <div className={styles.priceAsk}>Coupon Discount</div>
+              <div className={styles.priceAnswer}>- ₹ {couponAmt}</div>
+            </div>
+            <hr />
+            <div className={styles.price1}>
+              <div className={styles.priceAsk2}>Total</div>
+              <div className={styles.priceAnswer2}>
+                ₹{" "}
+                {Math.ceil(
+                  Number(
+                    Number(service?.servicePrice) +
+                      Number(0.18 * service?.servicePrice) +
+                      Number(door ? 50.0 : 0.0) -
+                      Number(couponAmt)
+                  )
+                )}
+              </div>
+            </div>
+          </div>
 
           {/* <div className={styles.priceButton}>
             <button disabled={!readyToGo}>Book &#8594;</button>
@@ -459,29 +539,42 @@ const Checkout = () => {
               >
                 <div className={styles.selectPets}>
                   <div>
-                    {petData && (
-                      <div className={styles.radioButtonDiv}>
-                        <input
-                          type="radio"
-                          id={petData?._id}
-                          name="drone"
-                          defaultValue={petData?._id}
-                          defaultChecked
-                          value={petData?._id}
-                        />
-                        <label htmlFor={petData?._id}>
-                          {petData?.nickname} ({petData?.category} :
-                          {petData?.age} months old)
-                        </label>
-                      </div>
-                    )}
+                    {petData?.length > 0 &&
+                      petData.map((Curr, index) => {
+                        return (
+                          service?.servicePet === Curr?.category && (
+                            <div className={styles.radioButtonDiv} key={index}>
+                              <input
+                                type="radio"
+                                id={Curr?._id}
+                                name="drone"
+                                defaultValue={Curr?._id}
+                                defaultChecked
+                                value={Curr?._id}
+                                onClick={(e) => setSelectedPet(e.target.value)}
+                              />
+                              <label htmlFor={Curr?._id}>
+                                {Curr?.nickname} ({Curr?.category} :{Curr?.age}{" "}
+                                months old)
+                              </label>
+                            </div>
+                          )
+                        );
+                      })}
                   </div>
                   <button
                     className={styles.stepsButton}
-                    disabled={petData === null}
+                    disabled={selectedPet === ""}
                     onClick={(e) => completeStep3(e)}
+                    style={
+                      selectedPet !== ""
+                        ? { backgroundColor: "green" }
+                        : { backgroundColor: "red" }
+                    }
                   >
-                    Proceed to Next Step
+                    {selectedPet === ""
+                      ? `Select ${service?.servicePet} to Continue`
+                      : "Continue to Next Step"}
                   </button>
                 </div>
               </Panel>

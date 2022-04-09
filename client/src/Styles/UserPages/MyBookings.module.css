@@ -1,0 +1,163 @@
+.heading {
+  text-align: center;
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 72px;
+  /* identical to box height */
+
+  color: #000000;
+}
+.booking {
+  padding: 20px !important;
+  margin: 0px 30px;
+  padding: 0px 30px;
+  background: #ffffff;
+  border: 1px solid #808080;
+  box-sizing: border-box;
+  border-radius: 10px;
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.bLeft,
+.bRight {
+  flex-basis: 48%;
+}
+.bRight {
+  text-align: right;
+}
+.text1 {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  /* identical to box height */
+
+  color: #000000;
+}
+.text2 {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px; /* identical to box height */
+
+  color: #000000;
+}
+.text3 {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+
+  color: #9b8787;
+}
+.images_text1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.hotelImage {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  margin: 10px;
+  margin-right: 20px;
+}
+.text5 {
+  font-family: "Rubik";
+  font-style: normal;
+  font-size: 24px; /* identical to box height */
+
+  color: #000000;
+}
+.text6 {
+  font-family: "Rubik";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+
+  color: #9b8787;
+}
+@media (max-width: 650px) {
+  .booking {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .bLeft,
+  .bRight {
+    flex-basis: 100%;
+  }
+  .bRight,
+  .bLeft {
+    display: none;
+  }
+  .priceBreakout {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .booking {
+    margin-bottom: 10px;
+  }
+}
+@media (min-width: 651px) {
+  .small_up {
+    display: none;
+  }
+}
+@media (max-width: 400px) {
+  .booking {
+    margin: 0px 10px;
+    margin-bottom: 10px;
+
+    padding: 0px 5px !important;
+    font-size: 75%;
+  }
+}
+.bookingList1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+.items {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  flex-basis: 25%;
+}
+.addPetBtn {
+  background-color: green;
+  color: white !important;
+  font-family: "Rubik";
+  font-size: 20px;
+  padding: 5px 10px;
+  margin: 5px;
+}
+@media (max-width: 768px) {
+  .items {
+    flex-basis: 50%;
+  }
+}
+@media (max-width: 500px) {
+  .items {
+    flex-basis: 100%;
+  }
+}
+.items button {
+  width: 100%;
+  margin: 5px;
+  font-family: "Rubik";
+  color: white;
+  border: none;
+  font-size: 120%;
+}
