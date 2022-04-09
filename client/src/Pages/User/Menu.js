@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "../../Styles/UserPages/Menu.module.css";
 import { useNavigate } from "react-router-dom";
 //MUI ICONS
+import _ from "lodash";
 import StarRatings from "react-star-ratings";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 
@@ -45,7 +46,42 @@ const Menu = () => {
     return Array.from(mySet1);
   };
   //for checkbox related filtering.......
-  let petsFull = ["Rabbits", "Dogs", "Cats", "Birds", "Fishes"];
+  const [petsFull, setPetsFull] = useState([
+    "Rabbits",
+    "Dogs",
+    "Cats",
+    "Birds",
+    "Fishes",
+  ]);
+  const createCheckboxArray = (checked, name) => {
+    let x = petsFull;
+    if (checked === false) {
+      let y = x.indexOf(name);
+      console.log(y);
+      if (y !== -1) {
+        x = x.filter((curr, index) => curr !== name);
+        setPetsFull(x);
+      }
+    } else {
+      x.push(name);
+      x = _.uniq(x);
+      setPetsFull(x);
+    }
+  };
+  //for stars related filtering
+  const [filterStar, setFilterStar] = useState(0);
+  const checkBoxCleared = (curr) => {
+    for (let i = 0; i < curr?.services.length; i++) {
+      if (petsFull.indexOf(curr?.services[i]?.servicePet) !== -1) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  //for states radio buttons > 1
+  const [state, setState] = useState("");
   return (
     <div className="container-fluid">
       <div className="row">
@@ -57,7 +93,7 @@ const Menu = () => {
             <hr />
             <div className={styles.drawerSubTitle}>Star Ratings </div>
             <div className={styles.stars}>
-              <div>
+              <div onClick={(e) => setFilterStar(5)}>
                 <StarIcon
                   sx={{ color: "#f8d312", fontSize: 34 }}
                   style={{ cursor: "pointer" }}
@@ -79,7 +115,7 @@ const Menu = () => {
                   style={{ cursor: "pointer" }}
                 />
               </div>
-              <div>
+              <div onClick={(e) => setFilterStar(4)}>
                 <StarIcon
                   sx={{ color: "#f8d312", fontSize: 34 }}
                   style={{ cursor: "pointer" }}
@@ -97,7 +133,7 @@ const Menu = () => {
                   style={{ cursor: "pointer" }}
                 />
               </div>
-              <div>
+              <div onClick={(e) => setFilterStar(3)}>
                 <StarIcon
                   sx={{ color: "#f8d312", fontSize: 34 }}
                   style={{ cursor: "pointer" }}
@@ -111,7 +147,7 @@ const Menu = () => {
                   style={{ cursor: "pointer" }}
                 />
               </div>
-              <div>
+              <div onClick={(e) => setFilterStar(2)}>
                 <StarIcon
                   sx={{ color: "#f8d312", fontSize: 34 }}
                   style={{ cursor: "pointer" }}
@@ -121,11 +157,24 @@ const Menu = () => {
                   style={{ cursor: "pointer" }}
                 />
               </div>
-              <div>
+              <div onClick={(e) => setFilterStar(1)}>
                 <StarIcon
                   sx={{ color: "#f8d312", fontSize: 34 }}
                   style={{ cursor: "pointer" }}
                 />
+              </div>
+              <div
+                onClick={(e) => setFilterStar(0)}
+                style={{
+                  fontFamily: "Rubik",
+                  backgroundColor: "#f8d312",
+                  display: "inline-block",
+                  border: "1px #f8d312 solid",
+                  borderRadius: "6px",
+                  padding: "2px 5px",
+                }}
+              >
+                Clear Star Filter
               </div>
             </div>
             <hr />
@@ -136,16 +185,35 @@ const Menu = () => {
                   type="checkbox"
                   id="cats"
                   name="Cats"
-                  onClick={(e) => console.table(e.target.checked, e)}
+                  onClick={(e) =>
+                    createCheckboxArray(e.target.checked, e.target.name)
+                  }
+                  checked={petsFull.indexOf("Cats") !== -1}
                 />
                 <label htmlFor="cats">Cats</label>
               </div>
               <div className={styles.checkboxes}>
-                <input type="checkbox" id="dogs" name="Dogs" />
+                <input
+                  type="checkbox"
+                  id="dogs"
+                  name="Dogs"
+                  onClick={(e) =>
+                    createCheckboxArray(e.target.checked, e.target.name)
+                  }
+                  checked={petsFull.indexOf("Dogs") !== -1}
+                />
                 <label htmlFor="dogs">Dogs</label>
               </div>
               <div className={styles.checkboxes}>
-                <input type="checkbox" id="fished" name="Fishes" />
+                <input
+                  type="checkbox"
+                  id="fished"
+                  name="Fishes"
+                  onClick={(e) =>
+                    createCheckboxArray(e.target.checked, e.target.name)
+                  }
+                  checked={petsFull.indexOf("Fishes") !== -1}
+                />
                 <label htmlFor="fished">Fishes</label>
               </div>
               <div className={styles.checkboxes}>
@@ -154,123 +222,106 @@ const Menu = () => {
                   id="birds"
                   name="Birds"
                   className={styles.cb}
+                  onClick={(e) =>
+                    createCheckboxArray(e.target.checked, e.target.name)
+                  }
+                  checked={petsFull.indexOf("Birds") !== -1}
                 />
                 <label htmlFor="birds">Birds</label>
               </div>
               <div className={styles.checkboxes}>
-                <input type="checkbox" id="rabbits" name="Rabbits" />
+                <input
+                  type="checkbox"
+                  id="rabbits"
+                  name="Rabbits"
+                  onClick={(e) =>
+                    createCheckboxArray(e.target.checked, e.target.name)
+                  }
+                  checked={petsFull.indexOf("Rabbits") !== -1}
+                />
                 <label htmlFor="rabbits">Rabbits</label>
+              </div>
+              <div className={styles.checkboxes}>
+                <input
+                  type="checkbox"
+                  id="rabbits"
+                  name="All"
+                  onClick={(e) =>
+                    setPetsFull(["Rabbits", "Dogs", "Cats", "Birds", "Fishes"])
+                  }
+                />
+                <label htmlFor="rabbits">All</label>
               </div>
             </div>
             <hr />
-            <div className={styles.drawerSubTitle}>Home Pickup</div>
+            {/* <div className={styles.drawerSubTitle}>Home Pickup</div>
             <Switch defaultChecked />
-            <hr />
-            <div className={styles.drawerSubTitle}>Top Cities</div>
-            {/* <RadioGroup>
-              <RadioButton
-                value="apple"
-                iconSize={20}
-                iconInnerSize={10}
-                pointColor="#ff4242"
-                padding={8}
-              >
-                <span
-                  style={{
-                    color: "#ff4242",
-                    fontWeight: "600",
-                    fontFamily: "Poppins",
-                  }}
-                >
-                  Kochi
-                </span>
-              </RadioButton>
-              <RadioButton
-                value="orange"
-                iconSize={20}
-                iconInnerSize={10}
-                pointColor="#ff4242"
-                padding={8}
-              >
-                <span
-                  style={{
-                    color: "#ff4242",
-                    fontWeight: "600",
-                    fontFamily: "Poppins",
-                  }}
-                >
-                  Trivandrum
-                </span>
-              </RadioButton>
-              <RadioButton
-                value="melon"
-                iconSize={20}
-                iconInnerSize={10}
-                padding={8}
-                pointColor="#ff4242"
-              >
-                <span
-                  style={{
-                    color: "#ff4242",
-                    fontWeight: "600",
-                    fontFamily: "Poppins",
-                  }}
-                >
-                  Kozhikode
-                </span>
-              </RadioButton>
-              <RadioButton
-                value="melon"
-                iconSize={20}
-                iconInnerSize={10}
-                pointColor="#ff4242"
-                padding={8}
-              >
-                <span
-                  style={{
-                    color: "#ff4242",
-                    fontWeight: "600",
-                    fontFamily: "Poppins",
-                  }}
-                >
-                  Coimbatore
-                </span>
-              </RadioButton>
-              <RadioButton
-                value="melon"
-                iconSize={20}
-                iconInnerSize={10}
-                pointColor="#ff4242"
-                padding={8}
-              >
-                <span
-                  style={{
-                    color: "#ff4242",
-                    fontWeight: "600",
-                    fontFamily: "Poppins",
-                  }}
-                >
-                  Bengaluru
-                </span>
-              </RadioButton>
-              <RadioButton
-                value="melon"
-                iconSize={20}
-                iconInnerSize={10}
-                pointColor="#ff4242"
-                padding={8}
-              >
-                <span
-                  style={{
-                    color: "#ff4242",
-                    fontWeight: "600",
-                    fontFamily: "Poppins",
-                  }}
-                >
-                  Mysore
-                </span>
-              </RadioButton>
-            </RadioGroup> */}
+            <hr /> */}
+
+            <div className={styles.drawerSubTitle}>Top Serving States</div>
+            <div>
+              <div>
+                <input
+                  type="radio"
+                  id="huey"
+                  name="Cities"
+                  value="Kerala"
+                  onClick={(e) => setState(e.target.value)}
+                />
+                <label htmlFor="huey">Kerala</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="huey"
+                  name="Cities"
+                  value="Maharashtra"
+                  onClick={(e) => setState(e.target.value)}
+                />
+                <label htmlFor="huey">Maharashtra</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="huey"
+                  name="Cities"
+                  value="Delhi"
+                  onClick={(e) => setState(e.target.value)}
+                />
+                <label htmlFor="huey">Delhi</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="huey"
+                  name="Cities"
+                  value="Bihar"
+                  onClick={(e) => setState(e.target.value)}
+                />
+                <label htmlFor="huey">Bihar</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="huey"
+                  name="Cities"
+                  value="Karnataka"
+                  onClick={(e) => setState(e.target.value)}
+                />
+                <label htmlFor="huey">Karnataka</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="huey"
+                  name="Cities"
+                  value=""
+                  onClick={(e) => setState(e.target.value)}
+                  checked={state === ""}
+                />
+                <label htmlFor="huey">All</label>
+              </div>
+            </div>
           </div>
           <div className={styles.hotels}>
             <div className={styles.searchBar}>
@@ -278,7 +329,7 @@ const Menu = () => {
                 <input
                   type="text"
                   className={styles.searchField}
-                  placeholder="Search by Location, or Pets"
+                  placeholder="Search by Hotel Name"
                   onChange={(e) => setSearch(e.target.value)}
                   value={search}
                 />
@@ -294,7 +345,10 @@ const Menu = () => {
                 allHotels.length > 0 &&
                 allHotels.map((curr, index) => {
                   return (
-                    curr?.name.includes(search) && (
+                    curr?.name.toLowerCase().includes(search.toLowerCase()) &&
+                    (curr?.starRating ? curr.starRating : 0) >= filterStar &&
+                    checkBoxCleared(curr) &&
+                    (state === "" || curr?.address?.state === state) && (
                       <div className={styles.hotel} key={index}>
                         <div className={styles.hotelImage}>
                           <img
@@ -303,14 +357,15 @@ const Menu = () => {
                             className={styles.hotelImg}
                           />
                         </div>
+
                         <div className={styles.hotelMeta}>
                           <div className={styles.hotelTitleAndShare}>
                             <div className={styles.hotelTitle}>
                               {curr?.name}
                             </div>
-                            <div className={styles.hotelShare}>
+                            {/* <div className={styles.hotelShare}>
                               <ShareIcon style={{ cursor: "pointer" }} />
-                            </div>
+                            </div> */}
                           </div>
                           <div className={styles.hotelAddress}>
                             {curr?.address?.data1 + " " + curr?.address?.data2}
@@ -390,9 +445,9 @@ const Menu = () => {
                   );
                 })}
             </div>
-            <div className={styles.pagination}>
+            {/* <div className={styles.pagination}>
               <Pagination defaultCurrent={1} total={50} />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

@@ -221,9 +221,9 @@ const getReviewsHotelWise = async (req, res) => {
 const getUserBookings = async (req, res) => {
   console.log("GET BOOKINGS FROM USER");
   try {
-    const result = await Booking.find({ user: String(req._id) }).populate(
-      "hotel"
-    );
+    const result = await Booking.find({ user: String(req._id) })
+      .populate("hotel")
+      .sort({ createdAt: "-1" });
     res.status(200).json(result);
   } catch (error) {
     console.log(error);

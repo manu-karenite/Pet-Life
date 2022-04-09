@@ -50,51 +50,60 @@ const Navbar = () => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               logo
             </Typography>
-
-            {user && (
-              <Button color="inherit" onClick={(e) => navigate("/dashboard")}>
-                Dashboard
-              </Button>
-            )}
             {user && (
               <Button color="inherit" onClick={(e) => navigate("/menu")}>
                 Hotels
               </Button>
             )}
             {user && (
-              <Button color="inherit" onClick={(e) => navigate("/about")}>
-                About
+              <Button color="inherit" onClick={(e) => navigate("/dashboard")}>
+                Dashboard
+              </Button>
+            )}
+
+            {user && (
+              <Button
+                color="inherit"
+                onClick={(e) => navigate("/dashboard/my-profile")}
+              >
+                Profile
               </Button>
             )}
             {user && (
               <Button color="inherit" onClick={(e) => navigate("/contact")}>
-                Contact
+                Contact Us
               </Button>
             )}
 
+            {user && (
+              <Button color="inherit" onClick={(e) => navigate("/about")}>
+                About Us
+              </Button>
+            )}
+            {/* for non loggedin user */}
+            {!user && (
+              <Button color="inherit" onClick={(e) => navigate("/menu")}>
+                Hotels
+              </Button>
+            )}
+            {!user && (
+              <Button color="inherit" onClick={(e) => navigate("/about")}>
+                About Us
+              </Button>
+            )}
+            {!user && (
+              <Button color="inherit" onClick={(e) => navigate("/contact")}>
+                Contact Us
+              </Button>
+            )}
             {!user && (
               <Button color="inherit" onClick={(e) => navigate("/")}>
                 Home
               </Button>
             )}
             {!user && (
-              <Button color="inherit" onClick={(e) => navigate("/menu")}>
-                Hotels
-              </Button>
-            )}
-            {!user && (
-              <Button color="inherit" onClick={(e) => navigate("/about")}>
-                About
-              </Button>
-            )}
-            {!user && (
-              <Button color="inherit" onClick={(e) => navigate("/contact")}>
-                Contact
-              </Button>
-            )}
-            {!user && (
               <Button color="inherit" onClick={(e) => navigate("/login")}>
-                Login/Register
+                Login
               </Button>
             )}
 
@@ -159,20 +168,10 @@ const Navbar = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={(e) => navigate("/profile")}>
+        <MenuItem onClick={(e) => navigate("/dashboard/my-profile")}>
           <Avatar /> Profile
         </MenuItem>
-        <MenuItem onClick={(e) => navigate("/your-pet")}>
-          <Avatar /> Your Pet
-        </MenuItem>
-        <Divider />
 
-        <MenuItem onClick={(e) => navigate("/update-password")}>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Update Password
-        </MenuItem>
         {user && (
           <MenuItem onClick={logoutHandler}>
             <ListItemIcon>

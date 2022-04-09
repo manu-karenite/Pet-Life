@@ -2,7 +2,7 @@ import React from "react";
 import "../../Styles/UserPages/TermsAncConditions.css";
 const TermsAncConditions = () => {
   React.useEffect(() => {
-    window.scrollTo = 0;
+    window && window.scrollTo(0, 0);
   }, []);
   return (
     <main className="header-offset content-wrapper about-wrapper mt-3">

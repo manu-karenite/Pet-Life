@@ -11,10 +11,20 @@
   border: white solid 2px;
   border-radius: 10px;
   padding: 10px;
-  flex-grow: 1;
-  margin: 20px 20px 20px 0px;
-}
 
+  margin: 20px 20px 20px 0px;
+  flex-basis: 25%;
+}
+@media (max-width: 681px) {
+  .footerItem {
+    flex-basis: 33%;
+  }
+}
+@media (max-width: 480px) {
+  .footerItem {
+    flex-basis: 50%;
+  }
+}
 .footerLeft {
   flex-basis: 33%;
   font-family: "Inter";

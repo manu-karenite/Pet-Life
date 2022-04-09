@@ -1,31 +1,34 @@
 import React from "react";
-import "../../Styles/About.css";
-import abb from "../../Assets/abb.jpeg";
-
+import styles from "./About.module.css";
 function About() {
+  React.useEffect(() => {
+    window && window.scrollTo(0, 0);
+  }, []);
   return (
-    <div className="about">
-      <div
-        className="aboutTop"
-        style={{ backgroundImage: `url(${abb})` }}
-      ></div>
-      <div className="aboutBottom">
-        <h1> ABOUT US</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-          mollitia, molestiae quas vel sint commodi repudiandae consequuntur
-          voluptatum laborum numquam blanditiis harum quisquam eius sed odit
-          fugiat iusto fuga praesentium optio, eaque rerum! Provident similique
-          accusantium nemo autem. Veritatis obcaecati tenetur iure eius earum ut
-          molestias architecto voluptate aliquam nihil, eveniet aliquid culpa
-          officia aut! Impedit sit sunt quaerat, odit, tenetur error, harum
-          nesciunt ipsum debitis quas aliquid. Reprehenderit, quia. Quo neque
-          error repudiandae fuga? Ipsa laudantium molestias eos sapiente
-          officiis modi at sunt excepturi expedita sint? Sed quibusdam
-          recusandae alias error harum maxime adipisci amet laborum.
-          Perspiciatis minima nesciunt dolorem! Officiis iure rerum voluptates a
-          cumque velit
-        </p>
+    <div>
+      <div className={styles.imageAnimal}>
+        <img
+          src="https://res.cloudinary.com/techbuy/image/upload/v1649505265/figmu_1_lapi6b.png"
+          alt="bgimages"
+          className={styles.innerImage}
+        />
+      </div>
+      <div className={styles.text}>
+        <div className={styles.innerText}>
+          We, the PetLife team, work together to provide you with the best
+          hotels present out there for the pets. We provide you the best prices
+          and discounts. You can avail various services provided by the
+          different hotels by clicking on a hotel. Also, feel free to contact us
+          in case of any queries. We will try our best to provide you the best
+          service and quick response.
+        </div>
+      </div>
+      <div className={styles.imageAnimal}>
+        <img
+          src="https://res.cloudinary.com/techbuy/image/upload/v1649505234/pawsfigma_1_bwfvkc.png"
+          alt="bgimages"
+          className={styles.outerImage}
+        />
       </div>
     </div>
   );

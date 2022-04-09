@@ -7,16 +7,20 @@ function Footer() {
   return (
     <div className={styles.footerWrap}>
       <div className={styles.footerItem}>
-        <div className={styles.footerLeft}>About Us</div>
-        <div className={styles.footerLeft}> Terms and Conditions</div>
-        <div className={styles.footerLeft}> Responsible Disclosures</div>
-        <div className={styles.footerLeft}> Register a Complaint</div>
-        <div className={styles.footerLeft}> Leave a Feedback</div>
+        <Link to="/about">
+          {" "}
+          <div className={styles.footerLeft}>About Us</div>
+        </Link>
+        <Link to="/terms-and-conditions">
+          <div className={styles.footerLeft}> Terms and Conditions</div>
+        </Link>
+        {/* <div className={styles.footerLeft}> Responsible Disclosures</div> */}
       </div>
       <div className={styles.footerItem}>
         <div className={styles.footerLeft} style={{ fontSize: "150%" }}>
           Reach Us
         </div>
+
         <div className={styles.description}>
           Feel free to contact us, in case of any queries. Contact us from
           Monday to Sunday, between 09:00 IST to 18:00 IST

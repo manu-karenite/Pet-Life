@@ -1,5 +1,8 @@
 const hotel = require("../../Models/Hotel.js");
-
+const Booking = require("../../Models/Booking.js");
+const acceptBooking = require("../../Utitlities/Templates/User/AcceptBooking.js");
+const rejectBooking = require("../../Utitlities/Templates/User/RejectBooking.js");
+const mailer = require("../../Utitlities/Mailers/transporter.js");
 const createCoupon = async (req, res) => {
   try {
     //we are here, it means we have a valid hotel authentication
@@ -223,6 +226,69 @@ const deleteService = async (req, res) => {
     res.status(500).json(error);
   }
 };
+const getHotelBook = async (req, res) => {
+  console.log(req.params);
+  try {
+    const e1 = await Booking.find({ hotel: req.params.id, status: "Pending" })
+      .populate("hotel")
+      .populate("user");
+    const e2 = await Booking.find({ hotel: req.params.id, status: "Accepted" })
+      .populate("hotel")
+      .populate("user");
+    const e3 = await Booking.find({ hotel: req.params.id, status: "Cancelled" })
+      .populate("hotel")
+      .populate("user");
+
+    res.status(200).json({ e1, e2, e3 });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+};
+const acceptRejectBooking = async (req, res) => {
+  console.log(req.body);
+  try {
+    const { status } = req.body;
+    const getBooking = await Booking.findOne({
+      _id: req.body.bookingId,
+    }).select({
+      billingDetails: 1,
+      bookingId: 1,
+    });
+    console.log(getBooking);
+    if (status) {
+      let shallow = acceptBooking;
+      shallow = shallow.replace("{BOOKING_ID}", getBooking?.bookingId);
+      await mailer(
+        getBooking?.billingDetails?.billingEmail,
+        "Booking Accepted at Pet Hotel",
+        shallow
+      );
+      //change the status to Accepted,
+      let x = await Booking.findByIdAndUpdate(
+        req.body.bookingId,
+        { status: "Accepted" },
+        { new: true }
+      );
+    } else {
+      let shallow = rejectBooking;
+      shallow = shallow.replace("{BOOKING_ID}", getBooking?.bookingId);
+      await mailer(
+        getBooking?.billingDetails?.billingEmail,
+        "Booking Cancelled at Pet Hotel",
+        shallow
+      );
+      let x = await Booking.findByIdAndUpdate(
+        req.body.bookingId,
+        { status: "Cancelled" },
+        { new: true }
+      );
+    }
+    res.status(200).json("Updated Status");
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
 const obj = {
   createCoupon,
   getCoupons,
@@ -236,5 +302,7 @@ const obj = {
   createService,
   getServices,
   deleteService,
+  getHotelBook,
+  acceptRejectBooking,
 };
 module.exports = obj;

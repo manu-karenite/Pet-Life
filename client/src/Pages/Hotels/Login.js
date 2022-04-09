@@ -2,6 +2,7 @@ import React from "react";
 import LoginForm from "../../Components/Hotels/Forms/LoginForm.js";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 const HotelLogin = () => {
   const navigate = useNavigate();
   const { hotel } = useSelector((state) => ({ ...state }));

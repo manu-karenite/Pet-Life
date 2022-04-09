@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../../Axios/User/Authentication.js";
 import { toast } from "react-toastify";
+import { AppstoreOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import styles from "./LoginForm.module.css";
@@ -11,15 +12,28 @@ const LoginForm = () => {
   const [loading, setLoading] = React.useState(false);
   const loginHandler = (e) => {
     console.log(data);
+    if (data.username === "") {
+      toast.warning("Please Enter Username to Continue");
+      return;
+    }
+    if (data.password === "") {
+      toast.warning("Please Enter Password to Continue");
+      return;
+    }
+    setLoading(true);
     loginUser(data)
       .then((res) => {
         if (window !== undefined) {
           window.localStorage.setItem("UserLoggedIn", JSON.stringify(res.data));
         }
-        toast.success("Login Successfull!");
+        setLoading(false);
+        toast.success("Welcome Back! 🎉🎊");
         navigate("/dashboard");
       })
-      .catch((err) => toast.error(err.response.data));
+      .catch((err) => {
+        toast.error(err.response.data);
+        setLoading(false);
+      });
   };
   return (
     <center>
@@ -50,10 +64,14 @@ const LoginForm = () => {
             </div>
             <button
               className={styles.formBtn}
-              disabled={!data.username || !data.password}
+              disabled={loading}
               onClick={loginHandler}
             >
-              Login
+              {!loading ? (
+                " Login"
+              ) : (
+                <AppstoreOutlined style={{ fontSize: 30 }} spin={true} />
+              )}
             </button>
             <div className={styles.tootlip}>
               New Here?{" "}

@@ -30,7 +30,22 @@ const MyBookings = () => {
               <div className={styles.booking} key={index}>
                 <div className={styles.bLeft}>
                   <div className={styles.text1}>
-                    Booking Id : {curr?.bookingId}
+                    Booking Id : {curr?.bookingId}{" "}
+                    <span
+                      style={
+                        curr?.status === "Pending"
+                          ? { backgroundColor: "#FFCC33", padding: "5px 10px" }
+                          : curr?.status === "Accepted"
+                          ? {
+                              backgroundColor: "green",
+                              padding: "5px 10px",
+                              color: "white",
+                            }
+                          : { backgroundColor: "#ff5a36", padding: "5px 10px" }
+                      }
+                    >
+                      {curr?.status}
+                    </span>
                   </div>
 
                   <div className={styles.images_text1}>
@@ -81,6 +96,22 @@ const MyBookings = () => {
                   <center>
                     <div className={styles.text1}>
                       Booking Id : {curr?.bookingId}
+                    </div>
+                    <div
+                      className={styles.text1}
+                      style={
+                        curr?.status === "Pending"
+                          ? { backgroundColor: "#FFCC33", padding: "5px 10px" }
+                          : curr?.status === "Accepted"
+                          ? {
+                              backgroundColor: "green",
+                              padding: "5px 10px",
+                              color: "white",
+                            }
+                          : { backgroundColor: "#ff5a36", padding: "5px 10px" }
+                      }
+                    >
+                      {curr?.status}
                     </div>
                     <div className={styles.image}>
                       <img

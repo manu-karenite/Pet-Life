@@ -53,6 +53,8 @@ import AdminUsers from "./Pages/Admin/Users.js";
 import AdminHotelIndividual from "./Pages/Admin/HotelIndividual.js";
 import AdminPetIndividual from "./Pages/Admin/PetIndividual.js";
 import AdminBookingIndividual from "./Pages/Admin/BookingIndividual.js";
+
+import UserHeader from "./Components/AppBar/UserHeader.js";
 function App() {
   //FIX THE REDUX ON EVERY STAGE
   const dispatch = useDispatch();
@@ -91,7 +93,7 @@ function App() {
           exact
           element={
             <>
-              <Navbar />
+              <UserHeader />
               <Home />
               <Footer />
             </>
@@ -102,7 +104,7 @@ function App() {
           exact
           element={
             <>
-              <Navbar />
+              <UserHeader />
               <TermsAncConditions />
               <Footer />
             </>
@@ -113,7 +115,7 @@ function App() {
           exact
           element={
             <>
-              <Navbar />
+              <UserHeader />
               <Menu />
               <Footer />
             </>
@@ -124,7 +126,7 @@ function App() {
           exact
           element={
             <>
-              <Navbar />
+              <UserHeader />
               <About />
               <Footer />
             </>
@@ -135,7 +137,7 @@ function App() {
           exact
           element={
             <>
-              <Navbar />
+              <UserHeader />
               <Contact />
               <Footer />
             </>
@@ -146,7 +148,7 @@ function App() {
           exact
           element={
             <>
-              <Navbar />
+              <UserHeader />
               <Login />
               <Footer />
             </>
@@ -157,7 +159,7 @@ function App() {
           exact
           element={
             <>
-              <Navbar />
+              <UserHeader />
               <Register />
               <Footer />
             </>
@@ -168,7 +170,7 @@ function App() {
           exact
           element={
             <>
-              <Navbar />
+              <UserHeader />
               <UserForgotPassword />
               <Footer />
             </>
@@ -179,7 +181,7 @@ function App() {
           exact
           element={
             <>
-              <Navbar />
+              <UserHeader />
               <UserProtectRoute>
                 <UserDashboard />
                 <Footer />
@@ -192,7 +194,7 @@ function App() {
           exact
           element={
             <>
-              <Navbar />
+              <UserHeader />
               <UserProtectRoute>
                 <MyBookings />
                 <Footer />
@@ -205,7 +207,7 @@ function App() {
           exact
           element={
             <>
-              <Navbar />
+              <UserHeader />
               <UserProtectRoute>
                 <MyPets />
                 <Footer />
@@ -218,7 +220,7 @@ function App() {
           exact
           element={
             <>
-              <Navbar />
+              <UserHeader />
               <UserProtectRoute>
                 <MyProfile />
                 <Footer />
@@ -231,7 +233,7 @@ function App() {
           exact
           element={
             <>
-              <Navbar />
+              <UserHeader />
               <UserProtectRoute>
                 <MyDeleteProfile />
                 <Footer />
@@ -244,7 +246,7 @@ function App() {
           exact
           element={
             <>
-              <Navbar />
+              <UserHeader />
               <UserProtectRoute>
                 <Profile />
               </UserProtectRoute>
@@ -256,7 +258,7 @@ function App() {
           exact
           element={
             <>
-              <Navbar />
+              <UserHeader />
               <UserProtectRoute>
                 <UserUpdatePassword />
                 <Footer />
@@ -269,7 +271,7 @@ function App() {
           exact
           element={
             <>
-              <Navbar />
+              <UserHeader />
               <RegisterConfirmUser />
             </>
           }
@@ -279,7 +281,7 @@ function App() {
           exact
           element={
             <>
-              <Navbar />
+              <UserHeader />
               <HotelIndividual />
               <Footer />
             </>
@@ -290,7 +292,7 @@ function App() {
           exact
           element={
             <>
-              <Navbar />
+              <UserHeader />
               <UserProtectRoute>
                 <Checkout />
               </UserProtectRoute>
@@ -303,7 +305,7 @@ function App() {
           exact
           element={
             <>
-              <Navbar />
+              <UserHeader />
               <UserProtectRoute>
                 <YourPet />
               </UserProtectRoute>
