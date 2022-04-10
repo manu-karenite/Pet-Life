@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
 //importing only Users Related Pages
 import TermsAncConditions from "./Pages/User/TermsAncConditions.js";
+import FAQ from "./Pages/User/FAQ.js";
 import About from "./Pages/User/About.js";
 import Contact from "./Pages/User/Contact.js";
 import Home from "./Pages/User/Home.js";
@@ -128,6 +129,17 @@ function App() {
             <>
               <UserHeader />
               <About />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/freqently-asked-questions"
+          exact
+          element={
+            <>
+              <UserHeader />
+              <FAQ />
               <Footer />
             </>
           }

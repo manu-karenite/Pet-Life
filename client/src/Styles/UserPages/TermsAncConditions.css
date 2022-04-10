@@ -54,3 +54,18 @@
   color: #eb573d;
   text-decoration: none;
 }
+.terms-body .outer .answer {
+  background-color: #f8d312;
+  border: 0.1px solid #f8d312;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 18px;
+}
+.terms-body .outer {
+  margin-bottom: 15px;
+}
+.terms-body .outer .question {
+  padding: 5px;
+  font-size: 20px;
+  font-weight: 500;
+}

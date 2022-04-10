@@ -11,7 +11,7 @@ function Footer() {
           {" "}
           <div className={styles.footerLeft}>About Us</div>
         </Link>
-        <Link to="/about">
+        <Link to="/freqently-asked-questions">
           {" "}
           <div className={styles.footerLeft}>Frequently Asked Questions</div>
         </Link>

@@ -1,0 +1,70 @@
+.upper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(5, 29, 39);
+  padding: 0px 10px;
+}
+.upper2 {
+  flex-basis: 70%;
+  width: 70%;
+}
+.upper1 {
+  flex-basis: 30%;
+  width: 30%;
+}
+.upper2 img {
+  height: 70vh;
+  width: 100%;
+  object-fit: cover;
+}
+.round1 {
+  color: white;
+  font-size: 32px;
+  font-family: "Rubik";
+  text-align: center;
+}
+.round2 {
+  background-color: white;
+  font-size: 26px;
+  font-family: "Rubik";
+  font-weight: 900;
+  border-radius: 10px;
+  padding: 4px;
+  color: rgb(5, 29, 39) !important;
+}
+@media (max-width: 700px) {
+  .upper {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(5, 29, 39);
+    padding: 0px 0px;
+  }
+  .upper2 {
+    flex-basis: 100%;
+    width: 100%;
+  }
+  .upper1 {
+    flex-basis: 100%;
+    width: 100%;
+    margin-top: 20px;
+  }
+  .round1 {
+    color: white;
+    font-size: 24px;
+    font-family: "Rubik";
+    text-align: center;
+  }
+  .round2 {
+    background-color: white;
+    font-size: 19.5px;
+    font-family: "Rubik";
+    font-weight: 900;
+    border-radius: 10px;
+    padding: 4px;
+    color: rgb(5, 29, 39) !important;
+  }
+}
