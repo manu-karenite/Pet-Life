@@ -359,7 +359,19 @@ const changePasswordSetPassword = async (req, res) => {
 const deleteProfile = async (req, res) => {
   //what to delete ?
   //1)reviews,booking,user,checkout,pets
+  console.log(req.body);
+  console.log(req.params);
+
   try {
+    let result = await User.findOne({ _id: req.params.id });
+    if (!result) {
+      throw "User Not Found!";
+    }
+    //if we are here, it means we have a valid user! Now check for password correct or not.
+    const passwordValid = await bcrypt.compare(req.body.pass, result.password);
+    if (!passwordValid) {
+      throw "Password Incorrect!";
+    }
     let deletePets = await pets.deleteMany({ user: req._id });
     deletePets = await Checkout.deleteMany({ user: req._id });
     deletePets = await reviews.deleteMany({ user: req._id });

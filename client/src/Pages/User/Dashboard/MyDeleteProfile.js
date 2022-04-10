@@ -18,7 +18,7 @@ const MyDeleteProfile = () => {
       "Are you sure, you want to delete your account? This action cannot be undone! ☹️"
     );
     if (ans) {
-      deleteProfile(user?.jwt, user?._id)
+      deleteProfile(user?.jwt, user?._id, pass)
         .then((res) => {
           toast("Profile Deleted!");
           dispatch({
@@ -33,7 +33,13 @@ const MyDeleteProfile = () => {
           }
           navigate("/login");
         })
-        .catch((err) => "Something Happened! Please try again later");
+        .catch((err) =>
+          toast.error(
+            err.response.data
+              ? err.response.data
+              : "Something Happened! Please try again later"
+          )
+        );
     }
   };
   return (

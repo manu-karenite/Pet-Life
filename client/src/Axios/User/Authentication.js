@@ -118,12 +118,15 @@ const changePasswordSetPassword = async (JWT, p, cp) => {
   });
   return result;
 };
-const deleteProfile = async (JWT, id) => {
+const deleteProfile = async (JWT, id, pass) => {
   const result = await axios({
     method: "DELETE",
     url: `${process.env.REACT_APP_BACKEND_URL}/delete-profile/${id}`,
     headers: {
       authorization: `Bearer ${JWT}`,
+    },
+    data: {
+      pass: pass,
     },
   });
   return result;
