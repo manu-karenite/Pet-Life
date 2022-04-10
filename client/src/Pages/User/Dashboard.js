@@ -3,6 +3,9 @@ import "../../Styles/UserPages/Dashboard.css";
 import { Link } from "react-router-dom";
 
 const Dashboard = () => {
+  React.useEffect(() => {
+    window && window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="container">
       <div>

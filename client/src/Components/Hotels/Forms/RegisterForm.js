@@ -4,13 +4,42 @@ import styles from "./RegisterForm.module.css";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { registerHotel } from "../../../Axios/Hotel/Authentication.js";
+import { Link } from "react-router-dom";
+import { nanoid } from "nanoid";
+import "./LoginForm.css";
 const RegisterForm = () => {
   //declaring react functions
   const dispatch = useDispatch();
   const [data, setData] = React.useState({});
-
+  const [loading, setLoading] = React.useState(false);
   const submitHandler = (e) => {
+    if (!data?.name) {
+      toast.warning("Please Enter Hotel Name");
+      return;
+    }
+    if (!data?.email) {
+      toast.warning("Please Enter Hotel Email Address");
+      return;
+    }
+    if (data?.email.includes("@") === false) {
+      toast.warning("Please Enter Valid Email Address");
+      return;
+    }
+    console.log(data.contact.length);
+    if (data?.contact === "") {
+      toast.warning("Please Enter 10 Digit Contact Number");
+      return;
+    }
+    if (data.contact.length !== 10) {
+      toast.warning("Please Enter 10 Digit Contact Number");
+      return;
+    }
+    if (!data?.owner) {
+      toast.warning("Please Enter Hotel Owner's Name");
+      return;
+    }
     e.preventDefault();
+    setLoading(true);
     registerHotel(data)
       .then((res) => {
         //prepare to send it to Local Storage
@@ -35,95 +64,79 @@ const RegisterForm = () => {
           },
         });
         toast.success("Email has been sent to your email for further steps!");
+        setLoading(false);
       })
-      .catch((err) => toast.error(err.response.data));
+      .catch((err) => {
+        toast.error(err.response.data);
+        setLoading(false);
+      });
   };
   return (
-    <form className={styles.regForm} onSubmit={submitHandler}>
-      <div className="form-group">
-        <label htmlFor="hotelName">Hotel Name</label>
-        <input
-          type="text"
-          className="form-control"
-          id="name"
-          aria-describedby="emailHelp"
-          placeholder="Enter hotel's name"
-          required={true}
-          value={data.name}
-          onChange={(e) => setData({ ...data, name: e.target.value })}
-          name="x-field-1"
-          autocomplete="new-field-1"
-        />
-        <small id="emailHelp" className="form-text text-muted">
-          This would be the Name, users will see while Booking!
-        </small>
+    <>
+      <div class="dummy">
+        <div class="dummy-node">Join Us</div>
+        <form autoComplete="off">
+          <input
+            name={nanoid()}
+            id={nanoid()}
+            type="text"
+            class="feedback-input"
+            value={data.name}
+            onChange={(e) => setData({ ...data, name: e.target.value })}
+            placeholder="Enter Name of Hotel"
+            autoComplete={nanoid()}
+            required={true}
+          />
+          <input
+            name={nanoid()}
+            id={nanoid()}
+            type="email"
+            class="feedback-input"
+            value={data.email}
+            onChange={(e) => setData({ ...data, email: e.target.value })}
+            placeholder="Enter Business Email of Hotel"
+            autoComplete={nanoid()}
+            required={true}
+          />
+          <input
+            name={nanoid()}
+            id={nanoid()}
+            type="number"
+            class="feedback-input"
+            value={data.contact}
+            onChange={(e) => setData({ ...data, contact: e.target.value })}
+            placeholder="Enter Business Contact of Hotel"
+            autoComplete={nanoid()}
+            required={true}
+            minLength={10}
+            maxLength={10}
+          />
+          <input
+            name={nanoid()}
+            type="text"
+            class="feedback-input"
+            placeholder="Enter Owner's Name"
+            value={data.owner}
+            autoComplete={nanoid()}
+            id={nanoid()}
+            onChange={(e) => setData({ ...data, owner: e.target.value })}
+            required={true}
+          />
+
+          <input
+            type="submit"
+            value={loading ? "Please Wait" : "Register"}
+            onClick={submitHandler}
+          />
+        </form>
+        <Link to="/hotel/login">
+          <div class="dummy-node1">Already Registered?</div>
+        </Link>
+        <Link to="/login">
+          <div class="dummy-node1">Explore as User</div>
+        </Link>
       </div>
-      <div className="form-group">
-        <label htmlFor="email">Email address of Hotel</label>
-        <input
-          type="email"
-          className="form-control"
-          id="email"
-          aria-describedby="emailHelp"
-          placeholder="Enter email for business purpose"
-          required={true}
-          onChange={(e) => setData({ ...data, email: e.target.value })}
-          value={data.email}
-          name="x-field-1"
-          autocomplete="new-field-1"
-        />
-        <small id="emailHelp" className="form-text text-muted">
-          All Orders will be Communicated through this mail.
-        </small>
-      </div>
-      <div className="form-group">
-        <label htmlFor="hotelPhone">Enter Contact Number</label>
-        <input
-          type="number"
-          className="form-control"
-          id="hotelPhone"
-          placeholder="Enter Contact Number"
-          required={true}
-          onChange={(e) => setData({ ...data, contact: e.target.value })}
-          value={data.contact}
-          minLength={10}
-          maxLength={10}
-          name="x-field-1"
-          autocomplete="new-field-1"
-        />
-        <small id="emailHelp" className="form-text text-muted">
-          Enter your Contact Number without Country's Code, viz. +91
-        </small>
-      </div>
-      <div className="form-group">
-        <label htmlFor="ownerName">Hotel Owner's Name</label>
-        <input
-          type="text"
-          className="form-control"
-          id="ownerName"
-          aria-describedby="emailHelp"
-          placeholder="Enter Hotel Owner's Name"
-          required={true}
-          onChange={(e) => setData({ ...data, owner: e.target.value })}
-          value={data.owner}
-          name="x-field-1"
-          autocomplete="new-field-1"
-        />
-        <small id="emailHelp" className="form-text text-muted">
-          We'll never share your data with anyone else.
-        </small>
-      </div>
-      <center>
-        <button
-          type="submit"
-          className="btn btn-primary"
-          style={{ padding: "5px" }}
-          disabled={!data.name || !data.email || !data.contact || !data.owner}
-        >
-          Register Hotel
-        </button>
-      </center>
-    </form>
+    </>
   );
 };
 

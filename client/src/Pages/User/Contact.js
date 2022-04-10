@@ -5,6 +5,9 @@ import { contactUs } from "../../Axios/User/Authentication.js";
 import { toast } from "react-toastify";
 import { LoadingOutlined } from "@ant-design/icons";
 function Contact() {
+  React.useEffect(() => {
+    window && window.scrollTo(0, 0);
+  }, []);
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [data, setData] = React.useState("");

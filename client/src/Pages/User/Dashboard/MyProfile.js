@@ -35,7 +35,7 @@ const MyProfile = () => {
 
                 <button
                   type="button"
-                  className="btn btn-primary btn-rounded btn-lg"
+                  className="btn btn-dark btn-rounded btn-lg"
                   onClick={(e) => navigate("/update-password")}
                 >
                   Change Password

@@ -22,8 +22,8 @@
 
 @media (min-width: 1024px) {
   .innerText {
-    padding: 30px 400px;
+    padding: 30px 200px;
     font-size: 26px;
-    line-height: 54px;
+    text-align: center;
   }
 }

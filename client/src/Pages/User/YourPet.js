@@ -5,6 +5,9 @@ import { createPet } from "../../Axios/User/Dashboard.js";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const YourPet = () => {
+  React.useEffect(() => {
+    window && window.scrollTo(0, 0);
+  }, []);
   const navigate = useNavigate();
   const { user } = useSelector((state) => ({ ...state }));
   const [data, setData] = React.useState({

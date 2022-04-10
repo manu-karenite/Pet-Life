@@ -1,6 +1,7 @@
 .menuWrap {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 .drawer {
   flex: 1 1 20%;
@@ -41,8 +42,8 @@
 }
 
 .searchButton {
-  background-color: #06a906;
-  border: #06a906 solid 2.5px;
+  background-color: #000000;
+  border: #000000 solid 2.5px;
   padding: 5px 10px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -108,7 +109,7 @@
 
 .bookNow {
   background: #ffffff;
-  border: 2.5px solid #1c0fb9;
+  border: 2.5px solid #000000;
   font-weight: 600;
   font-size: 20px;
   line-height: 24px;
@@ -118,8 +119,8 @@
 }
 
 .view {
-  background-color: #06a906;
-  border: 2.5px solid #06a906;
+  background-color: #000000;
+  border: 2.5px solid #313131;
   font-weight: 600;
   font-size: 20px;
   line-height: 24px;
@@ -170,4 +171,27 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+@media (max-width: 800px) {
+  .drawer {
+    flex-basis: 100%;
+  }
+  .hotels {
+    flex-basis: 100%;
+  }
+  .hotel {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .xxx {
+    display: flex;
+    flex-direction: row;
+  }
+  .xxx input {
+    flex-basis: 80%;
+  }
+  .xxx button {
+    flex-basis: 20%;
+  }
 }

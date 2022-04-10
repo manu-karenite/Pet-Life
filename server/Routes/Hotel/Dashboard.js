@@ -17,6 +17,7 @@ const {
   deleteService,
   getHotelBook,
   acceptRejectBooking,
+  changeState,
 } = require("../../Controllers/Hotel/Dashboard.js");
 
 const {
@@ -59,6 +60,7 @@ dashboardRouter
 dashboardRouter
   .route("/hotel/accept-reject-booking")
   .post(hotelLoggedIn, acceptRejectBooking);
+dashboardRouter.route("/hotel/change-state").post(hotelLoggedIn, changeState);
 const obj = { dashboardRouter };
 
 module.exports = obj;

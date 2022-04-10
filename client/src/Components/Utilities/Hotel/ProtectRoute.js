@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 const ProtectRoute = ({ children }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [data, setData] = useState(null);
   const [ok, setOk] = useState(true);
   let hotelLoggedIn = null;
@@ -24,7 +25,10 @@ const ProtectRoute = ({ children }) => {
         });
         setOk(true);
       })
-      .catch((err) => setOk(false));
+      .catch((err) => {
+        setOk(false);
+        navigate("/hotel/login");
+      });
   };
 
   useEffect(() => {

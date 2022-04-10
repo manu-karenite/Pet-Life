@@ -24,6 +24,9 @@ const { Panel } = Collapse;
 
 // import { RadioGroup, RadioButton } from "react-radio-buttons";
 const Checkout = () => {
+  React.useEffect(() => {
+    window && window.scrollTo(0, 0);
+  }, []);
   const [allow, setAllow] = React.useState(false);
   const [placing, setPlacing] = React.useState(false);
   const [selectedPet, setSelectedPet] = React.useState("");

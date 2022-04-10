@@ -2,6 +2,9 @@ import React from "react";
 import RegisterForm from "../../Components/User/Forms/RegisterConfirm.js";
 import { Link } from "react-router-dom";
 const RegisterConfirm = () => {
+  React.useEffect(() => {
+    window && window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="container-fluid">
       <div className="row mt-3">
@@ -9,8 +12,7 @@ const RegisterConfirm = () => {
         <div className="col-md-6" style={{ marginBottom: "20px" }}>
           <RegisterForm />
           <div style={{ textAlign: "center" }} className="mt-3">
-            Want to Become our Partner?{" "}
-            <Link to="/register">Register Now</Link>
+            Want to Become our Partner? <Link to="/register">Register Now</Link>
           </div>
         </div>
         <div className="col-md-3" />

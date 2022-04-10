@@ -23,6 +23,7 @@
     "materialize-css": "^1.0.0",
     "mdb-react-ui-kit": "^2.4.0",
     "moment": "^2.29.1",
+    "nanoid": "^3.3.2",
     "nodemon": "^2.0.15",
     "react": "^17.0.2",
     "react-calendar": "^3.7.0",

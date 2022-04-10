@@ -162,6 +162,20 @@ const acceptRejectBooking = async (jwt, status, bookingId) => {
   });
   return result;
 };
+const changeState = async (jwt, id, state) => {
+  const result = await axios({
+    method: "POST",
+    url: `${process.env.REACT_APP_BACKEND_URL}/hotel/change-state`,
+    headers: {
+      authorization: `Bearer ${jwt}`,
+    },
+    data: {
+      id: id,
+      state: state,
+    },
+  });
+  return result;
+};
 export {
   createCoupon,
   getCoupons,
@@ -177,4 +191,5 @@ export {
   deleteService,
   getHotelBook,
   acceptRejectBooking,
+  changeState,
 };

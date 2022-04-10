@@ -7,8 +7,9 @@
 }
 .banner {
   height: 65vh;
-  width: 10vw;
+  width: 100vw;
   object-fit: cover;
+  object-position: center;
   flex-grow: 1;
 }
 
@@ -72,9 +73,9 @@
 }
 .best_card {
   flex-basis: 40%;
-  background: #f8d312;
+  background: #a0522d;
   border-radius: 10px 0px;
-  border: solid 1px #f8d312;
+  border: solid 1px #a0522d;
   margin: 3px;
   font-family: "Poppins";
   font-style: normal;
@@ -83,7 +84,7 @@
 
   text-align: center;
   display: inline-block;
-  color: #000000;
+  color: #fff8f8;
 }
 .left_moreHotels {
   display: flex;
@@ -151,7 +152,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border: 3px solid #fccc4d;
+  border: 3px solid #a0522d;
   box-sizing: border-box;
   border-radius: 10px 0px;
   padding: 10px;
@@ -171,8 +172,8 @@
 .service_meta_textContent_time {
   font-family: "Poppins";
   color: white;
-  background-color: #0000ff;
-  border: 1px solid #0000ff;
+  background-color: rgb(206, 0, 206);
+  border: 1px solid rgb(255, 72, 255);
   font-weight: 600;
   padding: 10px;
   font-size: 18px;
@@ -202,17 +203,17 @@
   justify-content: flex-end;
 }
 .service_btn button {
-  background: #ff4242;
+  background: #a0522d;
   border-radius: 10px 0px;
   font-family: "Overpass";
   font-style: normal;
   font-weight: 600;
   font-size: 24px;
-  border: 1px solid #ff4242;
+  border: 1px solid #a0522d;
   padding: 2px 16px;
   text-align: center;
 
-  color: #000000;
+  color: #f6f1f1;
 }
 .service {
   margin-bottom: 14px;
@@ -417,4 +418,53 @@ input {
   margin-bottom: 20px;
   width: 100%;
   border-bottom: 1px solid black;
+}
+.reviewsSection {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 800px) {
+  .left,
+  .right {
+    flex-basis: 100%;
+    padding: 10px;
+  }
+
+  .left_title {
+    font-size: 24px;
+  }
+  .left_address {
+    font-size: 16px;
+    line-height: 36px;
+  }
+  .left_best_title {
+    font-size: 20px;
+  }
+  .best_card {
+    font-size: 16px;
+  }
+  .stars {
+    flex-basis: 100%;
+  }
+  .averageStars {
+    font-size: 50px;
+  }
+  .service_meta_textContent_services span,
+  .service_meta_textContent_cost,
+  .service_meta_textContent_time {
+    font-size: 18px;
+  }
+  .left_more_title {
+    font-size: 20px;
+    text-align: center;
+  }
+  .left_moreHotels {
+    padding: 10px;
+  }
+  .left_moreMetaData_title {
+    font-size: 21px;
+  }
+  #hello {
+    display: none;
+  }
 }

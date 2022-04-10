@@ -11,6 +11,10 @@ function Footer() {
           {" "}
           <div className={styles.footerLeft}>About Us</div>
         </Link>
+        <Link to="/about">
+          {" "}
+          <div className={styles.footerLeft}>Frequently Asked Questions</div>
+        </Link>
         <Link to="/terms-and-conditions">
           <div className={styles.footerLeft}> Terms and Conditions</div>
         </Link>
@@ -27,12 +31,18 @@ function Footer() {
         </div>
         <div className={styles.footerIcons}>
           <div className={styles.footerIcon}>
-            <GitHubIcon sx={{ fontSize: 40, color: "#fff" }} />
+            <a
+              href="https://github.com/manu-karenite/Pet-Stay"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <GitHubIcon sx={{ fontSize: 40, color: "#fff" }} />
+            </a>
           </div>
           <div className={styles.footerIcon}>
-            <a href="mailto:business.petlife@gmail.com">
+            <Link to="/contact">
               <MailIcon sx={{ fontSize: 40, color: "#fff" }} />
-            </a>
+            </Link>
           </div>
         </div>
       </div>

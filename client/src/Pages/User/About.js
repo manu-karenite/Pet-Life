@@ -14,6 +14,8 @@ function About() {
         />
       </div>
       <div className={styles.text}>
+        <br></br>
+        <strong><h1 style={{"textAlign": "center", "fontWeight":"bolder", "textDecoration":"underline"}}>ABOUT US</h1></strong>
         <div className={styles.innerText}>
           We, the PetLife team, work together to provide you with the best
           hotels present out there for the pets. We provide you the best prices

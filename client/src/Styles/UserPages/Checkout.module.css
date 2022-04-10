@@ -324,8 +324,8 @@ label {
 }
 .stepsButton {
   width: 100%;
-  background-color: blue;
-  border: solid 0.5px blue;
+  background-color: #a0522d;
+  border: solid 0.5px #a0522d;
   border-radius: 2px;
   color: white !important;
   padding: 4px;
