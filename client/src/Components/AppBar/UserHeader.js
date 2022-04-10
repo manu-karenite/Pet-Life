@@ -31,9 +31,15 @@ const UserHeader = () => {
         <div className={styles.outer1}>
           <div className={styles.outer2}>
             <img
-              src="https://res.cloudinary.com/techbuy/image/upload/v1649507019/image2vector_1_rnrh99.svg"
+              src="https://res.cloudinary.com/techbuy/image/upload/v1649527754/paws_sluxha.svg"
               alt="snbsj"
-              style={{ height: "65px", width: "65px", objectFit: "cover" }}
+              style={{
+                height: "65px",
+                width: "65px",
+                objectFit: "cover",
+                margin: "5px",
+                marginLeft: "30px",
+              }}
             />
           </div>
           <div className={styles.outer3}>
@@ -115,7 +121,7 @@ const UserHeader = () => {
           </Link>
           <div className={styles.outer2}>
             <img
-              src="https://res.cloudinary.com/techbuy/image/upload/v1649507019/image2vector_1_rnrh99.svg"
+              src="https://res.cloudinary.com/techbuy/image/upload/v1649527754/paws_sluxha.svg"
               alt="snbsj"
               style={{ height: "65px", width: "65px", objectFit: "cover" }}
             />

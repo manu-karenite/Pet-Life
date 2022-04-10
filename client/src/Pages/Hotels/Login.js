@@ -14,13 +14,12 @@ const HotelLogin = () => {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div className="container-fluid">
-      <div className="row mt-3">
-        <div className="col-md-2" />
-        <div className="col-md-8" style={{ marginBottom: "20px" }}>
-          <LoginForm />
-        </div>
-        <div className="col-md-2" />
+    <div
+      className="container-fluid"
+      style={{ backgroundColor: "rgb(30, 30, 40) !important" }}
+    >
+      <div className="row">
+        <LoginForm />
       </div>
     </div>
   );

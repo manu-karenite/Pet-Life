@@ -7,6 +7,7 @@ const reviews = require("../../Models/Review.js");
 const getHotels = async (req, res) => {
   try {
     const allHotels = await Hotel.find({});
+    console.log(allHotels);
     return res.status(200).json(allHotels);
   } catch (error) {
     console.log(error);

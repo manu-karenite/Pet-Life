@@ -1,15 +1,17 @@
 import React from "react";
+import { nanoid } from "nanoid";
 import { useNavigate, Link } from "react-router-dom";
 import { loginHotel } from "../../../Axios/Hotel/Authentication.js";
 import { toast } from "react-toastify";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
-
+import "./LoginForm.css";
 const LoginForm = () => {
   const navigate = useNavigate();
   const [data, setData] = React.useState({});
   const [loading, setLoading] = React.useState(false);
   const loginHandler = (e) => {
+    e.preventDefault();
     setLoading(true);
     console.log(loading);
     loginHotel(data)
@@ -30,114 +32,44 @@ const LoginForm = () => {
       });
   };
   return (
-    <section
-      className="h-100 gradient-form"
-      style={{ backgroundColor: "#eee" }}
-    >
-      <div className="container py-5 h-100">
-        <div className="row d-flex justify-content-center align-items-center h-100">
-          <div className="col-xl-10">
-            <div className="card rounded-3 text-black">
-              <div className="row g-0">
-                <div className="col-lg-6">
-                  <div className="card-body p-md-5 mx-md-4">
-                    <div className="text-center">
-                      <img
-                        src="https://res.cloudinary.com/techbuy/image/upload/v1645255624/hello_pgfv7v.jpg"
-                        style={{ width: 185 }}
-                        alt="logo"
-                      />
-                    </div>
-                    <form>
-                      <p>Hotels Access Portal</p>
-                      <div className="form-outline mb-4">
-                        <input
-                          type="text"
-                          id="form2Example11"
-                          className="form-control"
-                          placeholder="Phone number or email address"
-                          value={data.username}
-                          onChange={(e) =>
-                            setData({ ...data, username: e.target.value })
-                          }
-                          autocomplete="off"
-                        />
-                        <label className="form-label" htmlFor="form2Example11">
-                          Username
-                        </label>
-                      </div>
-                      <div className="form-outline mb-4">
-                        <input
-                          type="password"
-                          id="form2Example22"
-                          className="form-control"
-                          value={data.password}
-                          onChange={(e) =>
-                            setData({ ...data, password: e.target.value })
-                          }
-                          placeholder="Enter Password"
-                          style={{ fontWeight: "900 !important" }}
-                        />
-                        <label className="form-label" htmlFor="form2Example22">
-                          Password
-                        </label>
-                      </div>
+    <div class="dummy">
+      <div class="dummy-node">Welcome Back To Hotel Panel</div>
+      <form autoComplete="off">
+        <input
+          name={nanoid()}
+          id={nanoid()}
+          type="email"
+          class="feedback-input"
+          value={data.username}
+          onChange={(e) => setData({ ...data, username: e.target.value })}
+          placeholder="Enter Email of Hotel"
+          autoComplete={nanoid()}
+        />
+        <input
+          name={nanoid()}
+          type="password"
+          class="feedback-input"
+          placeholder="Password"
+          value={data.password}
+          autoComplete={nanoid()}
+          id={nanoid()}
+          onChange={(e) => setData({ ...data, password: e.target.value })}
+        />
 
-                      <div className="text-center pt-1 mb-5 pb-1">
-                        <button
-                          className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
-                          type="button"
-                          onClick={loginHandler}
-                          disabled={loading}
-                        >
-                          {loading ? (
-                            <LoadingOutlined
-                              style={{ fontSize: 25, color: "orange" }}
-                            />
-                          ) : (
-                            "Login"
-                          )}
-                        </button>
-                        <p className="text-muted">
-                          <Link to="/hotel/forgot-password">
-                            Forgot password?
-                          </Link>
-                        </p>
-                      </div>
-                      <div className="d-flex align-items-center justify-content-center pb-4">
-                        <p className="mb-0 me-2">Don't have an account?</p>
-                        <button
-                          clas
-                          type="button"
-                          className="btn btn-outline-danger pb-5"
-                          onClick={(e) => navigate("/hotel/register")}
-                        >
-                          Create new
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-                <div className="col-lg-6 d-flex align-items-center gradient-custom-2">
-                  <div className="text-white px-3 py-4 p-md-5 mx-md-4">
-                    <h3 className="mb-4">We are more than just partners..</h3>
-                    <p className="small mb-0">
-                      We help you grow your business, in the most ecstatic
-                      method as possible. We bring you curated customers,
-                      helping you strive and thrive in your vision, to reach out
-                      to all the Pet Owners out there!
-                      <br />
-                      Join <strong>Pet Life</strong> now, in case you are New
-                      Here
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+        <input
+          type="submit"
+          value={loading ? "Logging In....." : "Login"}
+          onClick={loginHandler}
+          disabled={loading}
+        />
+      </form>
+      <Link to="/hotel/forgot-password">
+        <div class="dummy-node1">Forgot Password?</div>
+      </Link>
+      <Link to="/hotel/register">
+        <div class="dummy-node1">Join Us</div>
+      </Link>
+    </div>
   );
 };
 

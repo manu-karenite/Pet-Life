@@ -8,6 +8,9 @@ import {
 } from "../../Axios/User/Authentication.js";
 import { toast } from "react-toastify";
 const UserUpdatePassword = () => {
+  React.useEffect(() => {
+    window && window.scrollTo(0, 0);
+  }, []);
   const [otp, setOTP] = React.useState("123456");
   const [p, setP] = React.useState("");
   const [cp, setCp] = React.useState("");

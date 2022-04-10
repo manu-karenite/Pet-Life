@@ -78,6 +78,8 @@ const getProfile = async (req, res) => {
       shortDescription: hotelExists?.shortDescription
         ? hotelExists.shortDescription
         : "",
+      name: hotelExists?.name,
+      status: hotelExists?.status,
     };
     res.status(200).json(toReturn);
   } catch (error) {
@@ -289,6 +291,20 @@ const acceptRejectBooking = async (req, res) => {
     res.status(500).json(error);
   }
 };
+const changeState = async (req, res) => {
+  console.log("REQ BODY : ", req.body);
+  try {
+    const h = await hotel.findByIdAndUpdate(
+      req.body.id,
+      { status: req.body.state },
+      { new: true }
+    );
+    console.log(h);
+    res.status(200).json("Okay");
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
 const obj = {
   createCoupon,
   getCoupons,
@@ -304,5 +320,6 @@ const obj = {
   deleteService,
   getHotelBook,
   acceptRejectBooking,
+  changeState,
 };
 module.exports = obj;

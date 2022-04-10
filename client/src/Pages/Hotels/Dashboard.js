@@ -2,24 +2,45 @@ import React from "react";
 import styles from "../../Styles/HotelDashboard.module.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import { getProfile, changeState } from "../../Axios/Hotel/Dashboard.js";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
 import ThumbsUpDownOutlinedIcon from "@mui/icons-material/ThumbsUpDownOutlined";
 import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
 import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
+import { toast } from "react-toastify";
 const Dashboard = () => {
   const { hotel } = useSelector((state) => ({ ...state }));
+  const [hotel1, setHotel1] = React.useState(null);
+  const getData = () => {
+    getProfile(hotel?.jwt, hotel?._id)
+      .then((res) => {
+        console.log(res);
+        setHotel1(res.data);
+      })
+      .catch((err) => {});
+  };
+  React.useEffect(() => {
+    hotel && getData();
+  }, [hotel]);
+  const changeStatus = (state) => {
+    changeState(hotel?.jwt, hotel?._id, state)
+      .then((res) => {
+        toast.success("Request Succesfully Created!");
+        getData();
+      })
+      .catch((err) => toast.error("Unexpected Error"));
+  };
   const navigate = useNavigate();
   return (
     <div className={styles.wrapper}>
-      <div className={styles.header}>{hotel?.name}</div>
+      <div className={styles.header}>{hotel1?.name}</div>
       <div className={styles.status}>
         Status :{" "}
-        {hotel?.status === "In-Active" ? (
+        {hotel1?.status === "In-Active" ? (
           <span className={styles.inactive}>In-Active</span>
-        ) : hotel?.status === "Queued" ? (
+        ) : hotel1?.status === "Queued" ? (
           <span className={styles.queued}>Request In Process</span>
         ) : (
           <span className={styles.active}>Active</span>
@@ -97,16 +118,39 @@ const Dashboard = () => {
         </div>
         {/* </center> */}
       </div>
-      {hotel?.status !== "Active" && (
+      {hotel1?.status}
+      {hotel1?.status === "Active" && (
         <div className={styles.btn}>
-          <button className={styles.butt} disabled={hotel?.status === "Queued"}>
-            {hotel?.status === "Queued"
-              ? "Submitted for Activation"
-              : "Request for Account Activation"}
+          <button
+            className={styles.butt}
+            onClick={() => changeStatus("In-Active")}
+          >
+            Request for Account Deactivation
           </button>
-          {hotel?.status === "In-Active"
-            ? `Your ${hotel?.name}, will be available for booking, and displayed on the website to users, after you complete your profile successfully, follwed by a verification from Admin Side.`
-            : ""}
+          {`Your ${hotel1?.name}, is available for booking, and clicking this button will stop displaying onwebsite to Users. (This Could be done For Maintenance Purposes and in Case of No Vacancy!)`}
+        </div>
+      )}
+      {hotel1?.status === "Queued" && (
+        <div className={styles.btn}>
+          <button
+            className={styles.butt}
+            onClick={() => changeStatus("In-Active")}
+          >
+            Cancel Request
+          </button>
+          {`Your ${hotel1?.name}, is queued for Acceptance from Admin Side, and clicking this button will cancel the Request.`}
+        </div>
+      )}
+
+      {hotel1?.status === "In-Active" && (
+        <div className={styles.btn}>
+          <button
+            className={styles.butt}
+            onClick={() => changeStatus("Queued")}
+          >
+            Request for Account Activation
+          </button>
+          {`Your ${hotel1?.name}, will be available for booking, and displayed on the website to users, after you complete your profile successfully, follwed by a verification from Admin Side.`}
         </div>
       )}
     </div>

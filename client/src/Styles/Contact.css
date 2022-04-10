@@ -18,6 +18,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 20px;
 }
 
 .contact .rightSide h1 {
@@ -77,4 +78,22 @@ form button {
   color: whitesmoke;
   font-size: 15px;
   cursor: pointer;
+}
+@media (max-width: 767px) {
+  .contact .leftSide {
+    height: 100%;
+    flex: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .contact .rightSide {
+    height: 100%;
+    flex: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+  }
 }

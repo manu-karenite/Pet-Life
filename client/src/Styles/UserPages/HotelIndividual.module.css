@@ -7,8 +7,9 @@
 }
 .banner {
   height: 65vh;
-  width: 10vw;
+  width: 100vw;
   object-fit: cover;
+  object-position: center;
   flex-grow: 1;
 }
 
@@ -417,4 +418,53 @@ input {
   margin-bottom: 20px;
   width: 100%;
   border-bottom: 1px solid black;
+}
+.reviewsSection {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 800px) {
+  .left,
+  .right {
+    flex-basis: 100%;
+    padding: 10px;
+  }
+
+  .left_title {
+    font-size: 24px;
+  }
+  .left_address {
+    font-size: 16px;
+    line-height: 36px;
+  }
+  .left_best_title {
+    font-size: 20px;
+  }
+  .best_card {
+    font-size: 16px;
+  }
+  .stars {
+    flex-basis: 100%;
+  }
+  .averageStars {
+    font-size: 50px;
+  }
+  .service_meta_textContent_services span,
+  .service_meta_textContent_cost,
+  .service_meta_textContent_time {
+    font-size: 18px;
+  }
+  .left_more_title {
+    font-size: 20px;
+    text-align: center;
+  }
+  .left_moreHotels {
+    padding: 10px;
+  }
+  .left_moreMetaData_title {
+    font-size: 21px;
+  }
+  #hello {
+    display: none;
+  }
 }

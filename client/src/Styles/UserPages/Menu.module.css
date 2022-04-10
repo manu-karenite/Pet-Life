@@ -1,6 +1,7 @@
 .menuWrap {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 .drawer {
   flex: 1 1 20%;
@@ -170,4 +171,27 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+@media (max-width: 800px) {
+  .drawer {
+    flex-basis: 100%;
+  }
+  .hotels {
+    flex-basis: 100%;
+  }
+  .hotel {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .xxx {
+    display: flex;
+    flex-direction: row;
+  }
+  .xxx input {
+    flex-basis: 80%;
+  }
+  .xxx button {
+    flex-basis: 20%;
+  }
 }

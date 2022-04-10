@@ -27,6 +27,9 @@ const getStaringPrice = (el) => {
   return minimumCost;
 };
 const Menu = () => {
+  useEffect(() => {
+    window && window.scrollTo(0, 0);
+  }, []);
   const navigate = useNavigate();
   const [allHotels, setAllHotels] = useState([]);
   const [search, setSearch] = useState("");
@@ -325,7 +328,7 @@ const Menu = () => {
           </div>
           <div className={styles.hotels}>
             <div className={styles.searchBar}>
-              <div>
+              <div className={styles.xxx}>
                 <input
                   type="text"
                   className={styles.searchField}
@@ -348,7 +351,8 @@ const Menu = () => {
                     curr?.name.toLowerCase().includes(search.toLowerCase()) &&
                     (curr?.starRating ? curr.starRating : 0) >= filterStar &&
                     checkBoxCleared(curr) &&
-                    (state === "" || curr?.address?.state === state) && (
+                    (state === "" || curr?.address?.state === state) &&
+                    curr?.status === "Active" && (
                       <div className={styles.hotel} key={index}>
                         <div className={styles.hotelImage}>
                           <img

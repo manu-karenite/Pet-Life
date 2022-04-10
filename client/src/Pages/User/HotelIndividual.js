@@ -5,6 +5,8 @@ import {
   getMoreHotelDetails,
   getReviewsHotelWise,
 } from "../../Axios/User/Dashboard.js";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
 import { addReview } from "../../Axios/User/Dashboard.js";
 import { createCheckout } from "../../Axios/User/Checkout.js";
 import { useSelector, useDispatch } from "react-redux";
@@ -130,32 +132,57 @@ const HotelIndividual = () => {
   }
   return (
     <div>
-      <div className={styles.bannerDiv}>
-        {/* <div> */}
-        <img
+      {/* <div className={styles.bannerDiv}> */}
+      <Carousel
+        autoPlay={true}
+        // centerMode={true}
+        niteLoop={true}
+        Arrows={true}
+        showThumbs={false}
+        style={{ height: "65vh" }}
+      >
+        <div>
+          <img
+            src={hotel?.images[0]?.secure_url}
+            alt="Hotel Images"
+            className={styles.banner}
+          />
+        </div>
+        <div>
+          <img
+            src={hotel?.images[1]?.secure_url}
+            alt="Hotel Images"
+            className={styles.banner}
+            id="hello"
+          />
+        </div>
+      </Carousel>
+      {/* <div> */}
+      {/* <img
           src={hotel?.images[0]?.secure_url}
           alt="Hotel Images"
           className={styles.banner}
-        />
-        {/* </div> */}
-        {/* <div> */}
-        <img
+        /> */}
+      {/* </div> */}
+      {/* <div> */}
+      {/* <img
           src={hotel?.images[1]?.secure_url}
           alt="Hotel Images"
           className={styles.banner}
-        />
-        {/* </div> */}
-      </div>
+          id="hello"
+        /> */}
+      {/* </div> */}
+      {/* </div> */}
       {/* DIVIDING THE AREA INTO TWO PARTS */}
       <div className={styles.divider}>
         <div className={styles.left}>
           <div className={styles.left_title}>{hotel?.name.toUpperCase()}</div>
           <div className={styles.left_address}>
-            <LocationOnIcon />
+            <LocationOnIcon /> :{" "}
             {hotel?.address?.data1 + " , " + hotel?.address?.data2}
           </div>
           <div className={styles.left_address}>
-            <MapIcon />
+            <MapIcon /> :{" "}
             {hotel?.address?.city +
               " , " +
               hotel?.address?.state +
