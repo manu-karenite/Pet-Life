@@ -28,3 +28,4 @@ The Web Application is Hosted on : **https://petlife-web.herokuapp.com/**
 5) Go to Server Folder: npm install, followed by npm start
 6) For Running, ENVIRONMENT FILE is required. Contact for ENVIRONMENT FILES.
 
+#### Please Note : Feedbacks and Bug Discoveries are Most Welcomed! 🐹
