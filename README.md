@@ -9,10 +9,10 @@ The Project is developed as a part of Mini Project Series in 6th Semester.
 
 A Quick Glimpse of the Technologies Used  : 
 
-**Frontend**  : React.js
-**Styling** : CSS, MUI, Antd
-**Backend** : express.js and node.js
-**Database** : MongoDB hosted on Atlas.
+* **Frontend**  : React.js
+* **Styling** : CSS, MUI, Antd
+* **Backend** : express.js and node.js
+* **Database** : MongoDB hosted on Atlas.
 
 Modular Design : 
 
