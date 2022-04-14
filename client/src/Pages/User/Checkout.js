@@ -19,7 +19,7 @@ import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
 import { LoadingOutlined } from "@ant-design/icons";
-
+import { Helmet } from "react-helmet";
 const { Panel } = Collapse;
 
 // import { RadioGroup, RadioButton } from "react-radio-buttons";
@@ -281,6 +281,9 @@ const Checkout = () => {
   };
   return (
     <>
+      <Helmet>
+        <title>PetLife | Checkout</title>
+      </Helmet>
       <div className={styles.heading}>Confirm Your Booking</div>
       <div className={styles.divider}>
         <div className={styles.priceAndHotel}>

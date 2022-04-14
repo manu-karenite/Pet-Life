@@ -7,7 +7,7 @@ const reviews = require("../../Models/Review.js");
 const getHotels = async (req, res) => {
   try {
     const allHotels = await Hotel.find({});
-    console.log(allHotels);
+
     return res.status(200).json(allHotels);
   } catch (error) {
     console.log(error);
@@ -89,7 +89,16 @@ const updatePetDetails = async (req, res) => {
 };
 const createMyPet = async (req, res) => {
   const { name, age, mark, all1, all2, all3, category } = req.body;
+
   try {
+    //get for pets details........
+    //check the name against regexp pattern
+    const re = new RegExp("^[a-zA-Z ]+$");
+    //only letters are sllowed with spaces...
+    const resultOfMatch = name.match(re);
+    if (!resultOfMatch) {
+      throw "Please Enter Pet's Name with Letters and Spaces";
+    }
     let query = new pets({
       user: req._id,
 
@@ -120,6 +129,7 @@ const deleteMyPet = async (req, res) => {
 const getPetDetails = async (req, res) => {
   try {
     const pet = await pets.find({ user: req._id });
+    console.log("MY PETS");
     console.log(pet);
     return res.status(200).json(pet);
   } catch (error) {

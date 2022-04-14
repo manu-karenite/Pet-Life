@@ -1,23 +1,26 @@
 import React from "react";
 import RegisterForm from "../../Components/User/Forms/RegisterConfirm.js";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import styles from "./Login.module.css";
 const RegisterConfirm = () => {
   React.useEffect(() => {
     window && window.scrollTo(0, 0);
   }, []);
   return (
-    <div className="container-fluid">
-      <div className="row mt-3">
-        <div className="col-md-3" />
-        <div className="col-md-6" style={{ marginBottom: "20px" }}>
-          <RegisterForm />
-          <div style={{ textAlign: "center" }} className="mt-3">
-            Want to Become our Partner? <Link to="/register">Register Now</Link>
+    <>
+      <Helmet>
+        <title>PetLife | Confirm Registration</title>
+      </Helmet>
+
+      <div className="container-fluid">
+        <div className="row">
+          <div className={`col-md-12 ${styles.loginBg}`}>
+            <RegisterForm />
           </div>
         </div>
-        <div className="col-md-3" />
       </div>
-    </div>
+    </>
   );
 };
 

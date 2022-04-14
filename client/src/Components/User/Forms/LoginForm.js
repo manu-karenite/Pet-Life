@@ -45,7 +45,7 @@ const LoginForm = () => {
             <input
               type="text"
               className={styles.input}
-              placeholder="Email or Phone Number"
+              placeholder="EmaiL"
               value={data.username || ""}
               onChange={(e) => setData({ ...data, username: e.target.value })}
             />

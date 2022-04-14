@@ -33,8 +33,12 @@ const hotelSchema = new mongoose.Schema({
   },
   starRating: {
     type: Number,
+    default: 0,
   },
-  numberOfRatings: Number,
+  numberOfRatings: {
+    type: Number,
+    default: 0,
+  },
   description: String,
   shortDescription: String,
   petsAllowed: [String],

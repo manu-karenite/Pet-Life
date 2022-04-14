@@ -4,14 +4,24 @@ import { toast } from "react-toastify";
 import { registerUser } from "../../../Axios/User/Authentication.js";
 import styles from "./LoginForm.module.css";
 import { useNavigate } from "react-router-dom";
+import { AppstoreOutlined } from "@ant-design/icons";
 const RegisterForm = () => {
   //declaring react functions
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [data, setData] = React.useState({});
-
+  const [load, setLoad] = React.useState(false);
   const submitHandler = (e) => {
     e.preventDefault();
+    if (!data?.name) {
+      toast.warning("Please Enter your Name");
+      return;
+    }
+    if (!data?.email) {
+      toast.warning("Please Enter your Email Address");
+      return;
+    }
+    setLoad(true);
     registerUser(data)
       .then((res) => {
         //prepare to send it to Local Storage
@@ -32,8 +42,12 @@ const RegisterForm = () => {
           },
         });
         toast.success("Email has been sent to your email for further steps!");
+        setLoad(false);
       })
-      .catch((err) => toast.error(err.response.data));
+      .catch((err) => {
+        toast.error(err.response.data);
+        setLoad(false);
+      });
   };
   return (
     <center>
@@ -61,12 +75,12 @@ const RegisterForm = () => {
             />
             <br />
 
-            <button
-              className={styles.formBtn}
-              disabled={!data.name || !data.email}
-              onClick={submitHandler}
-            >
-              Register
+            <button className={styles.formBtn} onClick={submitHandler}>
+              {!load ? (
+                "Register"
+              ) : (
+                <AppstoreOutlined style={{ fontSize: 30 }} spin={true} />
+              )}
             </button>
           </div>
           <div className={styles.tootlip}>

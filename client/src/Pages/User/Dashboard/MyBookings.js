@@ -3,6 +3,7 @@ import styles from "../../../Styles/UserPages/MyBookings.module.css";
 import { getUserBookings } from "../../../Axios/User/Dashboard.js";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import { Helmet } from "react-helmet";
 const MyBookings = () => {
   const [data, setData] = React.useState([]);
   const { user } = useSelector((state) => ({ ...state }));
@@ -17,6 +18,9 @@ const MyBookings = () => {
   }, [user]);
   return (
     <>
+      <Helmet>
+        <title>PetLife | My Bookings</title>
+      </Helmet>
       <div className={styles.heading}>My Bookings</div>
       <div className={styles.bookingList}>
         {data.length === 0 && (

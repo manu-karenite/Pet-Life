@@ -13,11 +13,21 @@ const Booking = require("../../Models/Booking.js");
 const Checkout = require("../../Models/Checkout.js");
 const pets = require("../../Models/Pets.js");
 const reviews = require("../../Models/Review.js");
+const { isEmail } = require("validator");
 const registerUser = async (req, res) => {
   let { name, email, password } = req.body;
   try {
     if (!name || !email) {
       throw "Insufficient Details Found! Please Fill in the details Carefully";
+    }
+    //matching regexp for name and email matches
+    const re1 = new RegExp("^[a-zA-Z ]+$");
+    const ans1 = name.match(re1);
+    if (!ans1) throw "Please Enter a Valid Name with Letters and Spaces";
+    const re2 = new RegExp("^[a-zA-Z.0-9_]+[@]+[a-zA-Z_]+[.][a-zA-Z]+$");
+    const result1 = email.match(re2);
+    if (!result1) {
+      throw "Invalid Email Entered! Please Try Again!";
     }
 
     //query the DB for any email present or not!
@@ -77,7 +87,7 @@ const registerUserConfirm = async (req, res) => {
     if (!result.iat) {
       throw "JWT Malformed";
     }
-    if (result.parameter !== req.body.email) {
+    if (result.parameter.toLowerCase() !== req.body.email.toLowerCase()) {
       throw "Inavlid Mail Link! Please Try Again";
     }
 
@@ -87,12 +97,13 @@ const registerUserConfirm = async (req, res) => {
 
     let newUser = new User({
       name: req.body.name,
-      email: req.body.email,
+      email: req.body.email.toLowerCase(),
       password: encryptedPassword,
     });
     newUser = await newUser.save();
     res.status(201).json("Created");
   } catch (error) {
+    console.log(error);
     res.status(400).json(error);
   }
   //1) check for the empty details first, and send an error if there is one
@@ -104,6 +115,13 @@ const loginUser = async (req, res) => {
     if (!username || !password) {
       throw "Incomplete Details";
     }
+    const re = new RegExp("^[a-zA-Z.0-9_]+[@]+[a-zA-Z_]+[.][a-zA-Z]+$");
+    const result1 = username.match(re);
+    if (!result1) {
+      throw "Invalid Email Entered! Please Try Again!";
+    }
+    console.log(result1);
+
     //1) check whether User exists with email or phone in the username filed
     let result = await User.findOne({ email: username });
     if (!result) {
@@ -173,6 +191,11 @@ const verifyUser = async (req, res) => {
 };
 const forgotPassword = async (req, res) => {
   try {
+    const re = new RegExp("^[a-zA-Z.0-9_]+[@]+[a-zA-Z_]+[.][a-zA-Z]+$");
+    const result1 = req.body.email.match(re);
+    if (!result1) {
+      throw "Invalid Email Entered! Please Try Again!";
+    }
     const userExists = await User.findOne({ email: req.body.email });
     if (!userExists) {
       throw "No user Registered with this Email-Id";
@@ -255,6 +278,11 @@ const contactUs = async (req, res) => {
     }
     if (!email) {
       throw "Please Enter Email Address Name";
+    }
+    const re = new RegExp("^[a-zA-Z.0-9_]+[@]+[a-zA-Z_]+[.][a-zA-Z]+$");
+    const result1 = email.match(re);
+    if (!result1) {
+      throw "Invalid Email Entered! Please Try Again!";
     }
     if (!data) {
       throw "Please Enter Your Message";

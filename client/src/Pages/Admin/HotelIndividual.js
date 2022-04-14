@@ -98,7 +98,7 @@ const HotelIndividual = () => {
               <CallIcon /> &emsp; +91 {data && data?.contact}
             </h6>
             <p className="proile-rating">
-              RANKINGS : <span>8/10</span>
+              Ratings : <span>{data?.starRating ? data?.starRating : 0}/5</span>
             </p>
             <ul className="nav nav-tabs" id="myTab" role="tablist">
               <li className="nav-item">

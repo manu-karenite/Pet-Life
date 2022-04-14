@@ -4,10 +4,13 @@ import { toast } from "react-toastify";
 import { createPet } from "../../Axios/User/Dashboard.js";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { AppstoreOutlined } from "@ant-design/icons";
+import { Helmet } from "react-helmet";
 const YourPet = () => {
   React.useEffect(() => {
     window && window.scrollTo(0, 0);
   }, []);
+  const [load, setLoad] = React.useState(false);
   const navigate = useNavigate();
   const { user } = useSelector((state) => ({ ...state }));
   const [data, setData] = React.useState({
@@ -38,15 +41,24 @@ const YourPet = () => {
       return;
     }
     console.log(data);
+    setLoad(true);
     createPet(user?.jwt, data)
       .then((res) => {
         toast.success("Pet Details Have Been Saved Successfully");
         navigate("/dashboard/my-pets");
+        setLoad(false);
       })
-      .catch((err) => toast.error("Pets Details Could not be Created"));
+      .catch((err) => {
+        toast.error(err.response.data);
+        setLoad(false);
+      });
   };
   return (
     <>
+      {" "}
+      <Helmet>
+        <title>PetLife | Add Pets</title>
+      </Helmet>
       <div className={styles.heading}>Your Pet</div>
       <center>
         <div className={styles.outer}>
@@ -172,7 +184,15 @@ const YourPet = () => {
               </div>
             </div>
             <div className={styles.priceButton}>
-              <input type="submit" value="Save Changes" />
+              <button onClick={submitHandler}>
+                {
+                  <AppstoreOutlined
+                    style={{ fontSize: 25 }}
+                    spin={load}
+                    disabled={load}
+                  />
+                }
+              </button>
             </div>
           </form>
         </div>

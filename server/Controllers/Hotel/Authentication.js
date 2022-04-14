@@ -8,6 +8,7 @@ const { promisify } = require("util");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const registerHotel = async (req, res) => {
+  console.log(req.body);
   let { name, email, contact, owner } = req.body;
   try {
     if (!name || !email || !contact || !owner) {
@@ -132,7 +133,7 @@ const loginHotel = async (req, res) => {
       { email: result.email },
       process.env.JWT_SECRET,
       {
-        expiresIn: 2 * 60 * 60,
+        expiresIn: 24 * 60 * 60,
       }
     );
     const toReturn = {

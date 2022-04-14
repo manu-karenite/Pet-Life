@@ -4,6 +4,7 @@ import { getPetDetails, deleteMyPet } from "../../../Axios/User/Dashboard.js";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet";
 const MyPets = () => {
   const navigate = useNavigate();
   const [data, setData] = React.useState([]);
@@ -28,6 +29,9 @@ const MyPets = () => {
   };
   return (
     <>
+      <Helmet>
+        <title>PetLife | My Pets</title>
+      </Helmet>
       <div className={styles.heading}>My Pets</div>
       <div className={styles.bookingList1}>
         {data.length > 0 &&
