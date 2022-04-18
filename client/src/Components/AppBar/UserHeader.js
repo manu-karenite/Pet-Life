@@ -30,17 +30,19 @@ const UserHeader = () => {
       <div className={styles.desktopHeader}>
         <div className={styles.outer1}>
           <div className={styles.outer2}>
-            <img
-              src="https://res.cloudinary.com/techbuy/image/upload/v1649527754/paws_sluxha.svg"
-              alt="snbsj"
-              style={{
-                height: "65px",
-                width: "65px",
-                objectFit: "cover",
-                margin: "5px",
-                marginLeft: "30px",
-              }}
-            />
+            <Link to="/">
+              <img
+                src="https://res.cloudinary.com/techbuy/image/upload/v1649527754/paws_sluxha.svg"
+                alt="snbsj"
+                style={{
+                  height: "65px",
+                  width: "65px",
+                  objectFit: "cover",
+                  margin: "5px",
+                  marginLeft: "30px",
+                }}
+              />
+            </Link>
           </div>
           <div className={styles.outer3}>
             {!user && (

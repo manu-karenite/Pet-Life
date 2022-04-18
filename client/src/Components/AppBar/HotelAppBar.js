@@ -146,12 +146,6 @@ const HotelAppBar = () => {
         </MenuItem>
         <Divider />
 
-        <MenuItem onClick={(e) => navigate("/hotel/update-password")}>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Update Password
-        </MenuItem>
         {hotel && (
           <MenuItem onClick={logoutHandler}>
             <ListItemIcon>

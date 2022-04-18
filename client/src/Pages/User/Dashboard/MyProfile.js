@@ -57,6 +57,7 @@ const MyProfile = () => {
                   </div>
                 </div>
               </div>
+              * Data Present is Refreshed in every Fresh Session
             </div>
           </div>
         </div>

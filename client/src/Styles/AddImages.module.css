@@ -30,3 +30,30 @@
   align-items: center;
   font-size: 32px;
 }
+.imagesList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.currImage {
+  height: 200px;
+  width: 200px;
+}
+.imagesList div button {
+  margin-top: 5px;
+  font-family: "Rubik";
+  width: 100%;
+  background-color: red;
+  border: 1px solid red;
+  color: white;
+  font-weight: bold;
+  border-top-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.imagesList div button:hover {
+  background-color: rgb(120, 23, 23);
+}
+.imagesList div {
+  margin-bottom: 20px;
+}

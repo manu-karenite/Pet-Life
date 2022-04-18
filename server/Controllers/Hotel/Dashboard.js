@@ -141,6 +141,27 @@ const getImages = async (req, res) => {
     res.status(500).json(error);
   }
 };
+const deleteImage = async (req, res) => {
+  console.log(req.body);
+  try {
+    // const updatedImages = await hotel.findOneAndUpdate({imageId: imageId});
+    const hotelExists = await hotel.findOne({ _id: req.body.hotelId });
+    const imagesArray = hotelExists?.images;
+    //filter out images from the array
+    const x = imagesArray.filter(
+      (curr, index) => String(curr?._id) != String(req.body.imageId)
+    );
+    console.log(x);
+    const updatedHotel = await hotel.findOneAndUpdate(
+      { _id: req.body.hotelId },
+      { images: x },
+      { new: true }
+    );
+    res.status(200).json(updatedHotel);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
 const updatePets = async (req, res) => {
   try {
     //update the hoetl with pets
@@ -313,6 +334,7 @@ const obj = {
   updateProfile,
   responseAddImage,
   getImages,
+  deleteImage,
   updatePets,
   getPets,
   createService,

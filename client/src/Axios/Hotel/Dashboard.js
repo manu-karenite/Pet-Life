@@ -86,6 +86,20 @@ const getImages = async (jwt) => {
   });
   return result;
 };
+const deleteImage = async (id, imageId, hotelId) => {
+  const result = await axios({
+    method: "DELETE",
+    url: `${process.env.REACT_APP_BACKEND_URL}/hotel/delete-image`,
+    headers: {
+      authorization: `Bearer ${id}`,
+    },
+    data: {
+      imageId,
+      hotelId,
+    },
+  });
+  return result;
+};
 const updatePets = async (jwt, array) => {
   const result = await axios({
     method: "POST",
@@ -184,6 +198,7 @@ export {
   updateProfile,
   uploadImage,
   getImages,
+  deleteImage,
   updatePets,
   getPets,
   createService,

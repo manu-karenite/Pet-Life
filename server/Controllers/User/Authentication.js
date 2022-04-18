@@ -24,7 +24,7 @@ const registerUser = async (req, res) => {
     const re1 = new RegExp("^[a-zA-Z ]+$");
     const ans1 = name.match(re1);
     if (!ans1) throw "Please Enter a Valid Name with Letters and Spaces";
-    const re2 = new RegExp("^[a-zA-Z.0-9_]+[@]+[a-zA-Z_]+[.][a-zA-Z]+$");
+    const re2 = new RegExp("^[a-zA-Z0-9._]+@[a-zA-Z.]+$");
     const result1 = email.match(re2);
     if (!result1) {
       throw "Invalid Email Entered! Please Try Again!";
@@ -115,7 +115,7 @@ const loginUser = async (req, res) => {
     if (!username || !password) {
       throw "Incomplete Details";
     }
-    const re = new RegExp("^[a-zA-Z.0-9_]+[@]+[a-zA-Z_]+[.][a-zA-Z]+$");
+    const re = new RegExp("^[a-zA-Z0-9._]+@[a-zA-Z.]+$");
     const result1 = username.match(re);
     if (!result1) {
       throw "Invalid Email Entered! Please Try Again!";
@@ -191,7 +191,7 @@ const verifyUser = async (req, res) => {
 };
 const forgotPassword = async (req, res) => {
   try {
-    const re = new RegExp("^[a-zA-Z.0-9_]+[@]+[a-zA-Z_]+[.][a-zA-Z]+$");
+    const re = new RegExp("^[a-zA-Z0-9._]+@[a-zA-Z.]+$");
     const result1 = req.body.email.match(re);
     if (!result1) {
       throw "Invalid Email Entered! Please Try Again!";
@@ -279,7 +279,7 @@ const contactUs = async (req, res) => {
     if (!email) {
       throw "Please Enter Email Address Name";
     }
-    const re = new RegExp("^[a-zA-Z.0-9_]+[@]+[a-zA-Z_]+[.][a-zA-Z]+$");
+    const re = new RegExp("^[a-zA-Z0-9._]+@[a-zA-Z.]+$");
     const result1 = email.match(re);
     if (!result1) {
       throw "Invalid Email Entered! Please Try Again!";

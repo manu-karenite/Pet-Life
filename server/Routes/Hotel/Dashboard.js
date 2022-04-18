@@ -10,6 +10,7 @@ const {
   updateProfile,
   responseAddImage,
   getImages,
+  deleteImage,
   updatePets,
   getPets,
   createService,
@@ -41,6 +42,7 @@ dashboardRouter
   .route("/hotel/add-image")
   .post(hotelLoggedIn, uploadImages, responseAddImage);
 dashboardRouter.route("/hotel/get-images").get(hotelLoggedIn, getImages);
+dashboardRouter.route("/hotel/delete-image").delete(hotelLoggedIn, deleteImage);
 
 //for services section
 dashboardRouter.route("/hotel/update-pets").post(hotelLoggedIn, updatePets);

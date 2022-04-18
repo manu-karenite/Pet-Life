@@ -1,11 +1,16 @@
 import React from "react";
 import styles from "../../Styles/AddImages.module.css";
 import Resizer from "react-image-file-resizer";
-import { uploadImage, getImages } from "../../Axios/Hotel/Dashboard.js";
+import {
+  uploadImage,
+  getImages,
+  deleteImage,
+} from "../../Axios/Hotel/Dashboard.js";
 import { useSelector, useDispatch } from "react-redux";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import { LoadingOutlined } from "@ant-design/icons";
+import { toast } from "react-toastify";
 const resizeFile = (file) =>
   new Promise((resolve) => {
     Resizer.imageFileResizer(
@@ -54,6 +59,15 @@ const AddImages = () => {
       console.log(err);
       setLoading(false);
     }
+  };
+  const removeItem = (id) => {
+    console.log(id);
+    deleteImage(hotel?.jwt, id, hotel?._id)
+      .then((res) => {
+        toast.success("Image Has Been Deleted Successfully");
+        setData();
+      })
+      .catch((err) => toast.error("Could not Delete Image! Please Try Again"));
   };
   return (
     <div className="container-fluid">
@@ -104,6 +118,23 @@ const AddImages = () => {
                 disabled={loading}
               />
             </center>
+          </div>
+          <div className={styles.imagesList}>
+            {images &&
+              images.map((curr, index) => (
+                <div key={index}>
+                  <div>
+                    <img
+                      src={curr?.secure_url}
+                      alt="Hotel"
+                      className={styles.currImage}
+                    />
+                  </div>
+                  <button onClick={() => removeItem(curr?._id)}>
+                    Delete Image
+                  </button>
+                </div>
+              ))}
           </div>
         </div>
         <div className="col-md-1" />
