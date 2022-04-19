@@ -13,6 +13,7 @@ const RegisterForm = () => {
   const [data, setData] = React.useState({});
   const [loading, setLoading] = React.useState(false);
   const submitHandler = (e) => {
+    e.preventDefault();
     if (!data?.name) {
       toast.warning("Please Enter Hotel Name");
       return;
@@ -38,7 +39,7 @@ const RegisterForm = () => {
       toast.warning("Please Enter Hotel Owner's Name");
       return;
     }
-    e.preventDefault();
+
     setLoading(true);
     registerHotel(data)
       .then((res) => {

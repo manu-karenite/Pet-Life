@@ -14,6 +14,16 @@ const registerHotel = async (req, res) => {
     if (!name || !email || !contact || !owner) {
       throw "Insufficient Details Found! Please Fill in the details Carefully";
     }
+    const re1 = new RegExp("^[a-zA-Z ]+$");
+    const re2 = new RegExp("^[a-zA-Z0-9._]+@[a-zA-Z.]+$");
+    const re3 = new RegExp("^[0-9]{10}$");
+    const re4 = new RegExp("^[a-zA-Z ]+$");
+
+    if (!name.match(re1)) throw "Please Enter a Valid Hotel Name";
+    if (!email.match(re2)) throw "Please Enter a Valid Email Address of Hotel";
+    if (!contact.match(re3))
+      throw "Please Enter a Valid Phone Number of 10 Digits!";
+    if (!owner.match(re4)) throw "Please Enter a Valid Owner's Name!";
 
     //query the DB for any email present or not!
     const checkEmail = await hotel.findOne({ email: email });
@@ -114,6 +124,9 @@ const loginHotel = async (req, res) => {
     if (!username || !password) {
       throw "Incomplete Details";
     }
+    const re2 = new RegExp("^[a-zA-Z0-9._]+@[a-zA-Z.]+$");
+    const x = username.match(re2);
+    if (!x) throw "Please Enter a Valid Email Address";
     //1) check whether hotel exists with email or phone in the username filed
     let result = await hotel.findOne({ email: username });
     if (!result) {

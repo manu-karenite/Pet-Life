@@ -60,7 +60,7 @@ function Footer() {
         <center>
           {" "}
           <button className={styles.loginBtn}>
-            <Link to="/hotel/register" style={{ color: "#411313" }}>
+            <Link to="/hotel/login" style={{ color: "#411313" }}>
               Login
             </Link>
           </button>

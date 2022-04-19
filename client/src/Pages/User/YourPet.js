@@ -185,13 +185,15 @@ const YourPet = () => {
             </div>
             <div className={styles.priceButton}>
               <button onClick={submitHandler}>
-                {
+                {load ? (
                   <AppstoreOutlined
                     style={{ fontSize: 25 }}
                     spin={load}
                     disabled={load}
                   />
-                }
+                ) : (
+                  "Add Pet"
+                )}
               </button>
             </div>
           </form>
