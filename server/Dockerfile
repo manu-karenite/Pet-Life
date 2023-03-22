@@ -1,6 +1,7 @@
 from node:16.17.1
 COPY package.json .
 RUN npm install
+RUN npm i nodemon
 COPY . .
 EXPOSE 8000
 CMD ["nodemon","server.js"]
